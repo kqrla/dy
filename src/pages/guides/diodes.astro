@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "diodes — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>diodes</h1>
+    <p>diodes are one-way valves for current. they set direction, clamp voltage, and glow (when they’re LEDs).</p>
+
+    <h2>polarity</h2>
+    <div class="diagram halo-strong" role="img" aria-label="diode polarity: anode to cathode (stripe)">
+      <svg viewBox="0 0 520 120" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="120" rx="16" fill="var(--card)"/>
+        <line x1="60" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="3"/>
+        <polygon points="220,45 240,60 220,75" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="240" y1="45" x2="240" y2="75" stroke="currentColor" stroke-width="3"/>
+        <line x1="240" y1="60" x2="460" y2="60" stroke="currentColor" stroke-width="3"/>
+        <text x="68" y="40" class="mono">anode</text>
+        <text x="400" y="40" class="mono">cathode (stripe)</text>
+      </svg>
+    </div>
+    <Note variant="fact">current flows from anode → cathode (conventional). the package stripe marks the <strong>cathode</strong>.</Note>
+
+    <h2>flyback (inductive loads)</h2>
+    <p>coils kick when turned off; the diode gives that energy a safe path.</p>
+    <div class="diagram halo-strong" role="img" aria-label="flyback diode across a coil">
+      <svg viewBox="0 0 520 150" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="150" rx="16" fill="var(--card)"/>
+        <text x="60" y="36" class="mono">+V</text>
+        <line x1="80" y1="30" x2="220" y2="30" stroke="currentColor" stroke-width="2"/>
+        <rect x="220" y="18" width="40" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="224" y="15" class="mono">coil</text>
+        <line x1="260" y1="30" x2="380" y2="30" stroke="currentColor" stroke-width="2"/>
+        <line x1="380" y1="30" x2="380" y2="120" stroke="currentColor" stroke-width="2"/>
+        <line x1="80" y1="120" x2="380" y2="120" stroke="currentColor" stroke-width="2"/>
+        <text x="60" y="125" class="mono">0V</text>
+        <!-- diode across coil -->
+        <polygon points="220,50 240,65 220,80" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="50" x2="260" y2="50" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="80" x2="260" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="260" y1="50" x2="260" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="220" y1="65" x2="220" y2="30" stroke="currentColor" stroke-width="2"/>
+        <line x1="260" y1="65" x2="260" y2="30" stroke="currentColor" stroke-width="2"/>
+        <text x="268" y="70" class="mono mini">stripe to +</text>
+      </svg>
+    </div>
+    <Note variant="care">place the diode as close as possible to the coil; orientation: <strong>stripe to +</strong>.</Note>
+
+    <h2>common types</h2>
+    <ul>
+      <li><strong>silicon signal:</strong> ~0.7 V drop, general purpose (1N4148).</li>
+      <li><strong>schottky:</strong> low drop ~0.2–0.4 V (SS14) for efficiency.</li>
+      <li><strong>zener:</strong> clamps to a set reverse voltage (regulation, protection).</li>
+      <li><strong>LED:</strong> light + direction; add a series resistor.</li>
+    </ul>
+  </article>
+</BaseLayout>

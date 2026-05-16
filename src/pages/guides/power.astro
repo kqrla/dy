@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "power basics — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>power basics</h1>
+    <div class="diagram" aria-label="LDO vs buck regulator blocks">
+      <svg viewBox="0 0 760 160" width="100%" height="auto">
+        <rect x="10" y="10" width="740" height="140" rx="16" fill="var(--card)"/>
+        <!-- LDO -->
+        <text x="120" y="36" class="mono">LDO</text>
+        <line x1="40" y1="80" x2="100" y2="80" stroke="currentColor" stroke-width="3"/>
+        <rect x="100" y="56" width="140" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="240" y1="80" x2="320" y2="80" stroke="currentColor" stroke-width="3"/>
+        <text x="40" y="70" class="mono mini">Vin</text><text x="322" y="70" class="mono mini">Vout</text>
+        <!-- Buck -->
+        <text x="510" y="36" class="mono">buck</text>
+        <line x1="420" y1="80" x2="470" y2="80" stroke="currentColor" stroke-width="3"/>
+        <rect x="470" y="56" width="60" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+        <rect x="540" y="56" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="612" cy="80" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="626" y1="80" x2="660" y2="80" stroke="currentColor" stroke-width="3"/>
+        <text x="420" y="70" class="mono mini">Vin</text><text x="662" y="70" class="mono mini">Vout</text>
+      </svg>
+    </div>
+
+    <h2>regulate</h2>
+    <ul>
+      <li><strong>LDO:</strong> simple step-down; wastes (Vin−Vout)×I as heat</li>
+      <li><strong>Buck:</strong> efficient step-down; follow datasheet for inductor/diode/caps layout</li>
+      <li><strong>Protection:</strong> input diode/fuse, reverse protection, TVS for spikes</li>
+    </ul>
+
+    <h2>decouple everything</h2>
+    <ul>
+      <li><strong>0.1 µF</strong> ceramic at each IC’s power pins</li>
+      <li><strong>10–47 µF</strong> bulk per rail area</li>
+      <li>class-II MLCCs (X7R/X5R) lose C with DC bias → add headroom</li>
+    </ul>
+
+    <h2>budget</h2>
+    <p>sum worst-case currents; add 30–50% headroom. Check USB limits (500 mA on 2.0, 900 mA on 3.0 without negotiation).</p>
+
+    <Note variant="fact">ground plane (pour) = wide, low-impedance return — helps noise &amp; stability.</Note>
+    <Note variant="care">don’t run motors/LED strips off logic rails; give them their own supply and ground back at the source.</Note>
+  </article>
+</BaseLayout>

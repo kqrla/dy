@@ -1,0 +1,155 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "tools — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <div class="section-head">
+      <h1>tools</h1>
+      <span class="hint">software, frameworks, and applications for thinking and capturing ideas</span>
+    </div>
+
+    <h2>text-based diagramming</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">flowcharts, sequence diagrams, mindmaps, timelines. write diagrams as code. embeds in markdown, integrates everywhere.</span>
+        <span class="sticky"><em>mermaid.js</em></span>
+      </li>
+      <li>
+        <span class="entry">directed graphs, systems diagrams, dags. the classic graph visualization tool. powerful, minimal syntax.</span>
+        <span class="sticky"><em>graphviz</em></span>
+      </li>
+      <li>
+        <span class="entry">uml diagrams, component diagrams, c4 models. structured but expressive. great for system architecture.</span>
+        <span class="sticky"><em>plantuml</em></span>
+      </li>
+      <li>
+        <span class="entry">ascii art diagrams, hand-drawn style svgs. keep diagrams in plaintext. feels casual, works everywhere.</span>
+        <span class="sticky"><em>asciiflow</em></span>
+      </li>
+    </ul>
+
+    <h2>personal knowledge management</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">local-first note-taking with bidirectional linking. build your personal knowledge graph. graph view shows your network of ideas.</span>
+        <span class="sticky"><em>obsidian</em></span>
+      </li>
+      <li>
+        <span class="entry">graph-based notes, daily pages, backlinks. thinking in public, building knowledge incrementally.</span>
+        <span class="sticky"><em>roam</em></span>
+      </li>
+      <li>
+        <span class="entry">outliner + graph. open-source alternative to roam. outline-first with linking built-in.</span>
+        <span class="sticky"><em>logseq</em></span>
+      </li>
+      <li>
+        <span class="entry">hierarchical pkm. better for people who like structure. vs code extension for developers.</span>
+        <span class="sticky"><em>dendron</em></span>
+      </li>
+      <li>
+        <span class="entry">all-in-one workspace. great for teams, good for personal use. databases + notes + tasks + wikis.</span>
+        <span class="sticky"><em>notion</em></span>
+      </li>
+    </ul>
+
+    <Note variant="try">start with a simple tool (markdown files + a text editor). don't let the tool become the obstacle.</Note>
+
+    <h2>task & time management</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">tasks with projects, priorities, recurring tasks. natural language parsing. works everywhere.</span>
+        <span class="sticky"><em>todoist</em></span>
+      </li>
+      <li>
+        <span class="entry">beautiful task manager for mac/ios. focus on simplicity and usability. worth the price if you're in the apple ecosystem.</span>
+        <span class="sticky"><em>things 3</em></span>
+      </li>
+      <li>
+        <span class="entry">integrate tasks with your notes. keep everything in one place if you're already taking notes there.</span>
+        <span class="sticky"><em>task plugins</em></span>
+      </li>
+      <li>
+        <span class="entry">time tracking made simple. see where your time actually goes. builds data for energy mapping.</span>
+        <span class="sticky"><em>toggl</em></span>
+      </li>
+    </ul>
+
+    <h2>mind mapping & brainstorming</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">infinite whiteboard for teams. mind maps, flowcharts, wireframes, sketches. real-time collaboration.</span>
+        <span class="sticky"><em>miro</em></span>
+      </li>
+      <li>
+        <span class="entry">design tool, but works great for structured brainstorming. components, prototyping, collaborative.</span>
+        <span class="sticky"><em>figma</em></span>
+      </li>
+      <li>
+        <span class="entry">open-source mind mapping. lightweight, no account needed, all your data stays local.</span>
+        <span class="sticky"><em>freeplane</em></span>
+      </li>
+      <li>
+        <span class="entry">polished mind mapping with templates. good balance of features and simplicity.</span>
+        <span class="sticky"><em>xmind</em></span>
+      </li>
+    </ul>
+
+    <h2>writing & thinking</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">clarity checker for prose. highlights complex sentences, passive voice, adverbs. teaches you to write tighter.</span>
+        <span class="sticky"><em>hemingway</em></span>
+      </li>
+      <li>
+        <span class="entry">outliner + task manager + literate programming. incredibly powerful if you use emacs. steep learning curve.</span>
+        <span class="sticky"><em>org-mode</em></span>
+      </li>
+      <li>
+        <span class="entry">markdown editor that doesn't feel like markdown. live rendering, distraction-free writing.</span>
+        <span class="sticky"><em>typora</em></span>
+      </li>
+      <li>
+        <span class="entry">beautiful notes for mac/ios. tagging system, markdown, great for quick captures and longer pieces.</span>
+        <span class="sticky"><em>bear</em></span>
+      </li>
+    </ul>
+
+    <h2>spaced repetition & learning</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">flashcards with spaced repetition algorithm. learn efficiently. steep learning curve; worth it for serious learners.</span>
+        <span class="sticky"><em>anki</em></span>
+      </li>
+      <li>
+        <span class="entry">friendly flashcard app. community decks available. good for students. less powerful than anki.</span>
+        <span class="sticky"><em>quizlet</em></span>
+      </li>
+      <li>
+        <span class="entry">notes + spaced repetition. turn your notes into flashcards automatically. bidirectional linking too.</span>
+        <span class="sticky"><em>remnote</em></span>
+      </li>
+    </ul>
+
+    <h2>focus & deep work</h2>
+    <ul class="book-list">
+      <li>
+        <span class="entry">gamified focus timer. grow trees while you work; phone use kills the tree. surprisingly effective.</span>
+        <span class="sticky"><em>forest</em></span>
+      </li>
+      <li>
+        <span class="entry">background sound for concentration. lofi beats, rain, coffee shop ambience, brown noise. highly customizable.</span>
+        <span class="sticky"><em>mynoise</em></span>
+      </li>
+      <li>
+        <span class="entry">nuclear-grade website blocker. lock yourself out of distracting sites. uncompromising.</span>
+        <span class="sticky"><em>cold turkey</em></span>
+      </li>
+    </ul>
+
+    <Note variant="care">more tools = more friction. stick with a few and master them. switching tools is procrastination in disguise.</Note>
+
+    <div class="callout">pro tip: start with pen and paper. tools are amplifiers, not substitutes. if you can't think with analog, a digital tool won't save you.</div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "interwingularity — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>interwingularity</h1>
+    <p>interwingularity (a term from note-taking philosophy) is the practice of creating links between ideas. instead of siloed knowledge (facts about economics, separate facts about psychology), you build a web where economics ideas connect to psychology concepts. this mirrors how your brain actually works and makes knowledge more retrievable and useful.</p>
+
+    <ul>
+      <li>as you learn, ask: "what does this connect to in my existing knowledge?"</li>
+      <li>draw diagrams showing how ideas relate (mind maps, concept maps)</li>
+      <li>use tools like obsidian or roam to physically link ideas</li>
+      <li>revisit old notes and add new connections as you learn more</li>
+      <li>surprising connections = deeper understanding</li>
+    </ul>
+
+    <Note variant="try">take three random ideas from three fields. spend 10 minutes finding how they might connect or inform each other.</Note>
+  </article>
+</BaseLayout>

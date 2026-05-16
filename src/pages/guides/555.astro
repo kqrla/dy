@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "555 Timer — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>555 timer ic</h1>
+    <p>a tiny timing chip that can beep, blink, and gate. two classic modes: <strong>astable</strong> (square-wave) and <strong>monostable</strong> (one-shot).</p>
+
+    <div class="callout">
+      <strong>pinout (NE555):</strong> 1-gnd, 2-trig, 3-out, 4-reset, 5-ctrl, 6-thresh, 7-disch, 8-vcc.
+    </div>
+
+    <h2>astable (free-running oscillator)</h2>
+    <p>use two resistors (<em>R1</em>, <em>R2</em>) and a capacitor <em>C</em>. standard topology (no diode):</p>
+    <ul>
+      <li><code>f = 1 / (0.693 × (R1 + 2R2) × C)</code></li>
+      <li><code>t<sub>high</sub> = 0.693 × (R1 + R2) × C</code></li>
+      <li><code>t<sub>low</sub>  = 0.693 × R2 × C</code></li>
+      <li>duty ≈ <code>(R1 + R2) / (R1 + 2R2)</code> (always &gt; 50% in this topology)</li>
+    </ul>
+    <p class="example">example: R1 = 1 kΩ, R2 = 10 kΩ, C = 10 µF → <strong>f ≈ 6.9 Hz</strong> (cute blink).</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 520 180" width="100%" height="auto" aria-label="555 astable diagram">
+        <rect x="0" y="0" width="520" height="180" rx="16" fill="var(--card)" />
+        <!-- 555 block -->
+        <rect x="210" y="40" width="100" height="100" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="243" y="98" class="mono">555</text>
+        <!-- labels -->
+        <text x="255" y="32" class="mono">vcc</text>
+        <text x="255" y="160" class="mono">gnd</text>
+        <!-- R1 -->
+        <line x1="160" y1="40" x2="210" y2="40" stroke="currentColor" stroke-width="2"/>
+        <rect x="130" y="30" width="30" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="132" y="26" class="mono">R1</text>
+        <!-- R2 -->
+        <line x1="160" y1="90" x2="210" y2="90" stroke="currentColor" stroke-width="2"/>
+        <rect x="130" y="80" width="30" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="132" y="76" class="mono">R2</text>
+        <!-- C -->
+        <line x1="160" y1="140" x2="160" y2="110" stroke="currentColor" stroke-width="2"/>
+        <rect x="150" y="140" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="160" y1="160" x2="160" y2="170" stroke="currentColor" stroke-width="2"/>
+        <text x="145" y="176" class="mono">C</text>
+        <!-- output -->
+        <line x1="310" y1="90" x2="410" y2="90" stroke="currentColor" stroke-width="2"/>
+        <text x="418" y="94" class="mono">out</text>
+      </svg>
+    </div>
+
+    <h2>astable with ≈50% duty (diode trick)</h2>
+    <p>add a diode in <em>parallel</em> with R2 so the capacitor <strong>charges through R1 only</strong> (via the diode) and <strong>discharges through R2</strong>.
+      orient the diode so it conducts from the R1 side toward the capacitor node (<strong>cathode/stripe toward pins 2/6</strong>).
+    </p>
+    <ul>
+      <li><code>t<sub>high</sub> = 0.693 × R1 × C</code> (charge via R1 + diode)</li>
+      <li><code>t<sub>low</sub>  = 0.693 × R2 × C</code> (discharge via R2)</li>
+      <li><code>T = 0.693 × (R1 + R2) × C</code> → <code>f = 1 / T</code></li>
+      <li>duty = <code>R1 / (R1 + R2)</code> → choose <code>R1 ≈ R2</code> for ≈50%</li>
+    </ul>
+
+    <div class="diagram">
+      <svg viewBox="0 0 560 220" width="100%" height="auto" aria-label="555 astable with diode for ~50% duty">
+        <rect x="0" y="0" width="560" height="220" rx="16" fill="var(--card)" />
+        <!-- 555 block -->
+        <rect x="230" y="60" width="100" height="100" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="263" y="118" class="mono">555</text>
+        <text x="270" y="52" class="mono">vcc</text>
+        <text x="270" y="200" class="mono">gnd</text>
+
+        <!-- R1 from VCC to pin 7 node -->
+        <text x="60" y="64" class="mono">VCC</text>
+        <line x1="90" y1="60" x2="230" y2="60" stroke="currentColor" stroke-width="2"/>
+        <rect x="150" y="50" width="30" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="152" y="46" class="mono">R1</text>
+        <line x1="230" y1="60" x2="230" y2="110" stroke="currentColor" stroke-width="2"/>
+
+        <!-- R2 from pin7 node to cap node (pins 2/6) -->
+        <line x1="230" y1="110" x2="150" y2="110" stroke="currentColor" stroke-width="2"/>
+        <rect x="120" y="100" width="30" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="122" y="96" class="mono">R2</text>
+
+        <!-- capacitor to ground -->
+        <line x1="120" y1="110" x2="90" y2="110" stroke="currentColor" stroke-width="2"/>
+        <line x1="90" y1="110" x2="90" y2="150" stroke="currentColor" stroke-width="2"/>
+        <rect x="80" y="150" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="90" y1="170" x2="90" y2="190" stroke="currentColor" stroke-width="2"/>
+        <line x1="50" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="2"/>
+        <text x="52" y="202" class="mono">0V</text>
+        <!-- pins 2/6 -->
+        <line x1="120" y1="110" x2="230" y2="110" stroke="currentColor" stroke-width="2"/>
+        <text x="196" y="106" class="mono">2/6</text>
+
+        <!-- diode path parallel to R2 (cathode at 2/6 node) -->
+        <line x1="230" y1="140" x2="120" y2="140" stroke="currentColor" stroke-width="2"/>
+        <!-- diode graphic: triangle-ish marker + bar at the right -->
+        <polygon points="150,135 165,140 150,145" fill="currentColor"/>
+        <line x1="175" y1="132" x2="175" y2="148" stroke="currentColor" stroke-width="2"/>
+        <text x="186" y="144" class="mono">diode (stripe → 2/6)</text>
+        <line x1="230" y1="110" x2="230" y2="140" stroke="currentColor" stroke-width="2"/>
+        <line x1="120" y1="110" x2="120" y2="140" stroke="currentColor" stroke-width="2"/>
+
+        <!-- output -->
+        <line x1="330" y1="110" x2="450" y2="110" stroke="currentColor" stroke-width="2"/>
+        <text x="458" y="114" class="mono">out</text>
+      </svg>
+    </div>
+
+    <p class="example">tip: a <strong>Schottky diode</strong> (e.g., 1N5819) gives a smaller forward drop; then pick <code>R1 ≈ R2</code> for ≈50% duty.</p>
+
+    <h2>monostable (one-shot)</h2>
+    <p>press a button to trigger a single pulse.</p>
+    <ul>
+      <li>pulse width: <code>t = 1.1 × R × C</code></li>
+      <li>use a <code>0.01 µF</code> on pin 5 (ctrl) to ground for stability.</li>
+      <li>debounce the trigger (RC or in software) to avoid retriggers.</li>
+    </ul>
+
+    <h2>wiring tips</h2>
+    <ul>
+      <li>decouple vcc with <strong>0.1 µF</strong> near the chip + a larger <strong>10 µF</strong> bulk cap.</li>
+      <li>pin 3 current: design for <strong>≤ 50 mA</strong> on bipolar 555s; buffer bigger loads with a BJT/MOSFET (always for motors/relays).</li>
+      <li>for low supply current or 3.3 V operation, use a <strong>CMOS 555</strong> (LMC555, TLC555).</li>
+      <li>typical timing parts: resistors <strong>1 kΩ–3.3 MΩ</strong>; supply: NE555 ~<strong>4.5–16 V</strong>, CMOS 555 often <strong>2–15/18 V</strong> (check datasheet).</li>
+    </ul>
+  </article>
+</BaseLayout>

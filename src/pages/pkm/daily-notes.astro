@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "daily notes — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>daily notes</h1>
+    <p>daily notes are a single page per day where you capture everything: tasks, ideas, meeting notes, random thoughts. instead of deciding where something goes in the moment, you dump it all in one place and sort later. this reduces friction and keeps you from losing ideas while you figure out where they belong.</p>
+
+    <h2>how to use them</h2>
+    <ul>
+      <li>create a new note every morning with today's date as the title</li>
+      <li>capture everything there during the day: tasks, links, ideas, quotes</li>
+      <li>at the end of the day (or during a weekly review), move items to their permanent homes</li>
+      <li>link daily notes to project notes and permanent notes</li>
+      <li>over time, your daily notes become a journal of your thinking</li>
+    </ul>
+
+    <h2>daily note template</h2>
+    <div class="diagram" aria-label="daily note template example">
+      <svg viewBox="0 0 500 180" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <rect x="0" y="0" width="500" height="180" rx="12" fill="var(--card)" stroke="var(--line)" stroke-width="1"/>
+        <text x="20" y="30" font-size="14" font-weight="bold" fill="currentColor">2024-03-14</text>
+        <text x="20" y="55" font-size="11" fill="currentColor" opacity="0.6">tasks</text>
+        <text x="20" y="72" font-size="11" fill="currentColor">- review project x proposal</text>
+        <text x="20" y="87" font-size="11" fill="currentColor">- call with design team</text>
+        <text x="20" y="110" font-size="11" fill="currentColor" opacity="0.6">ideas</text>
+        <text x="20" y="127" font-size="11" fill="currentColor">- feedback loops apply to team dynamics too</text>
+        <text x="20" y="150" font-size="11" fill="currentColor" opacity="0.6">links</text>
+        <text x="20" y="167" font-size="11" fill="currentColor">[[systems thinking]] [[weekly review]]</text>
+      </svg>
+    </div>
+
+    <Note variant="try">start tomorrow. open a blank note, put today's date at the top, and write everything there. don't sort. just capture.</Note>
+
+    <div class="callout">pro tip: daily notes are the on-ramp to your second brain. they're the easiest habit to start and the hardest to stop.</div>
+  </article>
+</BaseLayout>

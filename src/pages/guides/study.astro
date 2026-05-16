@@ -1,0 +1,105 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "study electronics — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>how circuits work</h1>
+    <p>voltage is the <em>push</em>, current is the <em>flow</em>, resistance is the <em>friction</em>. capacitors store charge, inductors store magnetic energy, diodes set direction, and transistors control bigger things with smaller signals.</p>
+
+    <div class="callout ok"><strong>goal:</strong> read a schematic like a map and predict what each part is doing.</div>
+
+    <h2>ohm sweet ohm (and friends)</h2>
+    <ul>
+      <li><strong>ohm’s law:</strong> <code>V = I × R</code>, <code>I = V / R</code>, <code>R = V / I</code></li>
+      <li><strong>power:</strong> <code>P = V × I = I²R = V²/R</code> (watch part wattage)</li>
+      <li><strong>kirchhoff:</strong> currents into a node sum to 0; voltages around a loop sum to 0.</li>
+    </ul>
+
+    <h2>voltage divider</h2>
+    <p>two resistors make a reference voltage.</p>
+    <p><code>V<sub>out</sub> = V<sub>in</sub> × R2 / (R1 + R2)</code></p>
+    <div class="diagram" aria-hidden="true">
+      <svg viewBox="0 0 520 120" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="120" rx="16" fill="var(--card)"/>
+        <line x1="60" y1="24" x2="460" y2="24" stroke="currentColor" stroke-width="2"/>
+        <line x1="60" y1="96" x2="460" y2="96" stroke="currentColor" stroke-width="2"/>
+        <!-- R1 -->
+        <rect x="160" y="14" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="172" y1="34" x2="172" y2="56" stroke="currentColor" stroke-width="2"/>
+        <rect x="160" y="56" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <!-- R2 -->
+        <line x1="172" y1="76" x2="172" y2="96" stroke="currentColor" stroke-width="2"/>
+        <rect x="320" y="14" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="332" y1="34" x2="332" y2="56" stroke="currentColor" stroke-width="2"/>
+        <rect x="320" y="56" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="332" y1="76" x2="332" y2="96" stroke="currentColor" stroke-width="2"/>
+        <!-- taps -->
+        <circle cx="172" cy="56" r="4" fill="currentColor"/>
+        <circle cx="332" cy="56" r="4" fill="currentColor"/>
+        <text x="38" y="28" class="mono">Vin</text>
+        <text x="38" y="100" class="mono">0V</text>
+        <text x="150" y="12" class="mono">R1</text>
+        <text x="310" y="12" class="mono">R2</text>
+        <text x="350" y="60" class="mono">Vout</text>
+        <line x1="332" y1="56" x2="420" y2="56" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </div>
+    <p class="example">example: Vin = 9 V, R1 = 10 kΩ, R2 = 10 kΩ → Vout = 4.5 V.</p>
+
+    <h2>filters (rc)</h2>
+    <p>one resistor + one capacitor make simple “tone controls.”</p>
+    <ul>
+      <li><strong>low-pass</strong> (smooths): cutoff <code>f<sub>c</sub> = 1 / (2πRC)</code></li>
+      <li><strong>high-pass</strong> (blocks dc): same formula, parts swapped</li>
+    </ul>
+    <div class="diagram" aria-hidden="true">
+      <svg viewBox="0 0 520 120" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="120" rx="16" fill="var(--card)"/>
+        <!-- low pass: R series, C to ground -->
+        <line x1="40" y1="40" x2="150" y2="40" stroke="currentColor" stroke-width="2"/>
+        <rect x="150" y="30" width="26" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="176" y1="40" x2="240" y2="40" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="40" x2="240" y2="70" stroke="currentColor" stroke-width="2"/>
+        <rect x="230" y="70" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="90" x2="240" y2="110" stroke="currentColor" stroke-width="2"/>
+        <line x1="40" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="2"/>
+        <text x="44" y="32" class="mono">in</text><text x="244" y="32" class="mono">out</text>
+        <text x="148" y="26" class="mono">R</text><text x="228" y="104" class="mono">C</text>
+      </svg>
+    </div>
+    <p class="example">example: R = 10 kΩ, C = 1 µF → f<sub>c</sub> ≈ 15.9 Hz (great for de-bouncing).</p>
+
+    <h2>diodes + leds</h2>
+    <ul>
+      <li><strong>forward drop:</strong> ~0.7 V (silicon), ~0.2 V (schottky), LED ~2.0–3.2 V depending on color.</li>
+      <li><strong>series resistor for leds:</strong> <code>R = (V<sub>supply</sub> − V<sub>f</sub>)/I</code>.</li>
+      <li><strong>flyback diode:</strong> across coils (stripe to +) to catch the spike.</li>
+    </ul>
+
+    <h2>transistors (super quick)</h2>
+    <ul>
+      <li><strong>npn low-side switch:</strong> base via ~1 kΩ, emitter to ground, collector to load → +V. add diode for motors/relays.</li>
+      <li><strong>logic-level n-mosfet:</strong> gate ~0–5 V via 100 Ω, 100 kΩ pulldown to gnd; drain to load; source to gnd.</li>
+    </ul>
+
+    <h2>stable power</h2>
+    <ul>
+      <li>decouple every ic with <strong>0.1 µF</strong> right at the power pins + <strong>10–47 µF</strong> bulk per rail.</li>
+      <li>mind current: usb is typically 500 mA (2.0), 900 mA (3.0), or more if negotiated; don’t assume unlimited.</li>
+      <li>ground is your friend: keep returns short; use a ground plane on pcbs.</li>
+    </ul>
+
+    <h2>reading schematics</h2>
+    <ul>
+      <li>follow the power path first (battery/regulator → decoupling → chips).</li>
+      <li>look for sub-circuits: input conditioning, brain (logic/mcu), output drivers.</li>
+      <li>unused inputs? tie them high or low; don’t float cmos gates.</li>
+      <li>label nets (<span class="mono">VCC</span>, <span class="mono">LED_A</span>, <span class="mono">SCL</span>) so the diagram reads like a story.</li>
+    </ul>
+
+     <Note variant="try">Build a 555 astable on a breadboard, then predict the frequency with the formula, then measure with a phone oscilloscope app or microcontroller timing.</Note>
+    </div>
+  </article>
+</BaseLayout>

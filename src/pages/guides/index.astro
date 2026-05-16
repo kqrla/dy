@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GuideCard from "../../components/GuideCard.astro";
+import { componentCards } from "../../data/cards";
+const title = "components — ecute.club";
+---
+<BaseLayout {title}>
+  <section class="section-head container">
+    <h1>components</h1>
+    <p class="muted">identify parts, read values, and learn what each one does.</p>
+  </section>
+
+  <section class="container grid">
+    {componentCards.map((card) => <GuideCard {...card} />)}
+  </section>
+</BaseLayout>

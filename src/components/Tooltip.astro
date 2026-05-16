@@ -1,0 +1,11 @@
+---
+// tooltip annotation: hover to show explanation text
+interface Props {
+  text: string;
+  tip: string;
+}
+
+const { text, tip } = Astro.props;
+---
+
+<span class="tooltip-trigger" data-tip={tip}>{text}</span>

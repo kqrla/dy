@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "sensors — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>sensors</h1>
+
+    <div class="diagram" aria-label="analog sensor divider to ADC">
+      <svg viewBox="0 0 720 150" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="130" rx="16" fill="var(--card)"/>
+        <text x="36" y="36" class="mono mini">Vin</text><text x="36" y="124" class="mono mini">0V</text>
+        <line x1="60" y1="32" x2="200" y2="32" stroke="currentColor" stroke-width="2"/>
+        <line x1="60" y1="118" x2="200" y2="118" stroke="currentColor" stroke-width="2"/>
+        <rect x="110" y="24" width="24" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="122" y1="42" x2="122" y2="72" stroke="currentColor" stroke-width="2"/>
+        <rect x="110" y="72" width="24" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="122" y1="90" x2="122" y2="118" stroke="currentColor" stroke-width="2"/>
+        <line x1="122" y1="72" x2="260" y2="72" stroke="currentColor" stroke-width="2"/>
+        <rect x="260" y="48" width="80" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="274" y="78" class="mono mini">ADC</text>
+      </svg>
+    </div>
+
+    <ul>
+      <li><strong>analog:</strong> LDR, thermistor, potentiometer</li>
+      <li><strong>digital:</strong> I²C/SPI parts (IMUs, temp, light, pressure)</li>
+      <li><strong>on/off:</strong> limit/reed switches, PIR motion</li>
+    </ul>
+    <Note variant="try">make a divider (sensor + fixed resistor), read with ADC, then map counts → units.</Note>
+    <Note variant="care">I²C wants pull-ups; most modules already have them. avoid double pull-ups on mixed boards.</Note>
+    <Note variant="fact">analog sensors feed an ADC; digital sensors talk via I²C/SPI/UART. check voltage and pull-ups.</Note>
+    <Note variant="try">log raw values first; then scale and filter.</Note>
+  </article>
+  </article>
+</BaseLayout>

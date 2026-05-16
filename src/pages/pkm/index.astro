@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GuideCard from "../../components/GuideCard.astro";
+import { pkmCards } from "../../data/cards";
+const title = "personal knowledge management — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <section class="section-head container">
+    <h1>personal knowledge management</h1>
+    <p class="muted">capture, connect, and grow your ideas across disciplines.</p>
+  </section>
+
+  <section class="container grid">
+    {pkmCards.map((card) => <GuideCard {...card} />)}
+  </section>
+</BaseLayout>

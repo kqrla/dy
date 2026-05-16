@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "Breadboard — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>breadboard</h1>
+    <p>a reusable board for testing circuits without solder. the metal clips underneath form <em>rails</em> and <em>rows</em> that connect parts.</p>
+
+    <div class="callout">
+      quick idea: the long edge rails are for power (<strong>+</strong> and <strong>−</strong>). the small center rows are connected in groups of five on each side of the trench.
+    </div>
+
+    <h2>visual map</h2>
+<div class="diagram" role="img" aria-label="breadboard connectivity: power rails, 5-hole rows, and IC trench with subtle holes">
+  <svg viewBox="0 0 860 300" width="100%" height="auto">
+    <defs>
+      <!-- Subtle dot patterns for 'holes' -->
+      <pattern id="stripHoles" width="18" height="14" patternUnits="userSpaceOnUse">
+        <circle cx="9" cy="7" r="2.2" fill="var(--ink)" opacity="0.13"/>
+      </pattern>
+      <pattern id="railHoles" width="14" height="14" patternUnits="userSpaceOnUse">
+        <circle cx="7" cy="7" r="1.7" fill="var(--ink)" opacity="0.12"/>
+      </pattern>
+      <!-- label halo so text is readable over lines in light/dark -->
+      <style>
+        .lbl{fill:var(--ink);font-weight:500;paint-order:stroke fill;stroke:var(--card);stroke-width:2px;stroke-linejoin:round}
+        .mini{font-size:12px}
+        .ns{vector-effect:non-scaling-stroke}
+      </style>
+    </defs>
+
+    <!-- board -->
+    <rect x="10" y="10" width="840" height="280" rx="18" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+
+    <!-- top power rails (split to show interruption) -->
+    <rect x="40"  y="40" width="350" height="22" rx="8" fill="var(--p1)" />
+    <rect x="470" y="40" width="350" height="22" rx="8" fill="var(--p1)" />
+    <rect x="40"  y="70" width="350" height="22" rx="8" fill="var(--p4)" />
+    <rect x="470" y="70" width="350" height="22" rx="8" fill="var(--p4)" />
+    <!-- hole overlay on rails -->
+    <rect x="40"  y="40" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="470" y="40" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="40"  y="70" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="470" y="70" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+
+    <!-- bottom power rails -->
+    <rect x="40"  y="228" width="350" height="22" rx="8" fill="var(--p1)" />
+    <rect x="470" y="228" width="350" height="22" rx="8" fill="var(--p1)" />
+    <rect x="40"  y="258" width="350" height="22" rx="8" fill="var(--p4)" />
+    <rect x="470" y="258" width="350" height="22" rx="8" fill="var(--p4)" />
+    <!-- hole overlay on bottom rails -->
+    <rect x="40"  y="228" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="470" y="228" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="40"  y="258" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+    <rect x="470" y="258" width="350" height="22" rx="8" fill="url(#railHoles)"/>
+
+    <!-- split markers on rails -->
+    <line x1="440" y1="36"  x2="440" y2="96"  class="ns" stroke="var(--line)" stroke-width="3" />
+    <line x1="440" y1="224" x2="440" y2="284" class="ns" stroke="var(--line)" stroke-width="3" />
+
+    <!-- center terminal strips + trench -->
+    <rect x="40"  y="110" width="350" height="90" rx="10" fill="none" stroke="var(--line)" />
+    <rect x="470" y="110" width="350" height="90" rx="10" fill="none" stroke="var(--line)" />
+    <!-- IC trench -->
+    <rect x="400" y="110" width="60"  height="90" fill="color-mix(in oklab, var(--card) 70%, var(--p5) 30%)" />
+
+    <!-- hole field on terminal strips -->
+    <rect x="40"  y="110" width="350" height="90" rx="10" fill="url(#stripHoles)" />
+    <rect x="470" y="110" width="350" height="90" rx="10" fill="url(#stripHoles)" />
+
+    <!-- highlight one 5-hole row on each side -->
+    <rect x="90"  y="140" width="230" height="14" rx="6" fill="var(--p3)" opacity=".65"/>
+    <rect x="500" y="140" width="230" height="14" rx="6" fill="var(--p3)" opacity=".65"/>
+
+    <!-- labels (centered, haloed) -->
+    <text x="48"  y="56"  class="mono lbl mini">+</text>
+    <text x="48"  y="86"  class="mono lbl mini">−</text>
+    <text x="48"  y="244" class="mono lbl mini">+</text>
+    <text x="48"  y="274" class="mono lbl mini">−</text>
+
+    <text x="215" y="106" class="mono lbl mini" text-anchor="middle">A–E</text>
+    <text x="645" y="106" class="mono lbl mini" text-anchor="middle">F–J</text>
+    <text x="430" y="106" class="mono lbl mini" text-anchor="middle">ic trench</text>
+
+    <!-- legend (wider so it doesn't clip) -->
+    <g id="legend">
+      <rect x="440" y="196" width="380" height="36" rx="10" fill="var(--card)" stroke="var(--line)"/>
+      <circle cx="460" cy="214" r="6" fill="var(--p3)"/>
+      <text x="476" y="219" class="mono lbl mini">highlight = 5 connected holes (per side)</text>
+    </g>
+  </svg>
+</div>
+
+
+
+    <h2>what connects</h2>
+    <ul>
+      <li><strong>power rails:</strong> long edge rails for + and −. some boards split them in the middle; add a short jumper if you need full-length power.</li>
+      <li><strong>rows of five:</strong> each side of the trench has rows where 5 holes are connected together.</li>
+      <li><strong>ic trench:</strong> a dip chip straddles the gap so each pin gets its own row.</li>
+    </ul>
+
+    <h2>quick tips</h2>
+    <ul>
+      <li>color code wires: red = +, black/blue = −, others for signals.</li>
+      <li>keep leads short; route wires neatly; label the rails.</li>
+      <li>add a <strong>0.1 µF</strong> ceramic near each ic between + and − rails.</li>
+      <li>power off while wiring; breadboards are for modest currents only.</li>
+    </ul>
+  </article>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+// /src/pages/index.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GuideCard from "../components/GuideCard.astro";
+import { homeSections } from "../data/cards";
+const title = "think & make";
+---
+<BaseLayout {title}>
+  {homeSections.map((section, i) => (
+    <>
+      <section class="section-head container" style={i > 0 ? 'margin-top:24px' : ''}>
+        <h2>{section.heading}</h2>
+        <span class="hint mono">{section.hint}</span>
+      </section>
+      <section class="container grid">
+        {section.cards.map(card => <GuideCard {...card} />)}
+      </section>
+    </>
+  ))}
+</BaseLayout>

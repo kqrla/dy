@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "capacitors — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>capacitors</h1>
+    <p>store charge, smooth ripple, and shape timing. unit: farads (F) — you’ll mostly use nF and µF.</p>
+
+    <h2>types</h2>
+    <ul>
+      <li><strong>ceramic (MLCC):</strong> tiny, low ESR — great for decoupling. use X7R/X5R for bulk decoupling; C0G/NP0 for very stable small values/timing.</li>
+      <li><strong>electrolytic (aluminum):</strong> polarized, large values (~1–1000 µF), smoothing supplies.</li>
+      <li><strong>film:</strong> stable, low leakage; nice for audio/timing networks.</li>
+      <li><strong>tantalum:</strong> polarized, high capacitance/volume; mind surge/over-voltage.</li>
+    </ul>
+
+    <h2>decoupling magic</h2>
+    <p>place a <strong>0.1 µF</strong> ceramic <em>as close as possible</em> to each IC’s power pins; add a nearby bulk <strong>10–47 µF</strong> per supply area.
+      note: class-II MLCCs (X7R/X5R) lose capacitance under DC bias — pick headroom in value/voltage.</p>
+
+    <div class="diagram" role="img" aria-label="decoupling placement: 0.1uF at the IC, 10-47uF on the rail">
+      <svg viewBox="0 0 560 180" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="180" rx="16" fill="var(--card)"/>
+        <!-- IC -->
+        <rect x="220" y="40" width="120" height="80" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="268" y="90" class="mono">IC</text>
+        <!-- rails -->
+        <line x1="40" y1="30" x2="520" y2="30" stroke="currentColor" stroke-width="2"/><text x="12" y="34" class="mono">+V</text>
+        <line x1="40" y1="150" x2="520" y2="150" stroke="currentColor" stroke-width="2"/><text x="10" y="154" class="mono">0V</text>
+        <!-- 0.1uF close -->
+        <line x1="280" y1="30" x2="280" y2="60" stroke="currentColor" stroke-width="2"/>
+        <rect x="272" y="60" width="16" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="280" y1="90" x2="280" y2="150" stroke="currentColor" stroke-width="2"/>
+        <text x="300" y="82" class="mono">0.1 µF</text>
+        <!-- bulk 10-47uF -->
+        <line x1="100" y1="30" x2="100" y2="120" stroke="currentColor" stroke-width="2"/>
+        <rect x="92" y="120" width="16" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="100" y1="150" x2="100" y2="150" stroke="currentColor" stroke-width="2"/>
+        <text x="118" y="138" class="mono">10–47 µF</text>
+      </svg>
+    </div>
+
+    <h2>polarity &amp; voltage</h2>
+    <ul>
+      <li><strong>electrolytic stripe = negative</strong> lead; the longer lead is usually positive.</li>
+      <li><strong>tantalum stripe = positive</strong> end on most packages (always check markings).</li>
+      <li>choose voltage rating comfortably above the rail; add extra margin if the rail is noisy/spiky.</li>
+    </ul>
+  </article>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "op-amps — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>op-amps</h1>
+    <p>an <strong>operational amplifier</strong> is a high-gain differential amplifier. with feedback it becomes a friendly building block.</p>
+
+    <h2>what can they do?</h2>
+    <ul>
+      <li>buffer a signal (voltage follower).</li>
+      <li>amplify: non-inverting (gain = 1 + R2/R1) or inverting (gain = −R2/R1).</li>
+      <li>filter, mix, compare.</li>
+    </ul>
+
+    <div class="diagram" role="img" aria-label="non-inverting amplifier">
+      <svg viewBox="0 0 560 170" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="170" rx="16" fill="var(--card)"/>
+        <polygon points="240,40 240,120 320,80" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="226" y="62" class="mono">+</text>
+        <text x="226" y="100" class="mono">−</text>
+        <text x="36" y="66" class="mono">Vin</text>
+        <line x1="70" y1="60" x2="240" y2="60" stroke="currentColor" stroke-width="2"/>
+        <line x1="320" y1="80" x2="420" y2="80" stroke="currentColor" stroke-width="2"/>
+        <text x="430" y="84" class="mono">Vout</text>
+        <line x1="400" y1="80" x2="400" y2="120" stroke="currentColor" stroke-width="2"/>
+        <rect x="388" y="120" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="400" y1="120" x2="240" y2="100" stroke="currentColor" stroke-width="2"/>
+        <rect x="330" y="80" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="332" y="74" class="mono mini">R2</text>
+        <text x="388" y="116" class="mono mini">R1</text>
+      </svg>
+    </div>
+
+    <p class="muted">pick “rail-to-rail” input/output for 3.3 V work; decouple the op-amp just like any IC.</p>
+
+    <Note variant="fact">a follower gives high input impedance and low output impedance; great between a sensor and an ADC.</Note>
+
+    <h2>non-inverting gain</h2>
+    <p><code>Gain = 1 + R<sub>f</sub>/R<sub>g</sub></code>. pick R’s in the 1–100 kΩ range.</p>
+  </article>
+</BaseLayout>

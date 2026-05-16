@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "second brain — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>second brain</h1>
+    <p>a second brain is an external system for <span class="hl">capturing, organizing, and retrieving</span> your ideas. instead of keeping everything in your head, you offload it into a trusted structure so your mind is free to think, not store.</p>
+
+    <p>the concept was popularized by tiago forte. the core idea: <span class="hl-pink ul-solid">your brain is for having ideas, not holding them.</span></p>
+
+    <h2>the capture habit</h2>
+    <p>everything starts with capture. if an idea crosses your mind and you don't write it down, it's gone. the capture habit means you always have a way to record a thought within seconds.</p>
+    <ul>
+      <li>keep a capture tool on every device you use</li>
+      <li>the tool matters less than the habit: notes app, voice memo, scrap of paper</li>
+      <li><span class="hl">capture first, organize later.</span> don't sort while you're thinking</li>
+      <li><span class="ul-wavy">if it takes more than 10 seconds to capture, you'll stop doing it</span></li>
+    </ul>
+
+    <h2>organize by actionability, not by topic</h2>
+    <p>traditional folders sort by subject (work, personal, hobbies). a second brain sorts by <span class="hl-blue">what you can do with the information right now</span>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>folder</th>
+          <th>what goes here</th>
+          <th>when to review</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-mint">projects</span></td>
+          <td>active goals with deadlines</td>
+          <td>weekly</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">areas</span></td>
+          <td>ongoing responsibilities (health, finances, career)</td>
+          <td>monthly</td>
+        </tr>
+        <tr>
+          <td><span class="hl-oat">resources</span></td>
+          <td>topics of interest, reference material</td>
+          <td>as needed</td>
+        </tr>
+        <tr>
+          <td>archive</td>
+          <td>completed or inactive items</td>
+          <td>never (but searchable)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>progressive summarization</h2>
+    <p>you don't need to read everything deeply on first pass. progressive summarization means you add <span class="ul-dashed">layers of emphasis over time</span>, only going deeper on notes that prove useful.</p>
+    <ul>
+      <li>layer 0: capture the original source (highlight, clip, screenshot)</li>
+      <li>layer 1: <span class="hl">bold the key passages</span> that matter to you</li>
+      <li>layer 2: highlight within the bolded sections</li>
+      <li>layer 3: write an executive summary in your own words</li>
+      <li>layer 4: <span class="hl-mint ul-wavy-mint">remix: combine notes into something new</span> (a post, a project, a framework)</li>
+    </ul>
+
+    <Note variant="try">start with just capture. don't worry about folders or tags. the organization emerges once you have enough notes to see patterns.</Note>
+
+    <h2>setup checklist</h2>
+    <p>work through these steps to build your own second brain. click items as you complete them.</p>
+
+    <Note variant="bench" label="setup checklist">
+      <ul>
+        <li>choose one capture tool (obsidian, notion, apple notes, or even a text file)</li>
+        <li>install it on your phone and computer</li>
+        <li>create four folders: projects, areas, resources, archive</li>
+        <li>capture 10 things you've been keeping in your head</li>
+        <li>set a weekly review reminder (15 minutes)</li>
+        <li>move completed project notes to archive</li>
+        <li>bold the most useful sentence in 5 existing notes</li>
+        <li>write a one-line summary at the top of 3 notes you revisit often</li>
+        <li>delete or archive notes you haven't touched in 6 months</li>
+        <li>teach someone else how your system works (this reveals gaps)</li>
+      </ul>
+    </Note>
+
+    <div class="callout">pro tip: the best second brain is the one you actually use. don't over-engineer it. start messy, refine later.</div>
+  </article>
+</BaseLayout>

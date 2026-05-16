@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro"; // assuming you save the note snippet as components/Note.astro
+const title = "Regulators — ecute.club";
+---
+
+<BaseLayout {title}>
+  <article class="container">
+    <h1>regulators</h1>
+    <p><em>turn one voltage into another: smooth, stable, and safe for your parts.</em></p>
+
+    <Note variant="care">
+      <strong>rule of thumb:</strong> big drop + medium/high current → use a <em>buck</em>. small drop or tiny current → an <em>ldo</em> is fine.
+    </Note>
+
+    <h2>two main types</h2>
+    <ul>
+      <li><strong>ldo (linear)</strong> — quiet, simple, but the extra voltage becomes heat.</li>
+      <li><strong>buck (switching)</strong> — efficient, handles big drops, needs inductor/diodes and good layout.</li>
+    </ul>
+
+    <h2>quick chooser</h2>
+    <table>
+      <thead>
+        <tr><th>input → output</th><th>current</th><th>efficiency need</th><th>pick</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>5 v → 3.3 v</td><td>≤ 150–200 mA</td><td>low/med</td><td>ldo (low dropout)</td></tr>
+        <tr><td>5 v → 3.3 v</td><td>> 200 mA</td><td>med/high</td><td>buck</td></tr>
+        <tr><td>1-cell li-ion (4.2→3.3 v)</td><td>≤ 200 mA</td><td>low</td><td>ldo (ultra-low I<sub>q</sub> if battery-powered)</td></tr>
+        <tr><td>12 v → 5 v</td><td>any</td><td>med/high</td><td>buck (always)</td></tr>
+        <tr><td>2–3s li-ion → 5 v/3.3 v</td><td>any</td><td>high</td><td>buck</td></tr>
+        <tr><td>always-on micro @ µA–mA</td><td>tiny</td><td>sleep life</td><td>ldo with low I<sub>q</sub></td></tr>
+      </tbody>
+    </table>
+
+    <h2>ldo basics</h2>
+    <p><strong>dropout:</strong> the minimum headroom the ldo needs to stay in regulation.</p>
+    <p class="mono">V<sub>in</sub> ≥ V<sub>out</sub> + V<sub>dropout</sub></p>
+
+    <Note variant="fact">
+      linear ≠ always bad: for small drops and light loads, an ldo can waste less total power than a buck.
+    </Note>
+
+    <ul>
+      <li><strong>heat:</strong> P ≈ (V<sub>in</sub> − V<sub>out</sub>) × I<sub>out</sub>.</li>
+      <li><strong>caps matter:</strong> follow datasheet for input/output caps (values, ESR).</li>
+      <li><strong>noise:</strong> usually quieter than buck, good for analog/rf.</li>
+      <li><strong>dropout spec:</strong> pick low-dropout if Vin is close to Vout.</li>
+    </ul>
+
+    <h2>buck basics</h2>
+    <p><strong>what it does:</strong> high-frequency switch + inductor converts extra voltage into current instead of heat.</p>
+
+    <Note variant="care">
+      keep the buck’s switch node tiny and away from sensors/antennas → this trace is noisy.
+    </Note>
+
+    <ul>
+      <li><strong>efficiency:</strong> often 85–95% with good parts/layout.</li>
+      <li><strong>inductor + caps:</strong> pick values per datasheet tables.</li>
+      <li><strong>frequency:</strong> 500 kHz–2 MHz typical; higher = smaller parts, but more emi.</li>
+      <li><strong>layout:</strong> place input cap at VIN/GND pins; short loops only.</li>
+    </ul>
+
+    <h2>when to choose what</h2>
+    <ul>
+      <li><strong>ldo</strong> if: small drop, small current, low noise, or dead-simple.</li>
+      <li><strong>buck</strong> if: big drop (12→5), current >200 mA, efficiency matters.</li>
+      <li><strong>combo:</strong> buck to just above, then ldo for clean final rail.</li>
+    </ul>
+
+    <h2>mini cookbook</h2>
+
+    <h3>usb 5 v → 3.3 v (≤200 mA)</h3>
+    <Note variant="bench">
+      ap2112 (ldo) is a hobbyist favorite; dropout ≈ 250 mV, 600 mA max.
+    </Note>
+    <ul>
+      <li>pick 300–500 mA ldo with low dropout.</li>
+      <li>1–10 µF in/out caps, ceramic ok.</li>
+    </ul>
+
+    <h3>1s li-ion → 3.3 v wearable</h3>
+    <Note variant="try">
+      for battery loggers, aim for Iq ≤ 2 µA; extends sleep life a lot.
+    </Note>
+    <ul>
+      <li>ultra-low Iq ldo (TPS7A02, MCP1810, etc).</li>
+      <li>watch dropout near 3.3–3.5 v as cell empties.</li>
+    </ul>
+
+    <h3>12 v wall → 5 v logic (0.3–2 a)</h3>
+    <ul>
+      <li>synchronous buck 2–3 a, ~500 kHz–1.5 MHz.</li>
+      <li>use datasheet “typical app” values for L + caps.</li>
+      <li>add input tvs/pi filter if cables are long/noisy.</li>
+    </ul>
+
+    <h3>quiet analog rail (3.3 v from noisy 5 v)</h3>
+    <Note variant="fact">
+      classic trick: buck to ~3.8 v, then ldo to 3.3 v → cleans ripple.
+    </Note>
+    <ul>
+      <li>route analog ground separately after ldo if sensitive.</li>
+    </ul>
+
+    <h2>numbers to check</h2>
+    <ul>
+      <li>I<sub>out</sub> max + surges</li>
+      <li>Vin range (min/max, hot-plug)</li>
+      <li>dropout (ldo) / duty limits (buck)</li>
+      <li>Iq if battery-powered</li>
+      <li>thermal: P × θJA → temp rise</li>
+      <li>caps: type, ESR, values</li>
+    </ul>
+
+    <h2>common mistakes</h2>
+    <ul>
+      <li>ignoring dropout margin.</li>
+      <li>random cap values that break stability.</li>
+      <li>letting the buck switch node run across the board.</li>
+      <li>no thermal margin on ldos.</li>
+    </ul>
+
+    <h2>quick math</h2>
+    <p class="mono">P<sub>ldo</sub> ≈ (Vin − Vout) × Iout</p>
+    <p class="mono">η<sub>buck</sub> ≈ Pout / (Pout + losses) ≈ 85–95%</p>
+
+    <h2>parts to look into</h2>
+    <p><strong>ldo (3.3 v):</strong> MCP1700, TLV700, AP2112, XC6206<br/>
+       <strong>ultra-low Iq:</strong> TPS7A02/03, MCP1810<br/>
+       <strong>buck (5/3.3 v):</strong> MP1584 modules, TPS621xx, MP1495</p>
+  </article>
+</BaseLayout>

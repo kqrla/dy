@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "variable resistors — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>variable resistors</h1>
+    <p><strong>what is a variable resistor?</strong> a resistor whose value you can twist/slide. a 3-terminal <em>potentiometer</em> makes a <em>voltage divider</em>; using just two terminals makes a <em>rheostat</em> (adjustable series R).</p>
+
+    <div class="diagram" role="img" aria-label="Potentiometer as divider vs rheostat">
+      <svg viewBox="0 0 560 170" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="170" rx="16" fill="var(--card)"/>
+        <!-- divider -->
+        <text x="36" y="44" class="mono">divider</text>
+        <line x1="90" y1="36" x2="210" y2="36" stroke="currentColor" stroke-width="2"/>
+        <line x1="90" y1="110" x2="210" y2="110" stroke="currentColor" stroke-width="2"/>
+        <rect x="150" y="36" width="20" height="74" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="160" y1="60" x2="240" y2="60" stroke="currentColor" stroke-width="2"/>
+        <text x="246" y="64" class="mono">Vout</text>
+        <text x="68" y="40" class="mono">+V</text><text x="68" y="114" class="mono">0V</text>
+
+        <!-- rheostat -->
+        <text x="320" y="44" class="mono">rheostat</text>
+        <line x1="360" y1="36" x2="460" y2="36" stroke="currentColor" stroke-width="2"/>
+        <rect x="400" y="36" width="20" height="74" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="410" y1="110" x2="460" y2="110" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <h2>notes</h2>
+    <ul>
+      <li>values: 1 kΩ–100 kΩ are common. choose so divider current is modest (e.g., 0.1–1 mA).</li>
+      <li>taper: <strong>linear (B)</strong> for general use, <strong>audio/log (A)</strong> for volume knobs.</li>
+    </ul>
+  </article>
+</BaseLayout>

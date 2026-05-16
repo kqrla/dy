@@ -1,0 +1,17 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  href: string;
+  accent?: 'p1'|'p2'|'p3'|'p4'|'p5';
+  icon?: string; // font awesome class, e.g. "fa-solid fa-microchip"
+}
+const { title, description, href, accent = 'p5', icon = 'fa-solid fa-book' } = Astro.props;
+---
+<a class="card" href={href} data-accent={accent} aria-label={title}>
+  <div class="icon"><i class={icon} aria-hidden="true"></i></div>
+  <div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+</a>

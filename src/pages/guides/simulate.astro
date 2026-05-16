@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "simulate it — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>simulate it</h1>
+
+    <div class="diagram" aria-label="idea → sim → breadboard → pcb">
+      <svg viewBox="0 0 720 140" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="120" rx="16" fill="var(--card)"/>
+        <g transform="translate(40,32)"><rect width="120" height="60" rx="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="60" y="36" text-anchor="middle" class="mono">idea</text></g>
+        <line x1="160" y1="62" x2="200" y2="62" stroke="currentColor" stroke-width="3"/><polygon points="200,62 192,57 192,67" fill="currentColor"/>
+        <g transform="translate(200,32)"><rect width="140" height="60" rx="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="70" y="28" text-anchor="middle" class="mono">simulate</text><text x="70" y="48" text-anchor="middle" class="mono mini">SPICE/Falstad</text></g>
+        <line x1="340" y1="62" x2="380" y2="62" stroke="currentColor" stroke-width="3"/><polygon points="380,62 372,57 372,67" fill="currentColor"/>
+        <g transform="translate(380,32)"><rect width="140" height="60" rx="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="70" y="36" text-anchor="middle" class="mono">breadboard</text></g>
+        <line x1="520" y1="62" x2="560" y2="62" stroke="currentColor" stroke-width="3"/><polygon points="560,62 552,57 552,67" fill="currentColor"/>
+        <g transform="translate(560,32)"><rect width="120" height="60" rx="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="60" y="36" text-anchor="middle" class="mono">PCB</text></g>
+      </svg>
+    </div>
+
+    <ul>
+      <li><strong>Falstad:</strong> fast browser sandbox</li>
+      <li><strong>LTspice/KiCad Spice:</strong> serious analog sims</li>
+      <li><strong>Tinkercad Circuits:</strong> quick breadboard + Arduino</li>
+    </ul>
+    <Note variant="try">model your RC filter and op-amp gain first; saves time and smoke.</Note>
+  </article>
+</BaseLayout>

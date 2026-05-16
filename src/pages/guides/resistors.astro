@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "Resistors — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>Resistors</h1>
+    <p>resistors limit current and set voltages. unit: <strong>ohm (Ω)</strong>. power rating: <strong>watt (W)</strong>.</p>
+
+    <div class="callout">
+      <strong>rule of thumb:</strong> 1/4 W through-hole is fine for most breadboard projects. if it gets warm, size up.
+    </div>
+
+    <h2>ohm’s law trio</h2>
+    <p><code>V = I × R</code> &nbsp; <code>I = V / R</code> &nbsp; <code>R = V / I</code></p>
+
+    <h2>series vs parallel</h2>
+    <ul>
+      <li><strong>series:</strong> <code>R<sub>t</sub> = R1 + R2 + …</code></li>
+      <li><strong>parallel:</strong> <code>1/R<sub>t</sub> = 1/R1 + 1/R2 + …</code></li>
+    </ul>
+
+    <h2>color code (4-band)</h2>
+    <table class="cute resistor-code">
+      <thead>
+        <tr><th>color</th><th>digit</th><th>multiplier</th><th>tolerance</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="band black">black</span></td><td>0</td><td>×10<sup>0</sup></td><td>—</td></tr>
+        <tr><td><span class="band brown">brown</span></td><td>1</td><td>×10<sup>1</sup></td><td>±1%</td></tr>
+        <tr><td><span class="band red">red</span></td><td>2</td><td>×10<sup>2</sup></td><td>±2%</td></tr>
+        <tr><td><span class="band orange">orange</span></td><td>3</td><td>×10<sup>3</sup></td><td>—</td></tr>
+        <tr><td><span class="band yellow">yellow</span></td><td>4</td><td>×10<sup>4</sup></td><td>—</td></tr>
+        <tr><td><span class="band green">green</span></td><td>5</td><td>×10<sup>5</sup></td><td>±0.5%</td></tr>
+        <tr><td><span class="band blue">blue</span></td><td>6</td><td>×10<sup>6</sup></td><td>±0.25%</td></tr>
+        <tr><td><span class="band violet">violet</span></td><td>7</td><td>×10<sup>7</sup></td><td>±0.1%</td></tr>
+        <tr><td><span class="band gray">gray</span></td><td>8</td><td>×10<sup>8</sup></td><td>±0.05%</td></tr>
+        <tr><td><span class="band white">white</span></td><td>9</td><td>×10<sup>9</sup></td><td>—</td></tr>
+        <tr><td><span class="band gold">gold</span></td><td>—</td><td>×10<sup>−1</sup></td><td>±5%</td></tr>
+        <tr><td><span class="band silver">silver</span></td><td>—</td><td>×10<sup>−2</sup></td><td>±10%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="diagram" role="img" aria-label="example resistor bands: yellow violet red gold = 4.7k ±5%">
+      <svg viewBox="0 0 520 120" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="120" rx="16" fill="var(--card)"/>
+        <!-- resistor body -->
+        <rect x="140" y="46" width="240" height="28" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <!-- bands -->
+        <rect x="170" y="42" width="12" height="36" fill="#ffcf00"/> <!-- yellow -->
+        <rect x="200" y="42" width="12" height="36" fill="#7a00aa"/> <!-- violet -->
+        <rect x="230" y="42" width="12" height="36" fill="#c00"/>    <!-- red -->
+        <rect x="350" y="42" width="12" height="36" fill="gold"/>    <!-- gold -->
+        <!-- leads -->
+        <line x1="100" y1="60" x2="140" y2="60" stroke="currentColor" stroke-width="3"/>
+        <line x1="380" y1="60" x2="420" y2="60" stroke="currentColor" stroke-width="3"/>
+        <text x="60" y="28" class="mono">yellow-violet-red-gold</text>
+        <text x="60" y="100" class="mono">→ 4,7 × 10² = 4.7 kΩ ±5%</text>
+      </svg>
+    </div>
+
+    <h2>power check</h2>
+    <p>use <code>P = I²R</code> or <code>P = VI</code>. pick a wattage rating higher than your calculated power (add headroom).</p>
+  </article>
+</BaseLayout>

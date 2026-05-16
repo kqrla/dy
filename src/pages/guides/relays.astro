@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "relays — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>relays</h1>
+    <p><strong>what is a relay?</strong> an electrically controlled switch: energize the <em>coil</em> and the <em>contacts</em> move. great for isolating logic from higher voltages/currents.</p>
+
+    <div class="diagram" role="img" aria-label="SPDT relay: coil with COM switching between NC and NO">
+      <svg viewBox="0 0 560 160" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="160" rx="16" fill="var(--card)"/>
+        <!-- coil -->
+        <text x="36" y="54" class="mono">coil</text>
+        <rect x="80" y="40" width="40" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="60" y1="54" x2="80" y2="54" stroke="currentColor" stroke-width="2"/>
+        <line x1="120" y1="54" x2="140" y2="54" stroke="currentColor" stroke-width="2"/>
+        <!-- contacts -->
+        <text x="180" y="54" class="mono">COM</text>
+        <circle cx="220" cy="54" r="4" fill="currentColor"/>
+        <line x1="224" y1="54" x2="310" y2="40" stroke="currentColor" stroke-width="2"/>
+        <text x="316" y="44" class="mono">NC</text>
+        <circle cx="310" cy="40" r="4" fill="currentColor"/>
+        <line x1="224" y1="54" x2="310" y2="68" stroke="currentColor" stroke-width="2"/>
+        <text x="316" y="72" class="mono">NO</text>
+        <circle cx="310" cy="68" r="4" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <h2>driver circuit (logic → relay)</h2>
+    <ul>
+      <li>use a transistor/MOSFET to drive the coil; microcontroller pins alone can’t.</li>
+      <li><strong>flyback diode</strong> across the coil (stripe to +) to catch the spike.</li>
+      <li>pick coil voltage to match your rail (5/12 V) and contacts rated above your load.</li>
+    </ul>
+
+    <h2>contact types</h2>
+    <ul>
+      <li><strong>SPST / SPDT / DPDT</strong> — “NO” = normally open, “NC” = normally closed.</li>
+      <li>keep mains far from logic; respect creepage/clearance.</li>
+    </ul>
+  </article>
+</BaseLayout>

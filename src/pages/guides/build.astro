@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "build a project — ecute.club";
+
+// Keep code as a raw string so TypeScript/ESLint/spell-checkers ignore it.
+const arduinoSketch = String.raw`// tiny Arduino sketch (invert if using INPUT_PULLUP)
+const int LED = 5, BTN = 2;
+void setup() {
+  pinMode(LED, OUTPUT);
+  pinMode(BTN, INPUT_PULLUP);
+}
+void loop() {
+  digitalWrite(LED, !digitalRead(BTN));
+}`;
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>build a project</h1>
+    <p>pick an idea, sketch the circuit, prototype on a breadboard, then solder it neatly. here’s a gentle path, tiny starters, and a tidy checklist.</p>
+
+    <!-- roadmap -->
+    <div class="diagram" role="img" aria-label="flow: idea → breadboard → solder → case">
+      <svg viewBox="0 0 760 120" width="100%" height="auto">
+        <rect x="0" y="0" width="760" height="120" rx="16" fill="var(--card)"/>
+        <!-- steps -->
+        <g transform="translate(40,24)">
+          <rect width="150" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="75" y="44" text-anchor="middle" class="mono">idea ✏️</text>
+        </g>
+        <g transform="translate(230,24)">
+          <rect width="150" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="75" y="28" text-anchor="middle" class="mono">breadboard</text>
+          <text x="75" y="48" text-anchor="middle" class="mono mini">try parts</text>
+        </g>
+        <g transform="translate(420,24)">
+          <rect width="150" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="75" y="28" text-anchor="middle" class="mono">solder</text>
+          <text x="75" y="48" text-anchor="middle" class="mono mini">make it solid</text>
+        </g>
+        <g transform="translate(610,24)">
+          <rect width="150" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="75" y="28" text-anchor="middle" class="mono">enclose</text>
+          <text x="75" y="48" text-anchor="middle" class="mono mini">case / mount</text>
+        </g>
+        <!-- arrows -->
+        <line x1="190" y1="60" x2="230" y2="60" stroke="currentColor" stroke-width="3"/>
+        <polygon points="230,60 222,55 222,65" fill="currentColor"/>
+        <line x1="380" y1="60" x2="420" y2="60" stroke="currentColor" stroke-width="3"/>
+        <polygon points="420,60 412,55 412,65" fill="currentColor"/>
+        <line x1="570" y1="60" x2="610" y2="60" stroke="currentColor" stroke-width="3"/>
+        <polygon points="610,60 602,55 602,65" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="callout ok">
+      start here: <a href="/guides/breadboard">breadboard</a> →
+      <a href="/guides/leds">leds</a> →
+      <a href="/guides/resistors">resistors</a> →
+      <a href="/guides/soldering">soldering</a>.
+    </div>
+
+    <h2>directions (soft-start)</h2>
+    <ol>
+      <li><strong>sketch the idea</strong> — draw boxes/wires; list inputs, outputs, and power (voltage &amp; current).</li>
+      <li><strong>pick parts</strong> — LED (+ resistor), switch, transistor/driver if needed, a stable supply. skim datasheets for max voltage/current.</li>
+      <li><strong>breadboard it</strong> — short leads, color code rails, add <strong>0.1&nbsp;µF</strong> decouplers near IC power pins.</li>
+      <li><strong>measure</strong> — with a DMM check rail voltage, LED current, button logic levels. fix before solder.</li>
+      <li><strong>clean solder build</strong> — place low parts first, mind orientation, use flux, trim leads. inspect joints.</li>
+      <li><strong>enclose</strong> — add strain relief on cables, label I/O, mount with standoffs.</li>
+    </ol>
+
+    <h2>tiny starter projects</h2>
+
+    <h3>1) 555 blink (no code)</h3>
+    <ul>
+      <li>uses <a href="/guides/555">555 timer</a> in astable mode.</li>
+      <li>parts: NE555, R1&nbsp;1&nbsp;kΩ, R2&nbsp;10&nbsp;kΩ, C&nbsp;10&nbsp;µF, LED, 330&nbsp;Ω, 5&nbsp;V.</li>
+      <li>freq: <code>f = 1 / (0.693 × (R1 + 2R2) × C)</code> (≈6.5&nbsp;Hz with values above).</li>
+    </ul>
+
+    <h3>2) button → led (microcontroller)</h3>
+    <ul>
+      <li>any Arduino/ESP32 board, 1× button, 10&nbsp;kΩ pull-up/pull-down, 1× LED + 330&nbsp;Ω.</li>
+      <li>learn: inputs, debouncing (<a href="/guides/switches">switches</a>), PWM dimming.</li>
+    </ul>
+
+    <!-- Arduino snippet rendered from a raw string so linters don't complain -->
+    <pre><code class="language-cpp" translate="no">{arduinoSketch}</code></pre>
+
+    <h3>3) touch lamp (MOSFET)</h3>
+    <ul>
+      <li>logic-level N-MOSFET (e.g., AO3400), LED strip, 12&nbsp;V, 100&nbsp;kΩ gate pulldown, 100&nbsp;Ω in series with gate.</li>
+      <li>learn: low-side switching &amp; current paths (<a href="/guides/transistors">transistors</a>).</li>
+    </ul>
+
+    <h2>tools you’ll actually use</h2>
+    <ul>
+      <li>soldering iron + brass wool/sponge, 63/37 leaded solder, flux pen</li>
+      <li>side cutters, tweezers, small pliers</li>
+      <li>digital multimeter (DMM)</li>
+      <li>hookup wire + jumper kit</li>
+    </ul>
+
+    <h2>neatness checklist</h2>
+    <ul>
+      <li>short leads, parts aligned, labels on rails</li>
+      <li>decouple each IC: <strong>0.1&nbsp;µF</strong> at the pins, plus bulk on the rail</li>
+      <li>no strain on cables; use proper connectors</li>
+    </ul>
+
+    <div class="callout info">
+      next step: turn the breadboard into a PCB — see <a href="/guides/pcb">pcb basics</a>.
+    </div>
+  </article>
+</BaseLayout>

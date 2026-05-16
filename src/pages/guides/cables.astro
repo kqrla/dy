@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "cables & wire — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>cables &amp; wire</h1>
+    <p>pick by <strong>solid vs stranded</strong>, <strong>AWG</strong> (thickness), <strong>insulation</strong>, and <strong>connector</strong>.</p>
+
+    <div class="diagram" aria-label="solid vs stranded wire and AWG thickness">
+      <svg viewBox="0 0 760 160" width="100%" height="auto">
+        <rect x="10" y="10" width="740" height="140" rx="16" fill="var(--card)"/>
+        <!-- solid -->
+        <text x="70" y="36" class="mono">solid</text>
+        <rect x="40" y="60" width="160" height="20" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="120" y1="60" x2="120" y2="80" stroke="currentColor" stroke-width="3"/>
+        <!-- stranded bundle -->
+        <text x="300" y="36" class="mono">stranded</text>
+        <g transform="translate(260,52)">
+          <circle cx="30" cy="18" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="45" cy="30" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="15" cy="30" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="30" cy="42" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="60" cy="18" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="60" cy="42" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+          <circle cx="0"  cy="18" r="7" stroke="currentColor" fill="none" stroke-width="2"/>
+        </g>
+        <!-- AWG scale (thicker left) -->
+        <text x="520" y="36" class="mono">AWG (thicker →)</text>
+        <line x1="520" y1="70" x2="720" y2="70" stroke="currentColor" stroke-width="6"/>
+        <line x1="520" y1="100" x2="720" y2="100" stroke="currentColor" stroke-width="3"/>
+        <line x1="520" y1="126" x2="720" y2="126" stroke="currentColor" stroke-width="2"/>
+        <text x="724" y="73" class="mono mini">18</text>
+        <text x="724" y="103" class="mono mini">22</text>
+        <text x="724" y="129" class="mono mini">26</text>
+      </svg>
+    </div>
+
+    <h2>solid vs stranded</h2>
+    <ul>
+      <li><strong>solid:</strong> stiff, holds shape (breadboards)</li>
+      <li><strong>stranded:</strong> flexible (panels, moving cables)</li>
+    </ul>
+
+    <h2>quick AWG cheats</h2>
+    <table class="cute">
+      <thead><tr><th>AWG</th><th>typical use</th><th>ballpark current*</th></tr></thead>
+      <tbody>
+        <tr><td>28–26</td><td>dupont jumpers</td><td>&lt; 0.5–1 A</td></tr>
+        <tr><td>24–22</td><td>hookup wire</td><td>~1–3 A</td></tr>
+        <tr><td>20–18</td><td>power runs</td><td>~3–7 A</td></tr>
+        <tr><td>16–14</td><td>higher current</td><td>~7–15 A</td></tr>
+      </tbody>
+    </table>
+    <p class="mono mini">*depends on insulation, temp rise, length — verify for safety.</p>
+
+    <h2>connect ends right</h2>
+    <ul>
+      <li><strong>tin</strong> stranded ends only when they won’t be screwed; use ferrules for terminals</li>
+      <li>strain-relief to stop yanks (glands, knots, cable ties)</li>
+      <li>color code rails: red = +, black/blue = −, others for signals</li>
+    </ul>
+
+    <Note variant="care">thin wire + long run = voltage drop. for LEDs/motors, go thicker than you think.</Note>
+  </article>
+</BaseLayout>

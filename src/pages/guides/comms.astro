@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "comms (UART / I²C / SPI) — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>comms: UART / I²C / SPI</h1>
+
+    <div class="diagram" aria-label="UART, I2C with pullups, SPI 4-wire">
+      <svg viewBox="0 0 760 190" width="100%" height="auto">
+        <rect x="10" y="10" width="740" height="170" rx="16" fill="var(--card)"/>
+        <!-- UART -->
+        <text x="60" y="36" class="mono">UART</text>
+        <rect x="40" y="50" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="160" y="50" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="120" y1="62" x2="160" y2="62" stroke="currentColor" stroke-width="2"/>
+        <line x1="160" y1="78" x2="120" y2="78" stroke="currentColor" stroke-width="2"/>
+        <text x="88" y="66" class="mono mini">TX</text><text x="188" y="82" class="mono mini">TX</text>
+        <!-- I2C -->
+        <text x="340" y="36" class="mono">I²C</text>
+        <rect x="320" y="50" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="440" y="50" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="360" y1="110" x2="520" y2="110" stroke="currentColor" stroke-width="2"/>
+        <line x1="360" y1="80" x2="520" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="400" y1="80" x2="400" y2="40" stroke="currentColor" stroke-width="2"/><rect x="393" y="24" width="14" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="480" y1="110" x2="480" y2="40" stroke="currentColor" stroke-width="2"/><rect x="473" y="24" width="14" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="524" y="84" class="mono mini">SDA</text><text x="524" y="114" class="mono mini">SCL</text>
+        <!-- SPI -->
+        <text x="610" y="36" class="mono">SPI</text>
+        <rect x="600" y="50" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="640" y1="100" x2="640" y2="140" stroke="currentColor" stroke-width="2"/>
+        <rect x="610" y="140" width="60" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="612" y="154" class="mono mini">CS</text>
+        <text x="612" y="70" class="mono mini">MOSI/MISO/SCLK</text>
+      </svg>
+    </div>
+
+    <table class="cute">
+      <thead><tr><th>bus</th><th>wires</th><th>pros</th><th>notes</th></tr></thead>
+      <tbody>
+        <tr><td>UART</td><td>TX,RX</td><td>simple point-to-point</td><td>baud, parity, levels (3.3/5 V)</td></tr>
+        <tr><td>I²C</td><td>SCL,SDA</td><td>two wires, many devices</td><td>pull-ups, 7-bit addr, bus caps</td></tr>
+        <tr><td>SPI</td><td>SCLK,MOSI,MISO,CS</td><td>fast</td><td>one CS per device; mode 0/1/2/3</td></tr>
+      </tbody>
+    </table>
+    <Note variant="care">I²C needs pull-ups to the correct rail; don’t mix 5 V pull-ups with 3.3 V parts.</Note>
+  </article>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "74 series TTL/CMOS — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>74 series ttl</h1>
+    <p>modern hobby builds usually use <strong>74HCxx</strong> (CMOS) at 3.3–5 V. <strong>HCT</strong> has TTL-compatible input thresholds for mixing with 5 V TTL.</p>
+
+    <h2>common picks</h2>
+    <ul>
+      <li><strong>74HC00</strong>: quad NAND</li>
+      <li><strong>74HC14</strong>: hex Schmitt inverter (debounce helper!)</li>
+      <li><strong>74HC595</strong>: serial-in, parallel-out (LED expansion)</li>
+      <li><strong>74HC165</strong>: parallel-in shift register (read many buttons)</li>
+      <li><strong>74HC4051</strong>: 8-ch analog mux</li>
+    </ul>
+
+    <h2>notes</h2>
+    <ul>
+      <li><strong>HC:</strong> ~2–6 V supply. <strong>HCT:</strong> 5 V supply with TTL-like input thresholds (plays nice with LS/TTL outputs).</li>
+      <li>decoupling: 0.1 µF per chip, right at VCC/GND pins.</li>
+    </ul>
+
+    <div class="diagram" role="img" aria-label="button debounce using 74HC14 Schmitt inverter">
+      <svg viewBox="0 0 560 160" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="160" rx="16" fill="var(--card)"/>
+        <!-- button + RC -->
+        <line x1="60" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="2"/>
+        <rect x="110" y="30" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="88" y="24" class="mono">btn</text>
+        <line x1="110" y1="50" x2="110" y2="120" stroke="currentColor" stroke-width="2"/>
+        <rect x="102" y="120" width="16" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="110" y1="140" x2="110" y2="150" stroke="currentColor" stroke-width="2"/>
+        <text x="130" y="133" class="mono">C</text>
+        <line x1="170" y1="40" x2="170" y2="120" stroke="currentColor" stroke-width="2"/>
+        <rect x="162" y="120" width="16" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="180" y="133" class="mono">R</text>
+        <line x1="170" y1="140" x2="170" y2="150" stroke="currentColor" stroke-width="2"/>
+        <!-- Schmitt inverter -->
+        <line x1="200" y1="40" x2="240" y2="40" stroke="currentColor" stroke-width="2"/>
+        <polygon points="240,20 280,40 240,60" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="284" cy="40" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="288" y1="40" x2="480" y2="40" stroke="currentColor" stroke-width="2"/>
+        <text x="300" y="24" class="mono">74HC14</text>
+        <text x="488" y="44" class="mono">to MCU</text>
+        <!-- ground rail -->
+        <line x1="40" y1="150" x2="520" y2="150" stroke="currentColor" stroke-width="2"/>
+        <text x="12" y="154" class="mono">0V</text>
+      </svg>
+    </div>
+  </article>
+</BaseLayout>

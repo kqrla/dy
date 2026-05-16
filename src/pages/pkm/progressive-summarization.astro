@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "progressive summarization — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>progressive summarization</h1>
+    <p>progressive summarization is a technique for making your notes more useful over time without rereading everything. you add <span class="hl">layers of emphasis</span> (bold, highlight, summary) only to notes that prove valuable, so your attention compounds on what matters most.</p>
+
+    <h2>the five layers</h2>
+    <p>each layer adds more emphasis. the annotations on this page demonstrate the technique in action: <span class="hl-oat">layer 0 is the raw text</span>, <strong>layer 1 is bold</strong>, <span class="hl">layer 2 is highlighted</span>, <span class="hl-pink ul-solid">layer 3 is a key summary</span>, and <span class="hl-mint ul-wavy-mint">layer 4 is a remix</span>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>layer</th>
+          <th>action</th>
+          <th>when to do it</th>
+          <th>annotation example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0. capture</td>
+          <td>save the original source (clip, screenshot, export)</td>
+          <td>immediately</td>
+          <td><span class="hl-oat">raw text, no emphasis</span></td>
+        </tr>
+        <tr>
+          <td>1. bold</td>
+          <td>bold the key phrases that resonate</td>
+          <td>on first or second read</td>
+          <td><strong>bolded key phrase</strong></td>
+        </tr>
+        <tr>
+          <td>2. highlight</td>
+          <td>highlight within the bolded sections</td>
+          <td>when revisiting for a project</td>
+          <td><span class="hl">highlighted passage</span></td>
+        </tr>
+        <tr>
+          <td>3. summarize</td>
+          <td>write a one-paragraph summary at the top</td>
+          <td>when the note becomes central to your work</td>
+          <td><span class="hl-pink ul-solid">summary with solid underline</span></td>
+        </tr>
+        <tr>
+          <td>4. remix</td>
+          <td>combine with other notes into something new</td>
+          <td>when you're ready to create, not just consume</td>
+          <td><span class="hl-mint ul-wavy-mint">remix with wavy mint</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>why it works</h2>
+    <ul>
+      <li>you don't waste time summarizing notes you'll never revisit</li>
+      <li><span class="hl">each layer is a filter: only the most useful notes get deeper treatment</span></li>
+      <li>your future self can skim layer 1 (bold) in seconds instead of rereading the whole source</li>
+      <li><span class="hl-mint ul-wavy-mint">layer 4 (remix) is where real thinking happens: connecting ideas across notes</span></li>
+    </ul>
+
+    <h2>annotation styles for progressive summarization</h2>
+    <p>use the site's annotation classes to visually mark each layer in your notes:</p>
+    <ul>
+      <li><span class="hl-oat">layer 0: <code>hl-oat</code></span> for raw captured text</li>
+      <li><strong>layer 1: bold</strong> (just use <code>&lt;strong&gt;</code>)</li>
+      <li><span class="hl">layer 2: <code>hl</code></span> for highlighted passages</li>
+      <li><span class="hl-pink ul-solid">layer 3: <code>hl-pink ul-solid</code></span> for summaries</li>
+      <li><span class="hl-mint ul-wavy-mint">layer 4: <code>hl-mint ul-wavy-mint</code></span> for remixed ideas</li>
+    </ul>
+
+    <Note variant="care">most notes will never get past layer 1. that's fine. <span class="ul-dashed">the point is to invest effort proportionally to how useful a note turns out to be.</span></Note>
+
+    <div class="callout">pro tip: if you're bolding more than 10-15% of a note, you're not being selective enough. <span class="ul-wavy">bolding everything = bolding nothing.</span></div>
+  </article>
+</BaseLayout>

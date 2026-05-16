@@ -1,0 +1,222 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "sketchnotes — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>sketchnotes</h1>
+    <p>sketchnotes blend words, doodles, diagrams, and typography to capture ideas visually. they're not art; they're a thinking tool. by drawing as you listen or read, you engage more deeply and create a visual memory anchor that text alone doesn't provide.</p>
+
+    <h2>containers</h2>
+    <p>containers are the stage for your ideas. they section the page, group related information, and guide the reader's eye. a simple box changes how information is perceived.</p>
+    <ul>
+      <li><strong>boxes:</strong> clean, formal, good for definitions or key concepts</li>
+      <li><strong>clouds:</strong> soft, conversational, great for thoughts or quotes</li>
+      <li><strong>banners:</strong> draw attention to headers or pivotal moments</li>
+      <li><strong>nested boxes:</strong> show hierarchy; a big box holding smaller boxes shows category relationships</li>
+      <li><strong>free-form shapes:</strong> organic blobs for brainstorms or loose ideas</li>
+    </ul>
+
+    <div class="diagram" aria-label="example container shapes">
+      <svg viewBox="0 0 600 120" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <rect x="10" y="10" width="100" height="100" fill="none" stroke="currentColor" stroke-width="2" rx="4"/>
+        <text x="60" y="65" text-anchor="middle" dominant-baseline="middle" font-size="12">box</text>
+
+        <path d="M 140 30 Q 140 10 160 10 Q 180 10 180 30 Q 180 50 160 60 Q 140 50 140 30" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="160" y="40" text-anchor="middle" dominant-baseline="middle" font-size="12">cloud</text>
+
+        <polygon points="250,10 350,10 340,50 350,90 250,90 260,50" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="300" y="50" text-anchor="middle" dominant-baseline="middle" font-size="12">banner</text>
+
+        <rect x="380" y="20" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="395" y="35" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <text x="410" y="50" text-anchor="middle" dominant-baseline="middle" font-size="10">nested</text>
+      </svg>
+    </div>
+
+    <h2>connectors</h2>
+    <p>connectors show flow and relationships. they're the visual syntax that ties ideas together and guides the reader through your thinking.</p>
+    <ul>
+      <li><strong>arrows:</strong> show direction and causation</li>
+      <li><strong>lines:</strong> simple connections between items; can be straight, curved, or zigzag for emphasis</li>
+      <li><strong>branching:</strong> one idea splits into many; great for mind maps or process flows</li>
+      <li><strong>loops:</strong> show cycles or feedback (e.g., feedback loops, iterative processes)</li>
+      <li><strong>dotted lines:</strong> suggest connection, possibility, or uncertainty vs. solid lines for certainty</li>
+    </ul>
+
+    <div class="diagram" aria-label="example connectors and flow">
+      <svg viewBox="0 0 600 140" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <circle cx="30" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 50 30 L 90 30" stroke="currentColor" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+        <circle cx="110" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <circle cx="30" cy="80" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 45 80 L 65 60" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M 45 80 L 65 80" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M 45 80 L 65 100" stroke="currentColor" stroke-width="2" fill="none"/>
+        <circle cx="80" cy="60" r="12" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="80" cy="80" r="12" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="80" cy="100" r="12" fill="none" stroke="currentColor" stroke-width="1.5"/>
+
+        <circle cx="180" cy="80" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 200 60 Q 240 40 240 80 Q 240 120 200 100" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="180" y="85" text-anchor="middle" dominant-baseline="middle" font-size="11">cycle</text>
+
+        <circle cx="320" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 340 30 L 380 30" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5,5" fill="none"/>
+        <circle cx="400" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="currentColor"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <h2>typography</h2>
+    <p>vary your lettering to create visual hierarchy. you don't need fancy fonts; size, weight, and style changes do the work.</p>
+    <ul>
+      <li><strong>size:</strong> headers large, subheaders medium, body small. size = importance</li>
+      <li><strong>weight:</strong> bold for emphasis, regular for detail, thin for footnotes</li>
+      <li><strong>style:</strong> caps for headlines, lowercase for details, italics for asides or quotes</li>
+      <li><strong>spacing:</strong> tight kerning for formal headers, loose spacing for playful or emphasized words</li>
+      <li><strong>underlines & circles:</strong> draw the eye to key terms without redrawing the whole word</li>
+    </ul>
+
+    <Note variant="try">practice writing the same sentence three ways: bold all-caps, tiny lowercase, and cursive. notice how each feels different.</Note>
+
+    <h2>icons</h2>
+    <p>icons are visual shorthand. a lightbulb = idea, a checkmark = done, a clock = time. they reduce cognitive load and make dense information easier to scan.</p>
+    <ul>
+      <li><strong>simple shapes:</strong> circles, squares, triangles; combine them for complex icons</li>
+      <li><strong>emoji:</strong> fast and universally readable; use liberally if it fits your style</li>
+      <li><strong>sketched icons:</strong> a quick doodle of a brain, heart, or star; crude is fine</li>
+      <li><strong>consistency:</strong> use the same icon style throughout so it feels intentional</li>
+      <li><strong>redundancy:</strong> icons work best alongside text, not instead of it</li>
+    </ul>
+
+    <div class="diagram" aria-label="example simple icons">
+      <svg viewBox="0 0 600 100" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <circle cx="30" cy="25" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 25 33 Q 25 40 28 45 L 32 45 Q 35 40 35 33" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="26" y1="48" x2="34" y2="48" stroke="currentColor" stroke-width="2"/>
+
+        <rect x="60" y="10" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 70 30 L 78 38 L 95 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <circle cx="150" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="150" y1="18" x2="150" y2="25" stroke="currentColor" stroke-width="2"/>
+        <line x1="150" y1="30" x2="160" y2="30" stroke="currentColor" stroke-width="2"/>
+
+        <path d="M 220 20 Q 220 15 225 15 Q 230 15 232 20 Q 232 25 228 28 Q 224 25 220 28 Q 218 25 220 20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M 220 28 Q 220 33 225 38 Q 230 33 230 28" fill="none" stroke="currentColor" stroke-width="1.5"/>
+
+        <path d="M 300 20 Q 295 15 290 15 Q 285 15 285 20 Q 285 15 280 15 Q 275 15 270 20 L 285 40 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+
+        <polygon points="380,10 390,35 415,35 395,48 405,73 380,60 355,73 365,48 345,35 370,35" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h2>dividers</h2>
+    <p>dividers organize visual space. they separate sections without walls, creating rhythm and breathability in dense notes.</p>
+    <ul>
+      <li><strong>horizontal lines:</strong> simplest divider; solid, dashed, or textured</li>
+      <li><strong>decorative breaks:</strong> small doodles (stars, leaves, dots) instead of plain lines</li>
+      <li><strong>whitespace:</strong> sometimes the best divider is blank space; don't crowd the page</li>
+      <li><strong>color bands:</strong> if using color, a thin strip separates sections</li>
+    </ul>
+
+    <h2>radiating ideas</h2>
+    <p>a radiating layout puts a central concept in the middle and branches related ideas outward. it mirrors how brains think: association and expansion from a core.</p>
+    <ul>
+      <li>place your main idea in the center (in a circle, box, or whatever)</li>
+      <li>draw lines radiating outward, one per sub-topic</li>
+      <li>nest smaller branches if you want sub-sub-topics (your brain's taxonomy)</li>
+      <li>use color or icon variations to group related branches</li>
+      <li>add visual weight to the center so it clearly anchors the page</li>
+    </ul>
+
+    <div class="diagram" aria-label="radiating/mind map structure">
+      <svg viewBox="0 0 600 200" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <circle cx="300" cy="100" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="300" y="105" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="bold">core</text>
+
+        <line x1="315" y1="85" x2="380" y2="45" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="395" cy="35" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <line x1="320" y1="110" x2="400" y2="110" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="420" cy="110" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <line x1="315" y1="115" x2="380" y2="160" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="395" cy="175" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <line x1="280" y1="110" x2="180" y2="140" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="160" cy="155" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <line x1="285" y1="85" x2="200" y2="40" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="180" cy="25" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+
+        <line x1="408" y1="28" x2="450" y2="10" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+        <circle cx="465" cy="5" r="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <h2>flow structure</h2>
+    <p>flow structures are linear or stepped. use them for sequences, processes, or narratives where order matters.</p>
+    <ul>
+      <li><strong>left-to-right:</strong> natural reading direction in english; feels quick and forward-moving</li>
+      <li><strong>top-to-bottom:</strong> traditional reading flow; good for step-by-step instructions</li>
+      <li><strong>zigzag:</strong> adds visual interest and paces the reader; slightly more complex but playful</li>
+      <li><strong>staggered columns:</strong> two or three columns zigzagging down the page; packs info densely</li>
+      <li><strong>numbered steps:</strong> add numbers at each node to reinforce sequence</li>
+    </ul>
+
+    <div class="diagram" aria-label="flow structures - linear and zigzag">
+      <svg viewBox="0 0 600 150" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <circle cx="30" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="30" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">1</text>
+        <path d="M 45 30 L 80 30" stroke="currentColor" stroke-width="2" marker-end="url(#arrowhead2)"/>
+
+        <circle cx="100" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="100" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">2</text>
+        <path d="M 115 30 L 150 30" stroke="currentColor" stroke-width="2" marker-end="url(#arrowhead2)"/>
+
+        <circle cx="170" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="170" y="35" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">3</text>
+
+        <circle cx="30" cy="100" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="30" y="105" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">1</text>
+        <path d="M 45 100 L 80 80" stroke="currentColor" stroke-width="2" marker-end="url(#arrowhead2)"/>
+
+        <circle cx="100" cy="80" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="100" y="85" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">2</text>
+        <path d="M 115 88 L 150 110" stroke="currentColor" stroke-width="2" marker-end="url(#arrowhead2)"/>
+
+        <circle cx="170" cy="110" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="170" y="115" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="bold">3</text>
+
+        <defs>
+          <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="currentColor"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <h2>path structure</h2>
+    <p>a path structure is a journey. your sketchnote becomes a visual story, with the reader's eye following a winding route through ideas.</p>
+    <ul>
+      <li>imagine a path (curving, looping, or spiraling) across the page</li>
+      <li>place ideas along the path in order they should be encountered</li>
+      <li>use visual landmarks (a big icon, a burst, a banner) at turning points</li>
+      <li>add scene-like elements (a sky, ground, obstacles) to make it feel like a journey, not a list</li>
+      <li>end with a payoff (a question, a key takeaway, a metaphor) that ties it all together</li>
+    </ul>
+
+    <Note variant="care">path structures are slower to parse than linear ones; use when you want immersion, not quick scanning.</Note>
+
+    <div class="callout">pro tip: your sketchnotes don't need to be beautiful. they need to be useful to future-you. messy, weird sketchnotes that help you remember are worth more than pretty ones that don't.</div>
+  </article>
+</BaseLayout>

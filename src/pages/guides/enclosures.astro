@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "enclosures & hardware — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>enclosures &amp; hardware</h1>
+
+    <div class="diagram" aria-label="PCB in a box with standoffs">
+      <svg viewBox="0 0 720 180" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="160" rx="16" fill="var(--card)"/>
+        <rect x="80" y="40" width="560" height="100" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="120" y="70" width="480" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="140" cy="90" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="580" cy="90" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="88" y="56" class="mono mini">enclosure</text>
+        <text x="126" y="66" class="mono mini">pcb on standoffs</text>
+      </svg>
+    </div>
+
+    <ul>
+      <li>mount PCBs on standoffs; leave room for cables and airflow</li>
+      <li>strain-relief cables (glands, clamps); chamfer holes</li>
+      <li>label polarity &amp; I/O; fuse at the source</li>
+    </ul>
+    <Note variant="care">keep mains segregated; observe creepage/clearance and earth bonding.</Note>
+  </article>
+</BaseLayout>

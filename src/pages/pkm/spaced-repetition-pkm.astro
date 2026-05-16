@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "spaced repetition pkm — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>spaced repetition + pkm</h1>
+    <p>spaced repetition meets personal knowledge management when you turn your notes into flashcards. instead of keeping two separate systems (notes in one place, flashcards in another), you connect them so that reviewing cards reinforces the ideas in your notes.</p>
+
+    <h2>how it works</h2>
+    <ul>
+      <li>write a permanent note in your pkm tool</li>
+      <li>create a flashcard that tests the core idea of that note</li>
+      <li>link the card back to the note so you can revisit context when you forget</li>
+      <li>review cards daily; the algorithm schedules them at optimal intervals</li>
+      <li>when a card fails, go back to the source note and relearn</li>
+    </ul>
+
+    <h2>tools that combine both</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>tool</th>
+          <th>notes</th>
+          <th>spaced repetition</th>
+          <th>integration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>anki</td>
+          <td>basic</td>
+          <td>excellent</td>
+          <td>plugin ecosystem for imports</td>
+        </tr>
+        <tr>
+          <td>remnote</td>
+          <td>good</td>
+          <td>good</td>
+          <td>built-in: notes become cards automatically</td>
+        </tr>
+        <tr>
+          <td>obsidian + spaced repetition plugin</td>
+          <td>excellent</td>
+          <td>good</td>
+          <td>markdown flashcards in your vault</td>
+        </tr>
+        <tr>
+          <td>mochi</td>
+          <td>good</td>
+          <td>good</td>
+          <td>markdown-based cards with linking</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="try">pick 5 notes you keep forgetting. turn each one into a single flashcard. review them for a week. notice which ones stick and which don't.</Note>
+
+    <div class="callout">pro tip: don't turn every note into a card. only make cards for ideas you actually want to retain long-term. less is more.</div>
+  </article>
+</BaseLayout>

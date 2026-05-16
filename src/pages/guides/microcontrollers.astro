@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "microcontrollers — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>microcontrollers</h1>
+
+    <div class="diagram" aria-label="MCU pins: GPIO, ADC, UART/I2C/SPI">
+      <svg viewBox="0 0 720 160" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="140" rx="16" fill="var(--card)"/>
+        <rect x="280" y="36" width="160" height="88" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="335" y="82" class="mono">MCU</text>
+        <!-- left pins -->
+        <line x1="280" y1="56" x2="240" y2="56" stroke="currentColor" stroke-width="3"/><text x="190" y="60" class="mono mini">GPIO</text>
+        <line x1="280" y1="80" x2="240" y2="80" stroke="currentColor" stroke-width="3"/><text x="194" y="84" class="mono mini">ADC</text>
+        <line x1="280" y1="104" x2="240" y2="104" stroke="currentColor" stroke-width="3"/><text x="194" y="108" class="mono mini">PWM</text>
+        <!-- right pins -->
+        <line x1="440" y1="56" x2="480" y2="56" stroke="currentColor" stroke-width="3"/><text x="486" y="60" class="mono mini">UART</text>
+        <line x1="440" y1="80" x2="480" y2="80" stroke="currentColor" stroke-width="3"/><text x="486" y="84" class="mono mini">I²C</text>
+        <line x1="440" y1="104" x2="480" y2="104" stroke="currentColor" stroke-width="3"/><text x="486" y="108" class="mono mini">SPI</text>
+      </svg>
+    </div>
+
+    <h2>pins</h2>
+    <ul>
+      <li><strong>GPIO:</strong> digital HIGH/LOW; many have PWM</li>
+      <li><strong>ADC:</strong> analog in (e.g., 0–3.3 V → 0–4095)</li>
+      <li><strong>UART / I²C / SPI:</strong> talk to chips &amp; sensors</li>
+    </ul>
+
+
+<pre><code class="language-cpp">{`
+// Arduino button → LED (pull-up)
+const int LED = 5, BTN = 2;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  pinMode(BTN, INPUT_PULLUP);
+}
+
+void loop() {
+  digitalWrite(LED, !digitalRead(BTN));
+}
+`}</code></pre>
+
+    <Note variant="care">mind logic levels (3.3 V vs 5 V). add level shifters where needed.</Note>
+    <Note variant="try">start with serial prints; logging is the fastest debugger.</Note>
+  </article>
+</BaseLayout>

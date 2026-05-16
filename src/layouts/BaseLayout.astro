@@ -1,0 +1,222 @@
+---
+// base layout: shared shell for every page on the site.
+// provides the header, footer, theme/background toggles, and global styles.
+// each page passes its own title and optional body class.
+const {
+  title = "the dysfunctional executives",
+  description = "a personal system for thinking across disciplines",
+  ogImage = "/favicon.svg",
+  footerText = "soldered with care",
+  bodyClass = "bg-grid",
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <link rel="icon" href="/favicon.svg" />
+
+    <meta id="theme-color" name="theme-color" content="#fffdf9" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fffdf9" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121112" />
+
+    <link href="/styles/global.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+    <style>
+      @font-face {
+        font-family: 'bored and drawn';
+        src: url('/fonts/bored-and-drawn.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="the dysfunctional executives" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        }
+      });
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="the dysfunctional executives home">
+        <span class="brand-text">the dysfunctional executives</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/guides/concepts">concepts</a>
+        <a href="/guides/sketchnotes">sketchnotes</a>
+        <a href="/guides/techniques">techniques</a>
+        <a href="/guides/tools">tools</a>
+        <div class="toggle-group" role="group" aria-label="display toggles">
+          <button id="bgToggle" class="toggle-btn" aria-label="toggle background pattern" title="background (press g)">⋯</button>
+          <button id="themeToggle" class="toggle-btn" aria-label="toggle dark mode" title="theme (press d)">☼</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>{footerText} — the dysfunctional executives</p>
+    </footer>
+
+<script>
+// @ts-nocheck
+(() => {
+  // ---- constants ----
+  const root = document.documentElement;
+  const body = document.body;
+  const themeMeta = document.getElementById('theme-color');
+  const btnTheme = document.getElementById('themeToggle');
+  const btnBg = document.getElementById('bgToggle');
+
+  const THEME_KEY = 'ecute-theme';
+  const BG_KEY = 'bgPattern';
+  const PATTERNS = ['bg-dots', 'bg-grid', 'bg-lined', 'bg-solid'];
+
+  // icons chosen to visually hint the pattern
+  const BG_ICONS = {
+    'bg-dots': '⋯',
+    'bg-grid': '⊞',
+    'bg-lined': '≡',
+    'bg-solid': '■',
+  };
+
+  // ---- helpers ----
+  function updateThemeColorMeta() {
+    const bg = getComputedStyle(root).getPropertyValue('--bg').trim() || '#fffdf9';
+    if (themeMeta) themeMeta.setAttribute('content', bg);
+  }
+
+  /** @typedef {'dark'|'light'|'beige'} ThemeMode */
+  const THEMES = ['light', 'dark', 'beige'];
+
+  function currentTheme() {
+    const theme = root.dataset.theme;
+    if (THEMES.includes(theme)) return theme;
+    return root.classList.contains('dark') ? 'dark' : 'light';
+  }
+
+  function applyTheme(mode /** @type {'dark'|'light'|'beige'} */) {
+    root.dataset.theme = mode;
+    root.classList.toggle('dark', mode === 'dark');
+    root.classList.toggle('beige', mode === 'beige');
+    localStorage.setItem(THEME_KEY, mode);
+    updateToggleIcons();
+    updateThemeColorMeta();
+    if (btnTheme) btnTheme.setAttribute('aria-pressed', String(mode === 'dark'));
+  }
+
+  function toggleTheme() {
+    const cur = currentTheme();
+    const next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
+    applyTheme(next);
+  }
+
+  function currentPattern() {
+    for (const p of PATTERNS) if (body.classList.contains(p)) return p;
+    return 'bg-dots';
+  }
+
+  function applyPattern(p /** @type {string} */) {
+    body.classList.remove(...PATTERNS);
+    body.classList.add(p);
+    localStorage.setItem(BG_KEY, p);
+    updateToggleIcons();
+    if (btnBg) btnBg.setAttribute('aria-pressed', 'true');
+  }
+
+  function cyclePattern() {
+    const cur = currentPattern();
+    const next = PATTERNS[(PATTERNS.indexOf(cur) + 1) % PATTERNS.length];
+    applyPattern(next);
+  }
+
+  function updateToggleIcons() {
+    const theme = currentTheme();
+    if (btnTheme) {
+      if (theme === 'dark') btnTheme.textContent = '☽';
+      else if (theme === 'beige') btnTheme.textContent = '◐';
+      else btnTheme.textContent = '☼';
+    }
+    if (btnBg) btnBg.textContent = BG_ICONS[currentPattern()] || '⋯';
+  }
+
+  function restore() {
+    // theme
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (THEMES.includes(savedTheme)) applyTheme(savedTheme);
+    else { updateToggleIcons(); updateThemeColorMeta(); }
+
+    // background
+    const savedPattern = localStorage.getItem(BG_KEY);
+    if (savedPattern && PATTERNS.includes(savedPattern)) applyPattern(savedPattern);
+    else updateToggleIcons();
+  }
+
+  // ---- events ----
+  if (btnTheme) {
+    btnTheme.addEventListener('click', toggleTheme);
+    btnTheme.setAttribute('aria-pressed', String(currentTheme() === 'dark'));
+  }
+
+  if (btnBg) {
+    btnBg.addEventListener('click', cyclePattern);
+    btnBg.setAttribute('aria-pressed', 'false');
+  }
+
+  // keyboard shortcuts (ignore when typing)
+  window.addEventListener('keydown', (e) => {
+    const t = e.target;
+    if (t && t instanceof HTMLElement) {
+      const tag = t.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || t.isContentEditable) return;
+    }
+    const k = e.key.toLowerCase();
+    if (k === 'd') toggleTheme();
+    if (k === 'g') cyclePattern();
+  });
+
+  // sync across tabs
+  window.addEventListener('storage', (e) => {
+    if (e.key === THEME_KEY && e.newValue) applyTheme(e.newValue);
+    if (e.key === BG_KEY && e.newValue && PATTERNS.includes(e.newValue)) applyPattern(e.newValue);
+  });
+
+  // init
+  restore();
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.note ul li').forEach(li => {
+    li.addEventListener('click', () => {
+      li.toggleAttribute('data-done');
+    });
+  });
+});
+</script>
+
+
+  </body>
+</html>

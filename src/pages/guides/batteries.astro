@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "batteries & charging — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>batteries &amp; charging</h1>
+
+    <div class="diagram" aria-label="series vs parallel cells">
+      <svg viewBox="0 0 740 170" width="100%" height="auto">
+        <rect x="10" y="10" width="720" height="150" rx="16" fill="var(--card)"/>
+        <!-- series -->
+        <text x="110" y="40" class="mono">series (↑V)</text>
+        <g transform="translate(40,56)">
+          <rect x="0"  y="0" width="40" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect x="50" y="0" width="40" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect x="100" y="0" width="40" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <line x1="40" y1="30" x2="50" y2="30" stroke="currentColor" stroke-width="2"/>
+          <line x1="90" y1="30" x2="100" y2="30" stroke="currentColor" stroke-width="2"/>
+          <line x1="0" y1="30" x2="-20" y2="30" stroke="currentColor" stroke-width="2"/>
+          <line x1="140" y1="30" x2="160" y2="30" stroke="currentColor" stroke-width="2"/>
+        </g>
+        <!-- parallel -->
+        <text x="500" y="40" class="mono">parallel (↑mAh)</text>
+        <g transform="translate(480,56)">
+          <rect x="0"  y="0" width="40" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect x="60" y="0" width="40" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+          <line x1="0" y1="0" x2="0" y2="-10" stroke="currentColor" stroke-width="2"/>
+          <line x1="100" y1="0" x2="100" y2="-10" stroke="currentColor" stroke-width="2"/>
+          <line x1="0" y1="60" x2="0" y2="70" stroke="currentColor" stroke-width="2"/>
+          <line x1="100" y1="60" x2="100" y2="70" stroke="currentColor" stroke-width="2"/>
+          <line x1="0" y1="-10" x2="100" y2="-10" stroke="currentColor" stroke-width="2"/>
+          <line x1="0" y1="70" x2="100" y2="70" stroke="currentColor" stroke-width="2"/>
+        </g>
+      </svg>
+    </div>
+
+    <h2>families</h2>
+    <ul>
+      <li><strong>alkaline/NiMH:</strong> easy; NiMH are rechargeable (use smart chargers)</li>
+      <li><strong>Li-ion/Li-Po:</strong> high energy; need protection &amp; CC/CV chargers</li>
+    </ul>
+    <h2>series vs parallel</h2>
+    <ul>
+      <li>series ↑ voltage; parallel ↑ capacity (mAh)</li>
+      <li>parallel only matched cells with a BMS</li>
+    </ul>
+
+     <Note variant="care">Li-ion needs proper chargers and protection (BMS). never short; store and dispose safely.</Note>
+
+    <h2>charging</h2>
+    <ul>
+      <li>CC/CV profile for Li-ion (e.g., TP4056 for 1-cell, observe limits).</li>
+      <li>don’t charge below 0 °C or above ~45 °C; avoid over-discharge.</li>
+    </ul>
+  </article>
+</BaseLayout>

@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "Polarity Protection — ecute.club";
+---
+
+<BaseLayout {title}>
+  <article class="container">
+    <h1>polarity protection</h1>
+    <p><em>keep your boards safe when power is flipped, plugged wrong, or hot-swapped.</em></p>
+
+    <Note variant="fact">
+      <strong>quick idea:</strong> if a user can plug it in, they can plug it in backwards. polarity protection makes the mistake non-fatal.
+    </Note>
+
+    <h2>three common patterns</h2>
+    <ol>
+      <li><strong>series diode</strong> — simplest, small current; costs you some voltage.</li>
+      <li><strong>fuse + shunt diode</strong> — survives reverse briefly while the fuse opens.</li>
+      <li><strong>“ideal diode” p-mosfet</strong> — very low loss; great for battery/usb devices.</li>
+    </ol>
+
+    <h2>quick chooser</h2>
+    <table>
+      <thead>
+        <tr><th>supply</th><th>current</th><th>efficiency</th><th>best pick</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>coin cell / logic rails (≤100 mA)</td><td>low</td><td>not critical</td><td>schottky in series</td></tr>
+        <tr><td>5 v usb (≤1 a)</td><td>medium</td><td>medium-high</td><td>p-channel mosfet “ideal diode”</td></tr>
+        <tr><td>2–4s li-ion pack</td><td>high</td><td>high</td><td>p-mosfet (with gate zener) or ideal-diode controller</td></tr>
+        <tr><td>wall brick + barrel jack</td><td>varies</td><td>medium</td><td>fuse + shunt or p-mosfet</td></tr>
+        <tr><td>truly idiot-proof input</td><td>varies</td><td>low</td><td>bridge rectifier (~1.2–1.6 v silicon, 0.6–0.8 v schottky)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>option 1 — series diode (schottky)</h2>
+    <p><strong>how it works:</strong> a diode in series passes forward power and blocks reverse. pick schottky for lower drop (~0.2–0.4 v at small currents).</p>
+    <!-- diagram unchanged -->
+    <ul>
+      <li>loss: <code>P ≈ I × V<sub>F</sub></code> (e.g., 0.5 a × 0.3 v ≈ 0.15 w).</li>
+      <li>check <strong>I<sub>avg</sub></strong>, surge, and reverse voltage ratings.</li>
+      <li>good for tiny rails where a ~0.3 v drop is acceptable.</li>
+    </ul>
+
+    <h2>option 2 — fuse + shunt diode</h2>
+    <p><strong>how it works:</strong> a reverse-biased diode across the input conducts hard during a reverse connection, forcing current through the series fuse so it opens; normal polarity is unaffected.</p>
+    <!-- diagram unchanged -->
+    <Note variant="care">
+      size the shunt diode to survive the surge <em>until</em> the fuse opens. ptc/polyfuses may trip slowly at low voltages.
+    </Note>
+
+    <h2>option 3 — “ideal diode” with a p-mosfet</h2>
+    <p><strong>how it works:</strong> the body diode conducts at plug-in; then the fet turns on and drops only <code>I² × R<sub>DS(on)</sub></code>. reverse input reverse-biases the body diode, so no current flows.</p>
+    <!-- diagram unchanged -->
+    <Note variant="bench">
+      orientation matters: source → input, drain → load; body diode points input → load. add a 9–12 v zener gate→source for 9–15 v systems or hot-plug events.
+    </Note>
+
+    <h2>bridge rectifier</h2>
+    <p><strong>how it works:</strong> steers either polarity to the right rails using four diodes. the tradeoff is drop through two diodes.</p>
+    <!-- diagram unchanged -->
+    <Note variant="fact">
+      drop ≈ 2 × V<sub>F</sub> (silicon ~1.2–1.6 v; schottky ~0.6–0.8 v).
+    </Note>
+
+    <h2>tested patterns (mini cookbook)</h2>
+    <!-- sections unchanged -->
+    <h3>5 v usb / 3.3 v logic (≤1 a) — p-mosfet ideal diode</h3>
+    <ul>
+      <li>p-fet: R<sub>DS(on)</sub> ≤ 30 mΩ, V<sub>DS</sub> ≥ 20 v, |V<sub>GS</sub>| ≤ 20 v.</li>
+      <li>gate→source pull-up: ~100 kΩ; optional 100 Ω series in gate.</li>
+      <li>tvs at input (optional but nice): SMF5.0A.</li>
+      <li>examples: AO3407A, Si2301CDS, FDN306P; tiny load-switch ICs: TPS229xx; ideal-diode: MAX40200 (low current).</li>
+    </ul>
+    <!-- rest unchanged -->
+
+    <h2>layout tips</h2>
+    <Note variant="try">
+      place the protector as the <em>first</em> thing after the connector; keep loop area tiny.
+    </Note>
+    <ul>
+      <li>wide copper for fuse/shunt paths; short gate traces on mosfets.</li>
+      <li>add bulk (10–47 µf) and a 0.1 µf close to the load/regulator.</li>
+    </ul>
+
+    <h2>common mistakes</h2>
+    <Note variant="care">
+      easy pitfall: flipping the p-fet — the body diode will then conduct the wrong way.
+    </Note>
+    <ul>
+      <li>no gate pull-up (floating gate).</li>
+      <li>regular silicon diode on 3.3 v rails → brownouts.</li>
+      <li>protecting ground instead of + rail (breaks usb/data references).</li>
+    </ul>
+
+    <h2>quick math</h2>
+    <p><code>P<sub>diode</sub> = I × V<sub>F</sub></code> &nbsp; <code>P<sub>fet</sub> = I² × R<sub>DS(on)</sub></code></p>
+
+    <h2>test plan</h2>
+    <Note variant="bench">
+      current-limit your bench supply when testing reverse input; saves fuses and fingers.
+    </Note>
+    <ol>
+      <li>power normally; measure drop across the protector.</li>
+      <li>briefly apply reverse with a current-limited supply; confirm no heat/smoke.</li>
+      <li>hot-plug several times and scope the load rail for dips/spikes.</li>
+    </ol>
+
+    <h2>parts & keywords</h2>
+    <p><strong>schottky series:</strong> SS14, SS24, BAT54, 1N5819 <br/>
+       <strong>tvs (5 v):</strong> SMF5.0A / SMBJ5.0A <br/>
+       <strong>p-fets:</strong> AO3407A, Si2301CDS, FDN306P <br/>
+       <strong>controllers:</strong> LTC4412/4413, MAX40200</p>
+  </article>
+</BaseLayout>

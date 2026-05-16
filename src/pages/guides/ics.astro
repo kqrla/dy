@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "integrated circuits — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>integrated circuits (ICs)</h1>
+    <p>ICs (chips) are <em>complete circuits</em> etched onto tiny pieces of silicon and packaged so we can solder or plug them in. One chip can be a gate, a counter, an amplifier, a microcontroller… or an entire radio.</p>
+
+    <h2>pins & orientation</h2>
+    <p>Packages have a <strong>pin&nbsp;1 mark</strong> (a <em>dot</em>) and/or a <strong>notch</strong>. Numbering goes counter-clockwise around the chip starting at pin&nbsp;1.</p>
+
+    <div class="diagram halo" role="img" aria-label="DIP package showing notch and pin 1 dot">
+      <svg viewBox="0 0 600 180" width="100%" height="auto">
+        <rect x="0" y="0" width="600" height="180" rx="16" fill="var(--card)"/>
+        <!-- body -->
+        <rect x="160" y="30" width="280" height="120" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+        <!-- notch -->
+        <path d="M250,30 q50,20 100,0" fill="none" stroke="currentColor" stroke-width="3"/>
+        <!-- pins -->
+        <!-- left side 1-7 -->
+        <g fill="currentColor">
+          <rect x="150" y="45" width="10" height="12"/><rect x="150" y="63" width="10" height="12"/>
+          <rect x="150" y="81" width="10" height="12"/><rect x="150" y="99" width="10" height="12"/>
+          <rect x="150" y="117" width="10" height="12"/><rect x="150" y="135" width="10" height="12"/>
+        </g>
+        <!-- right side 8-14 -->
+        <g transform="translate(440,0)" fill="currentColor">
+          <rect x="0" y="45" width="10" height="12"/><rect x="0" y="63" width="10" height="12"/>
+          <rect x="0" y="81" width="10" height="12"/><rect x="0" y="99" width="10" height="12"/>
+          <rect x="0" y="117" width="10" height="12"/><rect x="0" y="135" width="10" height="12"/>
+        </g>
+        <!-- pin1 dot -->
+        <circle cx="175" cy="45" r="6" fill="currentColor"/>
+        <text x="130" y="48" class="mono">pin&nbsp;1</text>
+        <text x="280" y="24" class="mono">notch</text>
+      </svg>
+    </div>
+
+    <h2>holders (sockets)</h2>
+    <ul>
+      <li><strong>DIP sockets</strong> let you replace chips and avoid heat while soldering. Choose the same pin count and 0.3″ / 0.6″ width as your part.</li>
+      <li><strong>ICSP/ISP headers</strong> bring out programming pins for microcontrollers (handy while debugging).</li>
+      <li>For SMD, use <strong>adapter boards</strong> (SOIC/TSSOP → DIP) when prototyping.</li>
+    </ul>
+
+    <h2>static (ESD)</h2>
+    <ul>
+      <li>Touch ground before handling; avoid carpet + sweaters + dry air chaos.</li>
+      <li>Keep chips in <strong>ESD bags/foam</strong>. Don’t rub pins.</li>
+      <li>Power off before plugging/unplugging ICs or modules.</li>
+    </ul>
+
+    <h2>datasheets (what to read first)</h2>
+    <ul>
+      <li><strong>Pinout</strong> (names, power pins, enable pins).</li>
+      <li><strong>Absolute maximums</strong> vs <strong>recommended operating</strong> (never mix them up).</li>
+      <li><strong>Supply</strong> (V<sub>CC</sub> range), <strong>logic levels</strong>, and <strong>per-pin & per-package current</strong>.</li>
+      <li><strong>Timing</strong> (propagation delay, max clock), and any <strong>decoupling</strong> notes.</li>
+      <li>Look for “<strong>typical application</strong>” schematics—gold for wiring.</li>
+    </ul>
+
+    <h2>source vs sink</h2>
+    <p>Outputs can <strong>source</strong> current (provide it) or <strong>sink</strong> current (accept it to ground). Which one is stronger depends on the family—always check the sheet.</p>
+
+    <div class="diagram halo" role="img" aria-label="LED sourcing vs sinking from an IC output">
+      <svg viewBox="0 0 760 180" width="100%" height="auto">
+        <rect x="0" y="0" width="760" height="180" rx="16" fill="var(--card)"/>
+        <!-- SOURCE (left) -->
+        <text x="120" y="32" class="mono">source</text>
+        <text x="70"  y="160" class="mono">0V</text>
+        <text x="70"  y="32"  class="mono">+V</text>
+        <line x1="100" y1="28" x2="340" y2="28" stroke="currentColor" stroke-width="2"/>
+        <line x1="100" y1="156" x2="340" y2="156" stroke="currentColor" stroke-width="2"/>
+        <!-- output block -->
+        <rect x="180" y="60" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="198" y="85" class="mono">OUT</text>
+        <!-- source path: OUT -> R -> LED -> GND -->
+        <line x1="260" y1="80" x2="300" y2="80" stroke="currentColor" stroke-width="3"/>
+        <rect x="300" y="70" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <polygon points="324,70 344,80 324,90" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="344" y1="80" x2="344" y2="156" stroke="currentColor" stroke-width="3"/>
+        <!-- SINK (right) -->
+        <text x="520" y="32" class="mono">sink</text>
+        <text x="470" y="160" class="mono">0V</text>
+        <text x="470" y="32"  class="mono">+V</text>
+        <line x1="500" y1="28" x2="740" y2="28" stroke="currentColor" stroke-width="2"/>
+        <line x1="500" y1="156" x2="740" y2="156" stroke="currentColor" stroke-width="2"/>
+        <rect x="580" y="60" width="80" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="598" y="85" class="mono">OUT</text>
+        <!-- sink path: +V -> R -> LED -> OUT (to 0V when LOW) -->
+        <line x1="500" y1="28" x2="540" y2="28" stroke="currentColor" stroke-width="3"/>
+        <rect x="540" y="18" width="24" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <polygon points="564,18 584,28 564,38" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="584" y1="28" x2="620" y2="28" stroke="currentColor" stroke-width="3"/>
+        <line x1="620" y1="28" x2="620" y2="60" stroke="currentColor" stroke-width="3"/>
+      </svg>
+    </div>
+
+    <div class="callout ok">
+      tip: many logic families can only source/sink a few mA per pin and have a <em>package</em> current limit too. Bright LEDs and motors need drivers.
+    </div>
+
+    <h2>combining outputs (safely)</h2>
+    <ul>
+      <li><strong>Never tie two push-pull outputs together.</strong></li>
+      <li>To “OR” digital lines, use <strong>open-collector/open-drain</strong> outputs with a pull-up, or use diodes.</li>
+      <li>Tri-state bus pins (<span class="mono">OE</span>) can share a line if only <em>one</em> talks at a time.</li>
+    </ul>
+
+    <div class="diagram halo" role="img" aria-label="Two open-drain outputs sharing a line with a pull-up">
+      <svg viewBox="0 0 760 180" width="100%" height="auto">
+        <rect x="0" y="0" width="760" height="180" rx="16" fill="var(--card)"/>
+        <text x="40" y="34" class="mono">open-drain “wired-OR” (active-low)</text>
+        <!-- pull-up -->
+        <line x1="120" y1="28" x2="280" y2="28" stroke="currentColor" stroke-width="2"/>
+        <rect x="200" y="18" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="192" y="14" class="mono">R</text>
+        <line x1="210" y1="38" x2="210" y2="90" stroke="currentColor" stroke-width="2"/>
+        <!-- shared node -->
+        <circle cx="210" cy="90" r="5" fill="currentColor"/>
+        <text x="224" y="94" class="mono">line</text>
+        <!-- OD drivers -->
+        <rect x="320" y="70" width="70" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="328" y="95" class="mono">OD#1</text>
+        <rect x="320" y="120" width="70" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="328" y="145" class="mono">OD#2</text>
+        <line x1="390" y1="90" x2="210" y2="90" stroke="currentColor" stroke-width="3"/>
+        <line x1="390" y1="140" x2="210" y2="90" stroke="currentColor" stroke-width="3"/>
+        <!-- ground rail -->
+        <line x1="40" y1="160" x2="720" y2="160" stroke="currentColor" stroke-width="2"/>
+        <text x="10" y="164" class="mono">0V</text>
+      </svg>
+    </div>
+
+    <h2>logic ICs</h2>
+    <p>Small logic chips are building blocks: <strong>gates</strong> (AND/OR/NOT), <strong>flip-flops</strong>, <strong>counters</strong>, <strong>shift registers</strong>, <strong>multiplexers</strong>. See the <a href="/guides/ic-4000">4000 series</a> (wide voltage, slower) and <a href="/guides/ic-7400">74 series</a> (faster, 3.3–5&nbsp;V families like HC/HCT).</p>
+
+    <h2>PICs (microcontrollers)</h2>
+    <p><strong>PIC</strong> is Microchip’s microcontroller line (e.g., PIC16F, PIC18F). One chip can read pins, time things, blink LEDs, and talk over UART/I²C/SPI. You’ll need:</p>
+    <ul>
+      <li>a programmer (or on-board bootloader),</li>
+      <li>power (often 2–5&nbsp;V), decoupling caps, and sometimes a crystal,</li>
+      <li>the datasheet (pin functions, configuration bits) or Microchip’s MCC tool.</li>
+    </ul>
+    <p>Arduino-style boards hide setup, but learning from raw PIC/AVR/ARM teaches great habits.</p>
+
+    <Note variant="care">handle with ESD care; keep <strong>0.1 µF</strong> at VCC/GND pins (plus bulk on the rail).</Note>
+    <Note variant="fact">datasheets list pinouts, abs-max ratings, timings, and typical circuits — worth a skim before wiring.</Note>
+
+ <div class="callout">
+      also see: <a href="/guides/555">555 timer</a> · <a href="/guides/ic-4000">4000 series CMOS</a> · <a href="/guides/ic-7400">74 series TTL/HC</a>
+    </div>
+  </article>
+</BaseLayout>

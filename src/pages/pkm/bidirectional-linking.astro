@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "bidirectional linking — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>bidirectional linking</h1>
+    <p>bidirectional linking means when note a links to note b, note b also knows about note a. this is how your brain works: if you think about "feedback loops," you also think about "systems thinking." traditional links only go one direction. bidirectional links make knowledge a web, not a tree.</p>
+
+    <h2>why it matters</h2>
+    <ul>
+      <li>unidirectional links create dead ends. you can't discover note a from note b</li>
+      <li>bidirectional links create "backlinks": every note shows what links to it</li>
+      <li>backlinks surface unexpected connections you didn't plan</li>
+      <li>they make your notes more discoverable over time as the network grows</li>
+    </ul>
+
+    <h2>tools that support it</h2>
+    <ul>
+      <li><strong>obsidian:</strong> backlinks panel and graph view built in</li>
+      <li><strong>roam research:</strong> block-level references and embeds</li>
+      <li><strong>logseq:</strong> outliner with bidirectional links by default</li>
+      <li><strong>notion:</strong> backlinks exist but are less prominent</li>
+    </ul>
+
+    <Note variant="try">pick two notes you've written recently. add a link from one to the other. then check the backlinks on the target note. notice how the relationship goes both ways.</Note>
+
+    <div class="callout">pro tip: don't over-link. only link when there's a real conceptual connection. noise in your backlinks defeats the purpose.</div>
+  </article>
+</BaseLayout>

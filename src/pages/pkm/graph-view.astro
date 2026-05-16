@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "graph view — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>graph view</h1>
+    <p>graph view visualizes your notes as a network of nodes and edges. each note is a node; each link is an edge. this lets you see the shape of your knowledge: clusters reveal themes, bridges reveal connections between domains, and orphans reveal notes that need linking.</p>
+
+    <h2>what to look for</h2>
+    <ul>
+      <li><strong>clusters:</strong> dense groups of connected notes. these are your areas of deep knowledge</li>
+      <li><strong>bridges:</strong> notes that connect two clusters. these are your most valuable ideas</li>
+      <li><strong>orphans:</strong> notes with no links. either link them or archive them</li>
+      <li><strong>hubs:</strong> notes with many links. these are your core concepts</li>
+    </ul>
+
+    <div class="diagram" aria-label="graph view example showing clusters, bridges, and orphans">
+      <svg viewBox="0 0 600 200" width="100%" height="auto" style="max-width: 100%; margin: 20px 0;">
+        <!-- cluster 1 -->
+        <circle cx="100" cy="60" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="130" cy="40" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="140" cy="80" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="80" cy="90" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="100" y1="60" x2="130" y2="40" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="100" y1="60" x2="140" y2="80" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="100" y1="60" x2="80" y2="90" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="130" y1="40" x2="140" y2="80" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <text x="100" y="115" text-anchor="middle" font-size="10" class="mono">cluster</text>
+
+        <!-- bridge node -->
+        <circle cx="250" cy="60" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <line x1="140" y1="80" x2="250" y2="60" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="250" y1="60" x2="370" y2="70" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="250" y="85" text-anchor="middle" font-size="10" class="mono">bridge</text>
+
+        <!-- cluster 2 -->
+        <circle cx="370" cy="70" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="400" cy="50" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="410" cy="90" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="380" cy="110" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="370" y1="70" x2="400" y2="50" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="370" y1="70" x2="410" y2="90" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="370" y1="70" x2="380" y2="110" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="400" y1="50" x2="410" y2="90" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+
+        <!-- orphan -->
+        <circle cx="530" cy="150" r="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <text x="530" y="175" text-anchor="middle" font-size="10" class="mono">orphan</text>
+      </svg>
+    </div>
+
+    <Note variant="care">graph view is a diagnostic, not a goal. don't optimize for a pretty graph. optimize for useful connections.</Note>
+
+    <div class="callout">pro tip: spend 5 minutes in graph view once a week. find orphans and link them. find bridges and protect them.</div>
+  </article>
+</BaseLayout>

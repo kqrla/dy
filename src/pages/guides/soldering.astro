@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "soldering guide — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>soldering guide</h1>
+    <p>clean tip, hot joint, tiny solder. that’s the mantra.</p>
+
+    <div class="callout">
+      iron: <strong>330–360 °C</strong> for leaded (Sn63/Pb37), <strong>360–380 °C</strong> for lead-free. use flux. tip tinned = shiny.
+    </div>
+
+    <h2>through-hole steps</h2>
+    <ol>
+      <li>insert part, bend legs slightly to hold.</li>
+      <li>touch <em>pad + lead</em> with the tip ~1 s to heat both.</li>
+      <li>feed solder into the joint (not the tip) until it flows; remove solder, then remove tip.</li>
+      <li>result: smooth, shiny cone. if dull/crumbly → reflow with flux.</li>
+    </ol>
+
+    <div class="diagram" role="img" aria-label="good vs cold solder joint">
+      <svg viewBox="0 0 520 150" width="100%" height="auto">
+        <rect x="0" y="0" width="520" height="150" rx="16" fill="var(--card)"/>
+        <!-- pads -->
+        <circle cx="150" cy="80" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="370" cy="80" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <!-- leads -->
+        <line x1="150" y1="30" x2="150" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="370" y1="30" x2="370" y2="80" stroke="currentColor" stroke-width="2"/>
+        <!-- good fillet -->
+        <path d="M 140 80 C 150 110, 160 110, 160 80" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="130" y="128" class="mono">good fillet</text>
+        <!-- cold joint (blobby) -->
+        <path d="M 360 80 Q 370 120 380 80" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="338" y="128" class="mono">cold/blobby</text>
+      </svg>
+    </div>
+
+    <h2>SMD quickies (0805/0603)</h2>
+    <ol>
+      <li>tin one pad. hold part with tweezers and reflow that pad.</li>
+      <li>solder the other pad with a tiny bit of solder + flux.</li>
+    </ol>
+
+    <h2>common fixes</h2>
+    <ul>
+      <li><strong>bridge:</strong> wick + flux, swipe away.</li>
+      <li><strong>cold joint:</strong> add flux, reheat until smooth.</li>
+      <li><strong>lifted pad:</strong> don’t tug parts; heat first, then lift gently.</li>
+    </ul>
+
+    <h2>care</h2>
+    <ul>
+      <li>keep tip tinned; wipe on damp sponge or brass wool.</li>
+      <li>use no-clean flux pen; clean sticky residue with isopropyl.</li>
+      <li>ventilation is good; avoid breathing fumes.</li>
+    </ul>
+
+<h2>bench notes</h2>
+<Note variant="bench" label="recommendations/tips">
+  <div class="author">
+
+  </div>
+  <ul>
+    <li>for lead-free solder i recommend <strong>SAC305</strong></li>
+    <li>personal fave solder companies: MG Chemicals, AIM, Loctite, Chip Quik</li>
+    <li>if you really like working with lead solder, AIM sells an indium alloy that feels similar — it’s expensive, but they’ll send a free sample if you write them</li>
+    <li>fav flux: <strong>Chip Quik SMD291</strong> (comes in a syringe)</li>
+    <li>Stickvise</li>
+    <li>Omnifixo — great for soldering wire-to-wire; i hate third hands and this is the only one worth getting</li>
+    <li>get a microscope before you think you need one</li>
+    <li>spreading out flux braid helps it absorb solder faster</li>
+    <li>Kimwipes + 99% ISO for cleaning flux</li>
+    <li>affordable good soldering irons: Miniware, Sugon, Thermaltronics (in order of price/size)</li>
+    <li>game changer: <strong>Aven tweezers</strong> (set of 5, yellow bag)</li>
+  </ul>
+  <footer class="note-cite">— Evan Shu Kahn <a href="https://www.instagram.com/wormy.rocks/" target="_blank">(wormy.rocks)</a></footer>
+</Note>
+
+
+  </article>
+</BaseLayout>

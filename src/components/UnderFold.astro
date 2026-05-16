@@ -1,0 +1,55 @@
+---
+// Under-fold: regular text that expands revealed content below on click
+interface Props {
+  trigger: string;
+  children?: any;
+}
+
+const { trigger } = Astro.props;
+const id = Math.random().toString(36).substring(7);
+---
+
+<span class="under-fold-wrapper">
+  <span class="under-fold-trigger" data-under-fold-id={id} style="cursor:pointer; text-decoration:underline; text-decoration-style:dotted; text-decoration-thickness:1.5px; text-underline-offset:2px;">
+    {trigger}
+  </span>
+  <div class="under-fold-content" data-under-fold-id={id} style="display:none; margin-top:12px; padding:12px; background:color-mix(in oklab, var(--card) 92%, var(--p2) 8%); border-radius:6px; border-left:3px solid var(--muted);">
+    <slot />
+  </div>
+</span>
+
+<style>
+  .under-fold-trigger {
+    position: relative;
+  }
+
+  .under-fold-trigger:hover {
+    opacity: 0.8;
+  }
+
+  .under-fold-content {
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .under-fold-content :first-child {
+    margin-top: 0;
+  }
+
+  .under-fold-content :last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.under-fold-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.getAttribute('data-under-fold-id');
+      const content = document.querySelector(`.under-fold-content[data-under-fold-id="${id}"]`) as HTMLElement;
+      if (content) {
+        const isHidden = content.style.display === 'none';
+        content.style.display = isHidden ? 'block' : 'none';
+      }
+    });
+  });
+</script>

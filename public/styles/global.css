@@ -1,0 +1,1573 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Caveat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+@font-face {
+	font-family: 'bored and drawn';
+	src: url('/fonts/bored-and-drawn.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* ---------- design tokens ---------- */
+:root {
+	/* colors */
+	--bg: #fffdf9; /* cream */
+	--ink: #1e1b19; /* main text */
+	--muted: #67615b;
+	--card: #ffffff;
+	--line: color-mix(in oklab, var(--ink) 12%, transparent);
+
+	/* pastels */
+	--p1: #ffdfe7; /* pink */
+	--p2: #fff3c9; /* butter */
+	--p3: #daf6e5; /* mint */
+	--p4: #beddff; /* blue */
+	--p5: #dcc8f8; /* purple */
+	--p6: #f4efe6; /* oat */
+
+	/* icon ink (overridable in dark) */
+	--icon-ink: var(--ink);
+
+	/* shape + motion */
+	--r-lg: 18px;
+	--r-sm: 12px;
+	--elev-1: 0 6px 20px rgba(0, 0, 0, 0.06), inset 0 0 0 1px var(--line);
+	--elev-2: 0 12px 28px rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--line);
+	--speed: 160ms;
+
+	/* layout */
+	--container: min(1100px, 92vw);
+	--grid-min: 300px;
+
+	/* type scale */
+	--fs-0: 14px;
+	--fs-1: clamp(15.5px, 1.4vw, 17px);
+	--fs-2: clamp(18px, 2.1vw, 20px);
+	--fs-3: clamp(22px, 2.8vw, 26px);
+	--fs-4: clamp(28px, 3.8vw, 34px);
+	--lh: 1.55;
+
+	/* background helpers */
+	--bg-grid: color-mix(in oklab, var(--ink) 12%, transparent);
+	--bg-grid-size: 22px;
+	--bg-dot: 1.1px;
+
+	/* hand accent */
+	--font-hand: 'Caveat', system-ui;
+	--font-wordmark: 'bored and drawn', system-ui;
+}
+
+:root.dark {
+	--bg: #121112;
+	--ink: #f6f3ee;
+	--muted: #b9b2aa;
+	--card: #1b191b;
+	--line: color-mix(in oklab, var(--ink) 14%, transparent);
+	--elev-1: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 0 0 1px var(--line);
+	--elev-2: 0 14px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--line);
+
+	/* icons go black in dark */
+	--icon-ink: #000;
+
+	--bg-grid: color-mix(in oklab, var(--ink) 20%, transparent);
+}
+
+/* beige theme */
+:root.beige {
+	--bg: #f5f0e8;
+	--ink: #3d3530;
+	--muted: #8b7a6b;
+	--card: #fdfaf4;
+	--line: color-mix(in oklab, var(--ink) 10%, transparent);
+	--elev-1: 0 6px 20px rgba(0, 0, 0, 0.06), inset 0 0 0 1px var(--line);
+	--elev-2: 0 12px 28px rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--line);
+
+	/* beige theme uses dark icons */
+	--icon-ink: var(--ink);
+
+	--bg-grid: color-mix(in oklab, var(--ink) 12%, transparent);
+
+	/* pastel colors adapted for beige background */
+	--p1: #f0d9d9;
+	--p2: #f5e8d0;
+	--p3: #dff0e0;
+	--p4: #e0f0ff;
+	--p5: #f0e8f8;
+	--p6: #f0e8e0;
+}
+
+/* better callouts in dark */
+:root.dark .callout,
+:root.dark .callout.ok,
+:root.dark .callout.info,
+:root.dark .callout.warn {
+	color: #111;
+}
+:root.dark .callout a {
+	color: #111;
+	text-decoration-color: #111;
+}
+:root.dark .callout {
+	background: color-mix(in oklab, var(--p2) 88%, #fff 12%);
+}
+:root.dark .callout.ok {
+	background: color-mix(in oklab, var(--p3) 88%, #fff 12%);
+}
+:root.dark .callout.info {
+	background: color-mix(in oklab, var(--p4) 88%, #fff 12%);
+}
+:root.dark .callout.warn {
+	background: color-mix(in oklab, var(--p1) 88%, #fff 12%);
+}
+
+/* beige callouts */
+:root.beige .callout {
+	color: var(--ink);
+	background: var(--p2);
+}
+:root.beige .callout.ok {
+	background: var(--p3);
+}
+:root.beige .callout.info {
+	background: var(--p4);
+}
+:root.beige .callout.warn {
+	background: var(--p1);
+}
+:root.beige .callout a {
+	color: var(--ink);
+	text-decoration-color: var(--ink);
+}
+
+/* ---------- base ---------- */
+* {
+	box-sizing: border-box;
+}
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+		'Liberation Mono', monospace;
+
+	/* default = dotted */
+	background: radial-gradient(
+				var(--bg-grid) var(--bg-dot),
+				transparent calc(var(--bg-dot) + 0.1px)
+			)
+			0 0 / var(--bg-grid-size) var(--bg-grid-size),
+		radial-gradient(
+				var(--bg-grid) var(--bg-dot),
+				transparent calc(var(--bg-dot) + 0.1px)
+			)
+			calc(var(--bg-grid-size) / 2) calc(var(--bg-grid-size) / 2) /
+			var(--bg-grid-size) var(--bg-grid-size),
+		var(--bg);
+
+	color: var(--ink);
+	line-height: var(--lh);
+	font-size: var(--fs-1);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* background helpers */
+body.bg-dots {
+	background: radial-gradient(
+				var(--bg-grid) var(--bg-dot),
+				transparent calc(var(--bg-dot) + 0.1px)
+			)
+			0 0 / var(--bg-grid-size) var(--bg-grid-size),
+		radial-gradient(
+				var(--bg-grid) var(--bg-dot),
+				transparent calc(var(--bg-dot) + 0.1px)
+			)
+			calc(var(--bg-grid-size) / 2) calc(var(--bg-grid-size) / 2) /
+			var(--bg-grid-size) var(--bg-grid-size),
+		var(--bg) !important;
+}
+body.bg-grid {
+	background: repeating-linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--ink) 8%, transparent) 0 1px,
+			transparent 1px var(--bg-grid-size)
+		),
+		repeating-linear-gradient(
+			to right,
+			color-mix(in oklab, var(--ink) 8%, transparent) 0 1px,
+			transparent 1px var(--bg-grid-size)
+		),
+		var(--bg) !important;
+}
+body.bg-lined {
+	background: repeating-linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--ink) 10%, transparent) 0 1px,
+			transparent 1px calc(var(--bg-grid-size) * 1.5)
+		),
+		var(--bg) !important;
+}
+body.bg-solid {
+	background: var(--bg) !important;
+}
+
+.container {
+	width: var(--container);
+	margin: clamp(14px, 2vw, 24px) auto;
+}
+
+/* ---------- header / nav ---------- */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	backdrop-filter: saturate(1.1) blur(8px);
+	background: color-mix(in oklab, var(--bg) 88%, transparent);
+	border-bottom: 1px solid var(--line);
+	display: grid;
+	grid-template-columns: auto 1fr; /* logo left, nav right */
+	align-items: center;
+	column-gap: 12px;
+	padding: 14px clamp(10px, 2vw, 20px);
+}
+
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+	color: inherit;
+}
+
+.brand-logo {
+	display: block;
+	height: 100px;
+	width: auto;
+}
+
+@media (max-width: 640px) {
+	.brand-logo {
+		height: 40px;
+	}
+}
+
+.brand-text {
+	font-family: var(--font-wordmark);
+	font-size: clamp(26px, 4vw, 38px);
+	font-weight: 400;
+	letter-spacing: 0;
+	white-space: nowrap;
+	line-height: 1.1;
+}
+
+.site-nav {
+	justify-self: end;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.site-nav a {
+	color: var(--muted);
+	text-decoration: none;
+	padding: 8px 10px;
+	border-radius: 12px;
+	transition: background var(--speed), color var(--speed);
+}
+.site-nav a:hover {
+	background: var(--p5);
+	color: var(--ink);
+}
+:root.dark .site-nav a:hover {
+	background: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+:root.dark .site-nav a:hover {
+	background: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+/* tiny helper note */
+.header-note {
+	font-size: var(--fs-0);
+	color: var(--muted);
+	padding: 4px 8px;
+	border-radius: 999px;
+	background: color-mix(in oklab, var(--card) 90%, var(--p5) 10%);
+	box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* Smaller screens can scale down a touch */
+@media (max-width: 480px) {
+	.brand-logo {
+		height: 38px;
+	}
+}
+
+/* toggle buttons (theme + background) */
+.toggle-group {
+	display: inline-flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.toggle-btn {
+	font-size: 20px; /* compact so both fit nicely */
+	line-height: 1;
+	padding: 10px 12px;
+	border: none;
+	background: var(--card);
+	border-radius: 999px;
+	cursor: pointer;
+	color: var(--ink);
+	box-shadow: inset 0 0 0 1px var(--line);
+	transition: background var(--speed), transform var(--speed),
+		opacity var(--speed);
+}
+
+.toggle-btn:hover {
+	background: var(--p5);
+	transform: translateY(-1px);
+}
+
+:root.dark .toggle-btn {
+	background: var(--card);
+	color: var(--ink);
+}
+
+/* optional: small-screen tweaks so the header doesn’t wrap awkwardly */
+@media (max-width: 640px) {
+	.site-nav {
+		gap: 6px;
+	}
+	.toggle-btn {
+		padding: 8px 10px;
+		font-size: 18px;
+	}
+}
+
+/* ---------- cards ---------- */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(var(--grid-min), 1fr));
+	gap: 18px;
+	margin: 20px 0 8px;
+}
+.card {
+	background: linear-gradient(
+		180deg,
+		color-mix(in oklab, var(--card) 90%, var(--p5) 10%),
+		var(--card)
+	);
+	border-radius: var(--r-lg);
+	box-shadow: var(--elev-1);
+	padding: 16px;
+	text-decoration: none;
+	color: inherit;
+	display: grid;
+	grid-template-columns: 64px 1fr;
+	gap: 14px;
+	align-items: center;
+	transition: transform var(--speed), box-shadow var(--speed),
+		background var(--speed);
+	will-change: transform;
+}
+.card:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--elev-2);
+}
+.card .icon {
+	width: 64px;
+	height: 64px;
+	border-radius: 16px;
+	display: grid;
+	place-items: center;
+	font-size: 28px;
+	background: var(--p3);
+	color: var(--icon-ink);
+}
+.card[data-accent='p1'] .icon {
+	background: var(--p1);
+}
+.card[data-accent='p2'] .icon {
+	background: var(--p2);
+}
+.card[data-accent='p3'] .icon {
+	background: var(--p3);
+}
+.card[data-accent='p4'] .icon {
+	background: var(--p4);
+}
+.card[data-accent='p5'] .icon {
+	background: var(--p5);
+}
+.card .icon i {
+	color: inherit;
+}
+.card h3 {
+	margin: 0 0 4px;
+	font-size: var(--fs-2);
+}
+.card p {
+	margin: 0;
+	color: var(--muted);
+	font-size: var(--fs-1);
+}
+
+.section-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 10px;
+}
+.section-head h2 {
+	margin: 0;
+	/* font-size: var(--fs-4); */
+	font-size: 20px;
+	letter-spacing: 0.2px;
+}
+.section-head .hint {
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---------- article / prose ---------- */
+article {
+	width: var(--container);
+	margin-inline: auto;
+}
+article h1 {
+	font-size: var(--fs-4);
+	margin: 18px 0 6px;
+}
+article h2 {
+	font-size: var(--fs-3);
+	margin: 22px 0 8px;
+}
+article h3 {
+	font-size: var(--fs-2);
+	margin: 16px 0 6px;
+}
+article p,
+article li {
+	max-width: 70ch;
+}
+article a {
+	color: color-mix(in oklab, var(--ink) 80%, var(--p4) 20%);
+	text-underline-offset: 2px;
+}
+article a:hover {
+	text-decoration-thickness: 2px;
+}
+
+ul {
+	padding-left: 1.25rem;
+}
+ul li {
+	margin: 0.25rem 0;
+}
+ul li::marker {
+	color: color-mix(in oklab, var(--ink) 60%, var(--p1) 40%);
+}
+
+/* code bits */
+.mono,
+code,
+kbd {
+	font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+		'Liberation Mono', monospace;
+}
+code {
+	background: color-mix(in oklab, var(--card) 92%, var(--p5) 8%);
+	padding: 0.15em 0.4em;
+	border-radius: 8px;
+	font-size: 0.95em;
+}
+kbd {
+	background: color-mix(in oklab, var(--card) 90%, var(--p4) 10%);
+	border: 1px solid var(--line);
+	padding: 0.15em 0.45em;
+	border-radius: 8px;
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* callouts */
+.callout {
+	margin: 16px 0;
+	padding: 14px 16px;
+	border-radius: var(--r-lg);
+	background: var(--p2);
+	box-shadow: inset 0 0 0 1px var(--line);
+}
+.callout.info {
+	background: var(--p4);
+}
+.callout.ok {
+	background: var(--p3);
+}
+.callout.warn {
+	background: color-mix(in oklab, var(--p1) 70%, white 30%);
+}
+
+/* tables */
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 12px 0 18px;
+	font-size: var(--fs-1);
+}
+table thead th {
+	text-align: left;
+	color: var(--muted);
+	font-weight: 700;
+	padding: 10px 12px;
+	border-bottom: 2px solid var(--line);
+}
+table td {
+	padding: 10px 12px;
+	border-top: 1px solid var(--line);
+}
+table tr:first-child td {
+	border-top: none;
+}
+table tr:nth-child(even) td {
+	background: color-mix(in oklab, var(--card) 92%, var(--p5) 8%);
+}
+table td strong {
+	color: var(--ink);
+}
+table.cute {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 12px 0 18px;
+	font-size: var(--fs-1);
+}
+table.cute thead th {
+	text-align: left;
+	color: var(--muted);
+	font-weight: 700;
+	padding: 10px 12px;
+}
+table.cute td {
+	padding: 10px 12px;
+	border-top: 1px solid var(--line);
+}
+table.cute tr:first-child td {
+	border-top: none;
+}
+table.cute tr:nth-child(even) td {
+	background: color-mix(in oklab, var(--card) 92%, var(--p5) 8%);
+}
+table.cute td strong {
+	color: var(--ink);
+}
+
+/* table variants */
+
+/* compact table */
+table.compact {
+	font-size: calc(var(--fs-1) - 1px);
+}
+table.compact thead th,
+table.compact td {
+	padding: 6px 10px;
+}
+
+/* table with themed header */
+table.themed-header thead {
+	background: color-mix(in oklab, var(--p2) 60%, transparent);
+}
+table.themed-header thead th {
+	padding: 12px 14px;
+	border-bottom: 2px solid var(--line);
+}
+
+/* table with column lines */
+table.col-lines td,
+table.col-lines th {
+	border-right: 1px solid var(--line);
+}
+table.col-lines td:last-child,
+table.col-lines th:last-child {
+	border-right: none;
+}
+
+/* table with row lines (removes alternating rows) */
+table.row-lines tr:nth-child(even) td {
+	background: transparent;
+}
+table.row-lines td {
+	border-bottom: 1px solid var(--line);
+}
+table.row-lines tr:last-child td {
+	border-bottom: none;
+}
+
+/* combo: all lines */
+table.all-lines td,
+table.all-lines th {
+	border: 1px solid var(--line);
+}
+table.all-lines tr:nth-child(even) td {
+	background: transparent;
+}
+
+/* ---------- annotations: highlights & underlines ---------- */
+
+/* highlights */
+.hl {
+	background: var(--p2);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+.hl-pink {
+	background: var(--p1);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+.hl-mint {
+	background: var(--p3);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+.hl-blue {
+	background: var(--p4);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+.hl-purple {
+	background: var(--p5);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+.hl-oat {
+	background: var(--p6);
+	border-radius: 3px;
+	padding: 0.05em 0.15em;
+}
+
+/* underlines */
+.ul-solid {
+	text-decoration: underline;
+	text-decoration-color: var(--ink);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+}
+.ul-dashed {
+	text-decoration: underline dashed;
+	text-decoration-color: var(--muted);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+}
+.ul-dotted {
+	text-decoration: underline dotted;
+	text-decoration-color: var(--muted);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 2px;
+}
+.ul-wavy {
+	text-decoration: underline wavy;
+	text-decoration-color: var(--p1);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+}
+.ul-wavy-blue {
+	text-decoration: underline wavy;
+	text-decoration-color: var(--p4);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+}
+.ul-wavy-mint {
+	text-decoration: underline wavy;
+	text-decoration-color: var(--p3);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+}
+
+/* dark mode adjustments for annotations */
+:root.dark .hl,
+:root.dark .hl-pink,
+:root.dark .hl-mint,
+:root.dark .hl-blue,
+:root.dark .hl-oat {
+	color: #111;
+}
+
+/* ---------- advanced annotations ---------- */
+
+/* text styles */
+.bold-1 {
+	font-weight: 600;
+}
+.bold-2 {
+	font-weight: 700;
+}
+.italic {
+	font-style: italic;
+}
+.bold-italic {
+	font-weight: 600;
+	font-style: italic;
+}
+
+/* links with superscript arrow */
+.link-annotated {
+	text-decoration: underline;
+	text-decoration-color: var(--muted);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1.5px;
+	color: inherit;
+	position: relative;
+	cursor: pointer;
+}
+.link-annotated::after {
+	content: '↗';
+	font-size: 0.65em;
+	margin-left: 0.2em;
+	vertical-align: super;
+	color: var(--muted);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* tooltips */
+.tooltip-trigger {
+	position: relative;
+	cursor: help;
+	border-bottom: 2px dotted var(--muted);
+	padding-bottom: 1px;
+	display: inline-block;
+}
+.tooltip-trigger::after {
+	content: attr(data-tip);
+	position: absolute;
+	bottom: 140%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: var(--card);
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 8px 12px;
+	font-size: 12px;
+	line-height: 1.3;
+	min-width: max-content;
+	max-width: 280px;
+	white-space: normal;
+	word-wrap: break-word;
+	box-shadow: var(--elev-2);
+	z-index: 1000;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 150ms ease;
+	color: var(--ink);
+	font-weight: 400;
+	text-decoration: none;
+}
+.tooltip-trigger::before {
+	content: '';
+	position: absolute;
+	bottom: 130%;
+	left: 50%;
+	transform: translateX(-50%);
+	border: 5px solid transparent;
+	border-top-color: var(--card);
+	z-index: 1001;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 150ms ease;
+}
+.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::before {
+	opacity: 1;
+}
+
+/* code blocks with catppuccin dark */
+/* inline code: subtle background */
+code {
+	background: color-mix(in oklab, var(--card) 85%, #000 15%);
+	color: var(--ink);
+	padding: 0.2em 0.4em;
+	border-radius: 4px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 0.9em;
+	opacity: 0.8;
+}
+
+/* code blocks: dark background */
+pre {
+	background: #121212;
+	color: #e5e5e5;
+	padding: 16px;
+	border-radius: 8px;
+	overflow-x: auto;
+	margin: 16px 0;
+	border: 1px solid #333;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+pre code {
+	background: none;
+	color: inherit;
+	padding: 0;
+	border-radius: 0;
+	opacity: 1;
+}
+
+/* blockquotes */
+blockquote {
+	margin: 16px 0;
+	padding: 12px 16px;
+	border-left: 3px solid var(--p4);
+	background: color-mix(in oklab, var(--card) 92%, var(--p4) 8%);
+	font-style: italic;
+	color: var(--muted);
+	border-radius: 0 8px 8px 0;
+}
+blockquote p {
+	margin: 0;
+}
+
+/* chips/tags - inline */
+.chip {
+	display: inline-block;
+	background: color-mix(in oklab, var(--p2) 55%, var(--bg) 45%);
+	color: var(--ink);
+	padding: 6px 12px;
+	border-radius: 16px;
+	font-size: 0.9em;
+	font-weight: 500;
+	margin: 0 4px 4px 0;
+	border: 1px solid color-mix(in oklab, var(--p2) 75%, var(--line) 25%);
+}
+.chip-pink {
+	background: color-mix(in oklab, var(--p1) 55%, var(--bg) 45%);
+	border-color: color-mix(in oklab, var(--p1) 75%, var(--line) 25%);
+}
+.chip-mint {
+	background: color-mix(in oklab, var(--p3) 55%, var(--bg) 45%);
+	border-color: color-mix(in oklab, var(--p3) 75%, var(--line) 25%);
+}
+.chip-blue {
+	background: color-mix(in oklab, var(--p4) 55%, var(--bg) 45%);
+	border-color: color-mix(in oklab, var(--p4) 75%, var(--line) 25%);
+}
+.chip-purple {
+	background: color-mix(in oklab, var(--p5) 55%, var(--bg) 45%);
+	border-color: color-mix(in oklab, var(--p5) 75%, var(--line) 25%);
+}
+.chip-oat {
+	background: color-mix(in oklab, var(--p6) 55%, var(--bg) 45%);
+	border-color: color-mix(in oklab, var(--p6) 75%, var(--line) 25%);
+}
+
+/* custom list icons */
+.list-custom li {
+	list-style: none;
+	position: relative;
+	padding-left: 1.5em;
+}
+.list-custom li::before {
+	content: attr(data-icon);
+	position: absolute;
+	left: 0;
+	width: 1.2em;
+}
+
+/* collapsible sections */
+.collapsible {
+	display: block;
+	width: 100%;
+	padding: 12px 16px;
+	margin: 12px 0;
+	background: color-mix(in oklab, var(--card) 92%, var(--p2) 8%);
+	border: 1px solid var(--line);
+	border-radius: var(--r-sm);
+	cursor: pointer;
+	font-weight: 500;
+	text-align: left;
+	transition: all 160ms ease;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 0.95em;
+	letter-spacing: 0.3px;
+}
+
+.collapsible:hover {
+	background: color-mix(in oklab, var(--card) 88%, var(--p2) 12%);
+}
+
+.collapsible::before {
+	content: '▶';
+	font-size: 0.75em;
+	transition: transform 160ms ease;
+	display: inline-block;
+	min-width: 16px;
+}
+
+.collapsible[aria-expanded="true"]::before {
+	transform: rotate(90deg);
+}
+
+.collapsible-content {
+	display: none;
+	padding: 16px;
+	background: color-mix(in oklab, var(--card) 96%, var(--p2) 4%);
+	border: 1px solid var(--line);
+	border-top: none;
+	border-radius: 0 0 var(--r-sm) var(--r-sm);
+	animation: slideDown 160ms ease;
+}
+
+.collapsible[aria-expanded="true"] + .collapsible-content {
+	display: block;
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* mermaid diagrams */
+.mermaid {
+	display: flex;
+	justify-content: center;
+	margin: 24px 0;
+	background: var(--card);
+	padding: 16px;
+	border-radius: var(--r-lg);
+	border: 1px solid var(--line);
+}
+
+/* dark mode for mermaid */
+:root.dark .mermaid {
+	background: #1a1a1a;
+}
+
+/* dark mode for advanced annotations */
+:root.dark code {
+	background: color-mix(in oklab, #1a1a1a 85%, #fff 15%);
+	color: #e5e5e5;
+	opacity: 0.8;
+}
+:root.dark pre {
+	background: #121212;
+	color: #e5e5e5;
+	border-color: #333;
+}
+:root.dark blockquote {
+	background: color-mix(in oklab, #1a1a1a 92%, var(--p4) 12%);
+	color: #b9b2aa;
+}
+:root.dark .chip,
+:root.dark .chip-pink,
+:root.dark .chip-mint,
+:root.dark .chip-blue,
+:root.dark .chip-oat {
+	color: #111;
+}
+
+/* diagrams */
+.diagram {
+	margin: 16px 0;
+	padding: 12px;
+	border-radius: var(--r-lg);
+	background: var(--card);
+	box-shadow: inset 0 0 0 1px var(--line);
+}
+.diagram .mono {
+	font-size: 12px;
+	fill: currentColor;
+	opacity: 0.7;
+}
+
+/* Strong, readable SVG labels (works in dark too) */
+.diagram svg {
+	color: var(--ink);
+}
+.diagram svg text {
+	fill: currentColor;
+	font-weight: 700;
+	letter-spacing: 0.3px;
+	paint-order: stroke fill;
+	stroke: var(--card);
+	stroke-width: 3.5px;
+	stroke-linejoin: round;
+	text-rendering: geometricPrecision;
+}
+.diagram svg text.mini {
+	font-size: 12px;
+	stroke-width: 2.5px;
+	opacity: 0.95;
+}
+.diagram.halo-strong svg text {
+	stroke-width: 5px;
+}
+.diagram.no-halo svg text {
+	stroke-width: 0;
+	paint-order: normal;
+}
+@supports not (paint-order: stroke) {
+	.diagram svg text {
+		filter: drop-shadow(0 1px 0 var(--card)) drop-shadow(0 -1px 0 var(--card))
+			drop-shadow(1px 0 0 var(--card)) drop-shadow(-1px 0 0 var(--card));
+	}
+}
+
+/* (optional) sketchy diagram helpers */
+.diagram.sketch svg [stroke] {
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.diagram.sketch .wire {
+	stroke: var(--ink);
+	stroke-width: 3;
+	fill: none;
+}
+.diagram.sketch .part {
+	stroke: var(--ink);
+	stroke-width: 2.4;
+	fill: none;
+}
+.diagram.sketch .label {
+	fill: var(--ink);
+	font-weight: 600;
+}
+
+/* LAB NOTE blocks (handwritten vibe) */
+.note {
+	border: 1.5px solid var(--line);
+	border-radius: 12px;
+	padding: 10px 12px;
+	background: var(--card);
+	margin: 12px 0;
+}
+.note .note-label {
+	display: inline-block;
+	padding: 2px 8px;
+	margin-bottom: 6px;
+	border: 1.5px solid var(--line);
+	border-radius: 999px;
+	background: var(--p1); /* default chip */
+	color: var(--ink);
+	font-weight: 700;
+	font-family: var(--font-hand);
+	letter-spacing: 0.2px;
+}
+.note.try .note-label {
+	background: #dcefe3;
+	color: #234636;
+}
+.note.care .note-label {
+	background: #f3d4d8;
+	color: #5c1e29;
+}
+.note.fact .note-label {
+	background: #e2e6f9;
+	color: #2b365c;
+}
+
+/* footer */
+.site-footer {
+	border-top: 1px solid var(--line);
+	padding: 28px 0;
+	margin-top: 40px;
+	text-align: center;
+	color: var(--muted);
+}
+.site-footer a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* small screens */
+@media (max-width: 640px) {
+	:root {
+		--grid-min: 260px;
+	}
+	.card {
+		grid-template-columns: 56px 1fr;
+	}
+	.card .icon {
+		width: 56px;
+		height: 56px;
+		border-radius: 14px;
+		font-size: 24px;
+	}
+}
+
+/* print */
+@media print {
+	body {
+		background: #fff;
+		color: #000;
+	}
+	.site-header,
+	.site-footer,
+	.section-head .hint {
+		display: none;
+	}
+	article a {
+		color: #000;
+		text-decoration: underline;
+	}
+}
+
+/* resistor bands */
+.band {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 6px;
+	font-weight: 600;
+	color: #fff;
+	text-transform: lowercase;
+	font-size: 0.9em;
+}
+.band.black {
+	background: #000;
+}
+.band.brown {
+	background: #6d3f00;
+}
+.band.red {
+	background: #c00;
+}
+.band.orange {
+	background: #ff7f00;
+	color: #000;
+}
+.band.yellow {
+	background: #ffcf00;
+	color: #000;
+}
+.band.green {
+	background: #008c00;
+}
+.band.blue {
+	background: #004fc0;
+}
+.band.violet {
+	background: #7a00aa;
+}
+.band.gray {
+	background: #777;
+}
+.band.white {
+	background: #eee;
+	color: #000;
+}
+.band.gold {
+	background: gold;
+	color: #000;
+}
+.band.silver {
+	background: silver;
+	color: #000;
+}
+
+/* ---------------- Notes (try / care / fact) ---------------- */
+/* Variant tokens (you can tweak these to taste) */
+.note.try {
+	--note-bg: var(--p3); /* mint  */
+	--note-chip: color-mix(in oklab, var(--p3) 86%, #fff 14%);
+	--note-accent: color-mix(in oklab, var(--p3) 16%, var(--ink) 84%);
+}
+.note.care {
+	--note-bg: color-mix(in oklab, var(--p1) 88%, #fff 12%); /* pink */
+	--note-chip: color-mix(in oklab, var(--p1) 86%, #fff 14%);
+	--note-accent: color-mix(in oklab, var(--p1) 18%, var(--ink) 82%);
+}
+.note.fact {
+	--note-bg: var(--p4); /* lavender */
+	--note-chip: color-mix(in oklab, var(--p4) 86%, #fff 14%);
+	--note-accent: color-mix(in oklab, var(--p4) 16%, var(--ink) 84%);
+}
+
+/* Base block */
+.note {
+	position: relative;
+	margin: 16px 0;
+	padding: 18px 16px 16px;
+	border-radius: var(--r-lg);
+	background: var(--note-bg, var(--card));
+	box-shadow: inset 0 0 0 1px var(--line);
+	color: var(--ink);
+	/* subtle “index card” accent */
+	border-left: 6px solid var(--note-accent, var(--line));
+}
+
+/* Big, readable chip label */
+.note .note-label {
+	position: absolute;
+	top: -18px;
+	left: 14px;
+	padding: 4px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	background: var(--note-chip, var(--card));
+	color: var(--ink);
+	font-weight: 800;
+	font-size: clamp(18px, 1.6vw, 22px);
+	letter-spacing: 0.2px;
+	/* optional handwritten vibe */
+	font-family: var(--font-hand, 'IBM Plex Mono'), ui-monospace, monospace;
+	line-height: 1;
+	transform: rotate(-0.5deg); /* tiny zest, like a sticker */
+}
+
+/* Links remain readable inside notes */
+.note a {
+	color: inherit;
+	text-decoration-color: currentColor;
+}
+
+/* Dark mode: keep text near-black for contrast over pastels */
+:root.dark .note,
+:root.dark .note .note-label,
+:root.dark .note a {
+	color: #111;
+}
+
+/* Small screens: give the chip a little more breathing room */
+@media (max-width: 640px) {
+	.note {
+		padding-top: 22px;
+	}
+	.note .note-label {
+		top: -16px;
+		font-size: clamp(18px, 4.8vw, 20px);
+	}
+}
+
+/* bench notes */
+.note.bench {
+	--note-bg: color-mix(in oklab, var(--p2) 84%, #fff 16%);
+	--note-chip: color-mix(in oklab, var(--p2) 86%, #fff 14%);
+	--note-accent: color-mix(in oklab, var(--p2) 22%, var(--ink) 78%);
+}
+
+/* attribution footer inside bench notes */
+.note .note-cite {
+	font-family: 'Rock Salt', cursive;
+	font-size: 1.5rem;
+	text-align: right;
+	color: color-mix(in oklab, var(--ink) 50%, var(--muted) 50%);
+	opacity: 0.9;
+	letter-spacing: 0.5px;
+}
+
+.note .note-cite a {
+	text-decoration: none;
+}
+
+.note .note-cite a:hover {
+	color: rgb(167, 163, 163);
+	text-decoration: none;
+}
+
+/* checklist styling for notes whose first child is a <ul> */
+.note:has(> ul) ul {
+	list-style: none;
+	margin: 8px 0 0;
+	padding-left: 0;
+}
+
+.note:has(> ul) li {
+	position: relative;
+	margin: 6px 0;
+	padding-left: 1.4em;
+	line-height: 1.5;
+	cursor: pointer; /* make it clear you can click */
+	transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* default check style */
+.note:has(> ul) li::before {
+	content: '✓';
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-weight: 800;
+	font-size: 0.95em;
+	line-height: 1.4;
+	color: color-mix(in oklab, var(--ink) 90%, var(--p3) 10%);
+	background: color-mix(in oklab, var(--card) 92%, var(--p3) 8%);
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 0 0.35em;
+	transform: translateY(-0.05em);
+}
+
+/* completed checklist items */
+.note:has(> ul) li[data-done] {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
+.note:has(> ul) li[data-done]::before {
+	content: '✔'; /* bold check mark for done */
+	color: var(--p3); /* mint green */
+	background: none;
+	border: none;
+	font-weight: 900;
+}
+
+/* tighter spacing on small screens */
+@media (max-width: 640px) {
+	.note:has(> ul) li {
+		margin: 5px 0;
+	}
+}
+
+/* book list layout */
+.book-list {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 1.25rem 0;
+}
+
+.book-list li {
+	/* outer layout: give the whole row to text; sticky is absolutely positioned */
+	display: grid;
+	grid-template-columns: 1fr; /* full width for text */
+	align-items: baseline;
+	column-gap: 1rem;
+	padding: 0.45rem 0;
+	border-bottom: 1px dashed var(--ink-20, rgba(0, 0, 0, 0.15));
+	overflow: visible; /* allow sticky to hang out */
+	white-space: normal;
+	isolation: isolate;
+	position: relative; /* anchor for absolute sticky */
+}
+
+/* inner row: keep title + author together on one line */
+.entry {
+	display: flex; /* title + author stay inline */
+	align-items: baseline;
+	gap: 0.35rem;
+	min-width: 0;
+	flex: 1;
+}
+
+/* title (shrinks first) */
+.entry em {
+	font-style: italic;
+	min-width: 0;
+	white-space: nowrap; /* keep on one line */
+	overflow: hidden;
+	text-overflow: ellipsis; /* ellipsis before author pushes */
+}
+
+/* author — high contrast, never wraps */
+.book-list .author {
+	white-space: nowrap;
+	color: var(--ink, #111) !important;
+	font-size: 0.95rem;
+	font-weight: 450;
+	opacity: 1 !important;
+	text-shadow: none !important;
+	filter: none !important;
+	mix-blend-mode: normal !important;
+}
+
+/* sticky note — hangs to the right, doesn't steal width */
+.sticky {
+	--sticky-bg: #e3e0f7;
+	--sticky-ink: #1e1e1e;
+
+	position: absolute;
+	top: 50%;
+	right: clamp(-240px, -20vw, -320px); /* 🚀 way out in the margin */
+	transform: translateY(-50%);
+	white-space: nowrap;
+	padding: 0.35rem 0.6rem;
+	border-radius: 0.35rem;
+	background: var(--sticky-bg);
+	color: var(--sticky-ink);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+	font-size: 0.9rem;
+	line-height: 1.2;
+}
+
+.sticky::before {
+	content: '';
+	position: absolute;
+	top: -6px;
+	left: 10px;
+	width: 28px;
+	height: 10px;
+	background: #e0d9b5; /* tape */
+	opacity: 0.85;
+	transform: rotate(-4deg);
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* dark mode author + borders */
+@media (prefers-color-scheme: dark) {
+	.book-list li {
+		border-bottom-color: rgba(255, 255, 255, 0.15);
+	}
+	.book-list .author {
+		color: rgba(255, 255, 255, 0.92) !important;
+		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+	}
+	.sticky {
+		--sticky-bg: #cfc9ff; /* brighter for contrast on dark */
+		--sticky-ink: #0f0f14;
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+	}
+	.sticky::before {
+		background: #cfc7a1;
+		opacity: 0.9;
+	}
+}
+.dark .book-list li,
+[data-theme='dark'] .book-list li {
+	border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+.dark .book-list .author,
+[data-theme='dark'] .book-list .author {
+	color: rgba(255, 255, 255, 0.92) !important;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+.dark .sticky,
+[data-theme='dark'] .sticky {
+	--sticky-bg: #cfc9ff;
+	--sticky-ink: #0f0f14;
+	border-color: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.dark .sticky::before,
+[data-theme='dark'] .sticky::before {
+	background: #cfc7a1;
+	opacity: 0.9;
+}
+
+/* small screens: bring sticky back in-flow or hide */
+@media (max-width: 640px) {
+	.book-list li {
+		grid-template-columns: 1fr max-content;
+	}
+	.sticky {
+		display: none !important; /* hide on mobile as requested */
+	}
+}
+
+/* ultra-narrow: allow sticky to ellipsis if needed (when shown) */
+@media (max-width: 420px) {
+	.sticky {
+		max-width: 45vw;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+/* --- mobile nav improvements (scrollable pills + edge fades) --- */
+@media (max-width: 640px) {
+	.site-header {
+		grid-template-columns: 1fr;
+		row-gap: 8px;
+		padding: 10px 12px;
+		backdrop-filter: saturate(1.05) blur(6px);
+		position: sticky;
+		top: 0;
+	}
+
+	.header-note {
+		display: none;
+	}
+
+	.brand {
+		min-width: 0;
+	}
+	.brand-logo {
+		height: 36px;
+	}
+
+	.site-nav {
+		justify-self: stretch;
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: max-content;
+		gap: 8px;
+		margin: 0 -12px;
+		padding: 2px 12px 8px;
+		overflow-x: auto;
+		overflow-y: hidden;
+		overscroll-behavior-x: contain;
+		-webkit-overflow-scrolling: touch;
+		scroll-snap-type: x proximity;
+	}
+
+	.site-nav a {
+		scroll-snap-align: start;
+		padding: 10px 14px;
+		border-radius: 999px;
+		font-size: 0.95rem;
+		background: color-mix(in oklab, var(--card) 88%, var(--p5) 12%);
+		box-shadow: inset 0 0 0 1px var(--line);
+		flex: 0 0 auto;
+	}
+	.site-nav a:hover {
+		background: color-mix(in oklab, var(--card) 80%, var(--p5) 20%);
+		color: var(--ink);
+	}
+
+	.toggle-group {
+		order: 999;
+		display: inline-flex;
+		margin-left: auto;
+	}
+	.toggle-btn {
+		padding: 8px 10px;
+		font-size: 18px;
+	}
+
+	.site-header::before,
+	.site-header::after {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		bottom: 0;
+		width: 18px;
+		pointer-events: none;
+	}
+	.site-header::before {
+		left: 0;
+		background: linear-gradient(to right, var(--bg), transparent);
+	}
+	.site-header::after {
+		right: 0;
+		background: linear-gradient(to left, var(--bg), transparent);
+	}
+}
+
+/* smoother scroll without heavy animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.site-nav {
+		scroll-behavior: auto;
+	}
+	.card,
+	.toggle-btn {
+		transition: none;
+	}
+}

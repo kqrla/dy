@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "LEDs — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>LEDs</h1>
+    <p>light-emitting diodes are directional. they like a series resistor; they dislike reverse polarity.</p>
+
+    <div class="callout">
+      <strong>quick start:</strong> 5 V → <em>resistor</em> → LED → ground. start with <code>220 Ω</code>.
+    </div>
+
+    <h2>how to wire</h2>
+    <ul>
+      <li><strong>anode (+):</strong> the long leg. connect to + through a resistor.</li>
+      <li><strong>cathode (−):</strong> the short leg / flat edge on the package. connect to ground.</li>
+    </ul>
+
+    <h2>choose the resistor</h2>
+    <p>use ohm’s law: <code>R = (V<sub>supply</sub> − V<sub>f</sub>) / I</code></p>
+    <table class="cute">
+      <thead><tr><th>color</th><th>typical V<sub>f</sub></th><th>I (nice brightness)</th><th>5 V example</th></tr></thead>
+      <tbody>
+        <tr><td>red</td><td>~2.0 V</td><td>10 mA</td><td>(5 − 2)/0.01 = <strong>300 Ω</strong> → use <strong>330 Ω</strong></td></tr>
+        <tr><td>green</td><td>~2.1 V</td><td>10 mA</td><td>~290 Ω → <strong>330 Ω</strong></td></tr>
+        <tr><td>blue/white</td><td>~3.0 V</td><td>10 mA</td><td>~200 Ω → <strong>220 Ω</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h2>PWM dimming</h2>
+    <p>on arduino, use <code>analogWrite(pin, value)</code> (0–255). keep the series resistor.</p>
+
+    <h2>don’t forget</h2>
+    <ul>
+      <li>for higher currents (strips, 1W LEDs), use a <strong>constant-current driver</strong> or a transistor with proper resistor and heat sinking.</li>
+      <li>never put an LED straight across a battery without a resistor.</li>
+    </ul>
+
+    <div class="diagram" role="img" aria-label="LED with series resistor">
+      <svg viewBox="0 0 420 120" width="100%" height="auto">
+        <rect x="0" y="0" width="420" height="120" rx="16" fill="var(--card)"/>
+        <line x1="30" y1="60" x2="130" y2="60" stroke="currentColor" stroke-width="3"/>
+        <rect x="130" y="50" width="40" height="20" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="170" y1="60" x2="210" y2="60" stroke="currentColor" stroke-width="3"/>
+        <!-- LED diode + arrows -->
+        <polygon points="210,45 230,60 210,75" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="230" y1="45" x2="230" y2="75" stroke="currentColor" stroke-width="3"/>
+        <line x1="230" y1="60" x2="260" y2="60" stroke="currentColor" stroke-width="3"/>
+        <line x1="260" y1="60" x2="390" y2="60" stroke="currentColor" stroke-width="3"/>
+        <line x1="250" y1="40" x2="265" y2="30" stroke="currentColor" stroke-width="2"/>
+        <line x1="255" y1="44" x2="270" y2="34" stroke="currentColor" stroke-width="2"/>
+        <text x="40" y="40" class="mono">+5V</text>
+        <text x="118" y="90" class="mono">resistor</text>
+        <text x="208" y="90" class="mono">LED</text>
+        <text x="370" y="40" class="mono">gnd</text>
+      </svg>
+    </div>
+  </article>
+</BaseLayout>

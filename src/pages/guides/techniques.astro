@@ -1,0 +1,297 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "techniques — the dysfunctional executives";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>techniques</h1>
+    <p>methods and approaches for learning, thinking, and building skill. pick what fits your brain; discard the rest.</p>
+
+    <h2>feynman technique</h2>
+    <p>the feynman technique is a learning strategy built around <span class="hl">explaining concepts in simple, clear language</span>. by teaching a topic as if you're explaining it to someone unfamiliar with it, you expose gaps in your own understanding and cement knowledge through active rehearsal.</p>
+    <ul>
+      <li>pick a concept you want to learn</li>
+      <li><span class="hl">explain it in plain language, avoiding jargon</span></li>
+      <li>identify gaps where your explanation breaks down</li>
+      <li>return to source material and fill those gaps</li>
+      <li><span class="hl-mint ul-wavy-mint">simplify further, use analogies to make it stick</span></li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>step</th>
+          <th>action</th>
+          <th>why it works</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. choose</td>
+          <td>pick a concept</td>
+          <td>forces specificity; vague topics can't be explained</td>
+        </tr>
+        <tr>
+          <td>2. explain</td>
+          <td>write it like you're teaching a 12-year-old</td>
+          <td><span class="hl-pink">jargon hides gaps; plain language exposes them</span></td>
+        </tr>
+        <tr>
+          <td>3. identify</td>
+          <td>find where you stumble or hand-wave</td>
+          <td>these are your actual knowledge gaps</td>
+        </tr>
+        <tr>
+          <td>4. fill</td>
+          <td>go back to the source and relearn</td>
+          <td>targeted study beats rereading everything</td>
+        </tr>
+        <tr>
+          <td>5. simplify</td>
+          <td>rewrite with analogies and fewer words</td>
+          <td><span class="hl-mint">compression = understanding</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="try">teach a concept you're struggling with to a friend (or even your rubber duck). watch where you stumble.</Note>
+
+    <h2>socratic method</h2>
+    <p>the socratic method is dialogue-based learning through careful questioning. instead of receiving answers, you ask questions that guide you toward understanding. this builds critical thinking and reveals <span class="ul-dashed">assumptions you didn't know you were holding</span>.</p>
+    <ul>
+      <li>start with a question about something you don't fully understand</li>
+      <li>ask follow-up questions to explore nuance and edge cases</li>
+      <li><span class="ul-wavy">challenge your own assumptions with counter-questions</span></li>
+      <li>let curiosity drive the conversation, not the desire for quick answers</li>
+      <li>synthesize what you've learned into a coherent view</li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>question type</th>
+          <th>example</th>
+          <th>purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-blue">clarification</span></td>
+          <td>"what do you mean by that?"</td>
+          <td>expose vague thinking</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">assumption</span></td>
+          <td>"what are you assuming here?"</td>
+          <td>surface hidden premises</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">evidence</span></td>
+          <td>"how do you know that?"</td>
+          <td>test the foundation</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">alternative</span></td>
+          <td>"what else could explain this?"</td>
+          <td>break single-track thinking</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">implication</span></td>
+          <td>"if that's true, what follows?"</td>
+          <td>trace consequences</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">meta</span></td>
+          <td>"why does this question matter?"</td>
+          <td>connect to bigger picture</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="care">the goal is depth, not speed. sit with discomfort when you don't know something.</Note>
+
+    <h2>gamification</h2>
+    <p>gamification applies game mechanics (points, levels, streaks, leaderboards, badges) to make learning or skill-building more engaging. the <span class="hl">psychological reward cycles</span> in games (challenge, progress, reward) keep motivation high and make repetition feel less like work.</p>
+    <ul>
+      <li>break learning into small, achievable milestones (levels)</li>
+      <li><span class="hl">track progress visibly</span> (xp bars, streaks, completion percentages)</li>
+      <li>add narrative stakes: you're not "studying math," you're "unlocking the code"</li>
+      <li>use immediate feedback: wins feel good, losses are learning, not failure</li>
+      <li>celebrate wins publicly if it motivates you; keep it private if it doesn't</li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>game mechanic</th>
+          <th>real-world analog</th>
+          <th>psychological hook</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>points / xp</td>
+          <td>task completion count, words written</td>
+          <td>measurable progress feels good</td>
+        </tr>
+        <tr>
+          <td>levels</td>
+          <td>skill tiers, belt ranks, course modules</td>
+          <td><span class="hl-mint">clear milestones, identity shift</span></td>
+        </tr>
+        <tr>
+          <td>streaks</td>
+          <td>daily practice, duolingo-style counters</td>
+          <td><span class="hl-pink">loss aversion keeps you coming back</span></td>
+        </tr>
+        <tr>
+          <td>badges</td>
+          <td>certificates, achievements, firsts</td>
+          <td>collecting impulse, social proof</td>
+        </tr>
+        <tr>
+          <td>leaderboards</td>
+          <td>community challenges, group sprints</td>
+          <td>social comparison, healthy competition</td>
+        </tr>
+        <tr>
+          <td>narrative</td>
+          <td>quest framing, role-playing your goals</td>
+          <td>meaning-making, emotional investment</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="try">create a simple streak tracker for a habit or skill you want to build. even a paper calendar with checkmarks works.</Note>
+
+    <h2>spaced repetition</h2>
+    <p>spaced repetition leverages the <span class="hl-blue">spacing effect</span>: you remember more when you review material at increasing intervals. instead of cramming, you revisit information right before you'd forget it, which strengthens long-term retention with minimal effort.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>review</th>
+          <th>interval</th>
+          <th>retention</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1st</td>
+          <td>1 day</td>
+          <td>~90%</td>
+        </tr>
+        <tr>
+          <td>2nd</td>
+          <td>3 days</td>
+          <td>~92%</td>
+        </tr>
+        <tr>
+          <td>3rd</td>
+          <td>7 days</td>
+          <td>~94%</td>
+        </tr>
+        <tr>
+          <td>4th</td>
+          <td>14 days</td>
+          <td>~95%</td>
+        </tr>
+        <tr>
+          <td>5th</td>
+          <td>30 days</td>
+          <td>~96%</td>
+        </tr>
+        <tr>
+          <td>6th+</td>
+          <td>60+ days</td>
+          <td><span class="hl-mint">~97%+</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>active recall vs passive review</h2>
+    <p>active recall means forcing yourself to produce an answer from memory. passive review means rereading or highlighting. <span class="hl-pink ul-solid">the former builds durable memory; the latter builds false confidence.</span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>method</th>
+          <th>example</th>
+          <th>effectiveness</th>
+          <th>effort</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>rereading</td>
+          <td>reading notes again</td>
+          <td>low</td>
+          <td>low</td>
+        </tr>
+        <tr>
+          <td>highlighting</td>
+          <td>marking key passages</td>
+          <td>low</td>
+          <td>low</td>
+        </tr>
+        <tr>
+          <td>summarizing</td>
+          <td>writing a brief in your own words</td>
+          <td>medium</td>
+          <td>medium</td>
+        </tr>
+        <tr>
+          <td>flashcards</td>
+          <td>prompt, recall, check</td>
+          <td><span class="hl-mint">high</span></td>
+          <td>medium</td>
+        </tr>
+        <tr>
+          <td>practice tests</td>
+          <td>simulating the real thing</td>
+          <td><span class="hl-mint">very high</span></td>
+          <td>high</td>
+        </tr>
+        <tr>
+          <td>teaching</td>
+          <td>explaining to someone else</td>
+          <td><span class="hl-mint ul-wavy-mint">very high</span></td>
+          <td>high</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="care">if reviewing feels easy, you're probably not learning. <span class="ul-wavy">difficulty during practice = durability later.</span></Note>
+
+    <h2>interleaving</h2>
+    <p>interleaving means mixing different types of problems or topics in a single study session, rather than blocking one type at a time. it feels harder during practice but produces <span class="hl-mint">better long-term retention and transfer</span>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>approach</th>
+          <th>structure</th>
+          <th>short-term feel</th>
+          <th>long-term result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>blocked</td>
+          <td>aaa bbb ccc</td>
+          <td>smooth, confident</td>
+          <td><span class="ul-wavy">poor transfer</span></td>
+        </tr>
+        <tr>
+          <td>interleaved</td>
+          <td>abc bac cab</td>
+          <td><span class="ul-dashed">harder, frustrating</span></td>
+          <td><span class="hl-mint ul-wavy-mint">strong transfer</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">pro tip: no single technique works for everything. combine them: feynman for understanding, spaced repetition for retention, interleaving for transfer, gamification for motivation.</div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "safety & ESD — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>safety &amp; ESD</h1>
+
+    <div class="diagram" aria-label="ESD strap and mains isolation">
+      <svg viewBox="0 0 720 170" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="150" rx="16" fill="var(--card)"/>
+        <!-- ESD wrist strap -->
+        <text x="70" y="36" class="mono">ESD</text>
+        <circle cx="80" cy="80" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="98" y1="80" x2="160" y2="80" stroke="currentColor" stroke-width="2"/>
+        <rect x="160" y="72" width="40" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="166" y="68" class="mono mini">mat</text>
+        <!-- mains isolation -->
+        <text x="430" y="36" class="mono">mains isolate</text>
+        <rect x="400" y="60" width="60" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="460" y1="90" x2="520" y2="90" stroke="currentColor" stroke-width="3" />
+        <rect x="520" y="66" width="60" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="526" y="62" class="mono mini">low-voltage</text>
+      </svg>
+    </div>
+
+    <ul>
+      <li>unplug when wiring; fuse and isolate mains</li>
+      <li>vent solder fumes; wash hands after leaded solder</li>
+      <li>ESD: wrist strap + mat when handling CMOS/ICs</li>
+    </ul>
+    <Note variant="care">never route mains on a breadboard. enclosures and proper clearances are non-negotiable.</Note>
+  </article>
+</BaseLayout>

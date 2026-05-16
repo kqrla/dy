@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "pcb basics — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>pcb basics</h1>
+    <p>from schematic to board: footprints, nets, traces, copper zones. keep power clean, returns short, and labels helpful.</p>
+
+    <h2>workflow</h2>
+    <ol>
+      <li>finish the schematic; run electrical rules check.</li>
+      <li>assign footprints that match your parts.</li>
+      <li>place by function (power, brain, I/O). keep decouplers right at IC pins.</li>
+      <li>route short &amp; direct signals first; widen power traces.</li>
+      <li>add ground pour; stitch with vias.</li>
+    </ol>
+
+    <div class="diagram" role="img" aria-label="Decoupling near IC and ground pour example">
+      <svg viewBox="0 0 760 300" width="100%" height="auto">
+        <rect x="0" y="0" width="760" height="300" rx="16" fill="var(--card)"/>
+        <!-- board outline for the little demo -->
+        <rect x="120" y="70" width="360" height="160" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="155" y="62" class="mono">VCC</text>
+        <text x="448" y="62" class="mono">GND</text>
+
+        <!-- IC box -->
+        <rect x="210" y="110" width="180" height="80" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="300" y="160" class="mono">U1</text>
+
+        <!-- short track VCC -> decoupler -> U1 pin (stylized) -->
+        <circle cx="190" cy="100" r="4" fill="currentColor"/>
+        <line x1="150" y1="70" x2="470" y2="70" stroke="currentColor" stroke-width="3"/>
+        <line x1="150" y1="70" x2="190" y2="100" stroke="currentColor" stroke-width="3"/>
+        <line x1="190" y1="100" x2="380" y2="100" stroke="currentColor" stroke-width="3"/>
+
+        <!-- 0.1 uF close to pins -->
+        <rect x="258" y="96" width="28" height="26" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="272" y1="122" x2="272" y2="150" stroke="currentColor" stroke-width="3"/>
+        <text x="286" y="106" class="mono">0.1&nbsp;µF</text>
+
+        <!-- bulk 10–47 uF nearby -->
+        <rect x="230" y="210" width="30" height="22" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="270" y="224" class="mono">10–47&nbsp;µF</text>
+
+        <!-- ground pour strip (stylized) -->
+        <rect x="60" y="250" width="640" height="26" rx="6" fill="color-mix(in oklab, var(--ink) 10%, transparent)"/>
+        <text x="90" y="268" class="mono">ground pour (GND plane)</text>
+      </svg>
+    </div>
+
+
+   <Note variant="fact">a <strong>ground pour / plane</strong> is a large copper area connected to GND. it shortens return paths, reduces noise, and helps thermal.</Note>
+    <Note variant="care">keep high-current returns away from sensitive analog returns; stitch pours with vias; keep clearances sensible.</Note>
+
+
+    <h3>why it’s good</h3>
+    <ul>
+      <li><strong>Short, low-impedance return paths</strong> → less noise/EMI and cleaner signals.</li>
+      <li><strong>Shielding</strong> and <strong>heat spreading</strong>.</li>
+      <li><strong>Simpler routing</strong> (you don’t need a separate ground trace everywhere).</li>
+    </ul>
+
+    <h3>how to add it (2-layer)</h3>
+    <ol>
+      <li>Create a <strong>copper zone</strong> in your PCB tool and set its <strong>net = GND</strong> (do it on top and bottom).</li>
+      <li><strong>Fill</strong> the zone; enable “remove islands/orphans.”</li>
+      <li><strong>Stitch with vias</strong>—sprinkle GND vias around the board, at edges, and near high-current/fast loops.</li>
+      <li>Keep the plane <strong>as continuous as possible</strong>; avoid big slots that force return currents to detour.</li>
+      <li>Use <strong>thermal reliefs</strong> on through-hole pads so they solder easily.</li>
+    </ol>
+
+    <h3>gotchas</h3>
+    <ul>
+      <li>Don’t route traces that <strong>split</strong> the plane between a signal and its return.</li>
+      <li>Give extra clearance near high-voltage, crystals/antennas, or sensitive analog as needed.</li>
+    </ul>
+
+    <h2>rules of thumb</h2>
+    <ul>
+      <li>trace width: 6–10 mil for signals; larger for power (use a calculator if &gt;300 mA).</li>
+      <li>clearances: 6–8 mil is fab-friendly; USB-C &amp; high-voltage need more care.</li>
+      <li>silkscreen: mark orientation (pin-1 dots, diode bars), test pads, and labels.</li>
+    </ul>
+
+    <h2>manufacture</h2>
+    <ul>
+      <li>export gerbers + drill files from your EDA (KiCad, EasyEDA, etc.).</li>
+      <li>common defaults: 1.6 mm thickness, 1 oz copper, lead-free HASL or ENIG.</li>
+    </ul>
+  </article>
+</BaseLayout>

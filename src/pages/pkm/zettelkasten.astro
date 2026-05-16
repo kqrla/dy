@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "zettelkasten — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>zettelkasten</h1>
+    <p>zettelkasten (german for "slip box") is a note-taking method built on <span class="hl">atomic, self-contained notes linked by association</span>. each note is one idea, given a unique id, and connected to related notes. the system was developed by sociologist niklas luhmann, who used it to write over 70 books and 400 articles.</p>
+
+    <h2>core principles</h2>
+    <ul>
+      <li><span class="hl-blue">atomicity:</span> one idea per note. if a note has two ideas, split it</li>
+      <li><span class="hl-blue">autonomy:</span> each note should make sense on its own, without context from others</li>
+      <li><span class="hl-mint ul-solid">linking:</span> notes connect to each other with explicit links, not folders or tags</li>
+      <li><span class="hl-blue">unique ids:</span> every note gets a permanent, unique identifier (e.g., 202403141)</li>
+      <li><span class="hl-pink ul-wavy">your own words:</span> never copy-paste. rephrase in language you understand</li>
+    </ul>
+
+    <h2>three types of notes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>type</th>
+          <th>purpose</th>
+          <th>lifespan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-oat">fleeting</span></td>
+          <td>quick captures, ideas in the moment</td>
+          <td>temporary; process or discard within 48 hours</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">literature</span></td>
+          <td>notes on what you read, in your own words</td>
+          <td>reference; keep and link to permanent notes</td>
+        </tr>
+        <tr>
+          <td><span class="hl-mint ul-wavy-mint">permanent</span></td>
+          <td>refined ideas that stand on their own</td>
+          <td>forever; these are the core of your zettelkasten</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Note variant="care">the biggest mistake is treating zettelkasten as a filing system. <span class="ul-wavy">it's a thinking tool.</span> the value is in the links and the rewriting, not the storage.</Note>
+
+    <div class="callout">pro tip: start with 10 permanent notes on ideas you keep returning to. link them. watch the structure emerge.</div>
+  </article>
+</BaseLayout>

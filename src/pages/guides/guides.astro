@@ -1,0 +1,294 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "guides — ecute.club";
+---
+
+<BaseLayout {title}>
+  <article class="container">
+    <div class="section-head">
+      <h1>guides</h1>
+      <span class="hint">a growing notebook of electronics basics</span>
+    </div>
+
+    <!-- start here -->
+    <div class="grid">
+      <a class="card" data-accent="p3" href="/guides/soldering">
+        <div class="icon">🧪</div>
+        <div>
+          <h3>soldering</h3>
+          <p>tools, tips, joints, and care</p>
+        </div>
+      </a>
+
+      <a class="card" data-accent="p2" href="/guides/tools">
+        <div class="icon">🧰</div>
+        <div>
+          <h3>tools</h3>
+          <p>what to buy first (and what can wait)</p>
+        </div>
+      </a>
+
+      <a class="card" data-accent="p4" href="/guides/books">
+        <div class="icon">📚</div>
+        <div>
+          <h3>books</h3>
+          <p>forrest mims & friends — a soft syllabus</p>
+        </div>
+      </a>
+
+      <a class="card" data-accent="p5" href="/guides/circuit-symbols">
+        <div class="icon">🔣</div>
+        <div>
+          <h3>circuit symbols</h3>
+          <p>read schematics like a map</p>
+        </div>
+      </a>
+
+      <a class="card" data-accent="p1" href="/guides/breadboard">
+        <div class="icon">🍞</div>
+        <div>
+          <h3>breadboard</h3>
+          <p>wiring patterns, rails, and common gotchas</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-head" style="margin-top:24px">
+      <h2>power & protection</h2>
+      <span class="hint">keep your projects happy</span>
+    </div>
+    <div class="grid">
+      <a class="card" data-accent="p2" href="/guides/power">
+        <div class="icon">⚡</div>
+        <div>
+          <h3>power basics</h3>
+          <p>voltage, current, polarity, fusing</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/batteries">
+        <div class="icon">🔋</div>
+        <div>
+          <h3>batteries</h3>
+          <p>alkaline vs li-ion, charging, safety</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p4" href="/guides/regulators">
+        <div class="icon">🪫</div>
+        <div>
+          <h3>regulators</h3>
+          <p>ldo vs buck, dropout, layout tips</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/polarity">
+        <div class="icon">🧲</div>
+        <div>
+          <h3>polarity protection</h3>
+          <p>schottky, ideal-diode mosfet tricks</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-head" style="margin-top:24px">
+      <h2>core parts</h2>
+      <span class="hint">the everyday toolkit</span>
+    </div>
+    <div class="grid">
+      <a class="card" data-accent="p1" href="/guides/resistors">
+        <div class="icon">🟫</div>
+        <div>
+          <h3>resistors</h3>
+          <p>values, bands, dividers, pull-ups</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p2" href="/guides/capacitors">
+        <div class="icon">💿</div>
+        <div>
+          <h3>capacitors</h3>
+          <p>decoupling, electrolytic vs ceramic</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/diodes">
+        <div class="icon">➡️</div>
+        <div>
+          <h3>diodes</h3>
+          <p>signal, schottky, tvs, flyback</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p4" href="/guides/transistors">
+        <div class="icon">🔀</div>
+        <div>
+          <h3>transistors</h3>
+          <p>bjt & mosfet switching basics</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/op-amps">
+        <div class="icon">📈</div>
+        <div>
+          <h3>op-amps</h3>
+          <p>buffers, gain, filters</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/leds">
+        <div class="icon">💡</div>
+        <div>
+          <h3>leds</h3>
+          <p>current limit, series/parallel, rgb</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p2" href="/guides/switches">
+        <div class="icon">🔘</div>
+        <div>
+          <h3>switches</h3>
+          <p>spst, dpdt, debouncing</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p1" href="/guides/cables">
+        <div class="icon">🪢</div>
+        <div>
+          <h3>cables</h3>
+          <p>gauge, strain relief, power delivery</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p4" href="/guides/connectors">
+        <div class="icon">🔌</div>
+        <div>
+          <h3>connectors</h3>
+          <p>dupont, jst, barrel, usb-c</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/sensors">
+        <div class="icon">🛰️</div>
+        <div>
+          <h3>sensors</h3>
+          <p>analog vs i²c/spi, calibration</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p2" href="/guides/motors">
+        <div class="icon">🌀</div>
+        <div>
+          <h3>motors</h3>
+          <p>dc, servo, stepper, drivers</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/relays">
+        <div class="icon">🔁</div>
+        <div>
+          <h3>relays</h3>
+          <p>coil drive, flyback, solid-state</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-head" style="margin-top:24px">
+      <h2>brains & comms</h2>
+      <span class="hint">make things talk</span>
+    </div>
+    <div class="grid">
+      <a class="card" data-accent="p4" href="/guides/microcontrollers">
+        <div class="icon">🧠</div>
+        <div>
+          <h3>microcontrollers</h3>
+          <p>arduino, rp2040, basics of pins & timing</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/comms">
+        <div class="icon">📡</div>
+        <div>
+          <h3>comms</h3>
+          <p>uart, i²c, spi — when to use what</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p2" href="/guides/ics">
+        <div class="icon">🧊</div>
+        <div>
+          <h3>ic basics</h3>
+          <p>packages, pinouts, reading datasheets</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p1" href="/guides/ic-4000">
+        <div class="icon">4️⃣</div>
+        <div>
+          <h3>4000 series</h3>
+          <p>cmos logic building blocks</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/ic-7400">
+        <div class="icon">7️⃣</div>
+        <div>
+          <h3>7400 series</h3>
+          <p>ttl classics for glue logic</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p4" href="/guides/555">
+        <div class="icon">⏱️</div>
+        <div>
+          <h3>555 timer</h3>
+          <p>astable, monostable, pwm tricks</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/op-amps">
+        <div class="icon">➕</div>
+        <div>
+          <h3>op-amp playground</h3>
+          <p>comparators, oscillators, filters</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-head" style="margin-top:24px">
+      <h2>build & debug</h2>
+      <span class="hint">from idea to sturdy thing</span>
+    </div>
+    <div class="grid">
+      <a class="card" data-accent="p2" href="/guides/build">
+        <div class="icon">🏗️</div>
+        <div>
+          <h3>build workflow</h3>
+          <p>prototyping → testing → enclosure</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p1" href="/guides/pcb">
+        <div class="icon">🧩</div>
+        <div>
+          <h3>pcbs</h3>
+          <p>kicad basics, fabrication, assembly</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p3" href="/guides/enclosures">
+        <div class="icon">📦</div>
+        <div>
+          <h3>enclosures</h3>
+          <p>laser-cut, 3d print, hardware choices</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p4" href="/guides/simulate">
+        <div class="icon">🧮</div>
+        <div>
+          <h3>simulate</h3>
+          <p>falstad, ltspice, testing ideas fast</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p5" href="/guides/troubleshooting">
+        <div class="icon">🧯</div>
+        <div>
+          <h3>troubleshooting</h3>
+          <p>debug flow, common failure modes</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p2" href="/guides/safety">
+        <div class="icon">🛡️</div>
+        <div>
+          <h3>safety</h3>
+          <p>esd, mains, batteries, safe labs</p>
+        </div>
+      </a>
+      <a class="card" data-accent="p1" href="/guides/study">
+        <div class="icon">🗒️</div>
+        <div>
+          <h3>study notes</h3>
+          <p>formulas, reference tables, cheats</p>
+        </div>
+      </a>
+    </div>
+  </article>
+</BaseLayout>

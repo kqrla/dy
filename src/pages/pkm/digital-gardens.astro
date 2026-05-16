@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "digital gardens — the dysfunctional executives";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>digital gardens</h1>
+    <p>a digital garden is a collection of ideas planted, tended, and grown in public. unlike a blog (chronological, polished, finished), a garden is <span class="hl">topological (linked, evolving, unfinished)</span>. notes start as seedlings and grow into mature posts as you revisit and refine them.</p>
+
+    <h2>why garden instead of blog?</h2>
+    <ul>
+      <li>blogs reward frequency and polish; <span class="hl">gardens reward depth and connection</span></li>
+      <li>blogs are performative; gardens are exploratory</li>
+      <li><span class="ul-wavy">blogs age and die;</span> <span class="hl-mint ul-wavy-mint">gardens compound and grow</span></li>
+      <li>gardens let you think in public without the pressure of being "done"</li>
+    </ul>
+
+    <h2>growth stages</h2>
+    <p>use annotations to visually mark the maturity of each note in your garden:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>stage</th>
+          <th>what it means</th>
+          <th>how to treat it</th>
+          <th>annotation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-oat ul-dotted">seedling</span></td>
+          <td>raw idea, barely formed</td>
+          <td>capture it, don't judge it</td>
+          <td><code>hl-oat ul-dotted</code></td>
+        </tr>
+        <tr>
+          <td><span class="hl ul-dashed">budding</span></td>
+          <td>developing, has structure</td>
+          <td>add links, refine language</td>
+          <td><code>hl ul-dashed</code></td>
+        </tr>
+        <tr>
+          <td><span class="hl-mint ul-solid">evergreen</span></td>
+          <td>mature, well-connected</td>
+          <td>maintain, update, reference</td>
+          <td><code>hl-mint ul-solid</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>how to start</h2>
+    <ul>
+      <li>pick a platform that supports linking (obsidian publish, notion, eleventy, astro)</li>
+      <li><span class="hl">write notes, not posts.</span> lower the bar for publishing</li>
+      <li><span class="hl-mint ul-wavy-mint">link notes to each other.</span> the links are the garden's structure</li>
+      <li>revisit old notes and improve them instead of always writing new ones</li>
+      <li><span class="ul-dashed">label growth stages</span> so readers know what's rough and what's polished</li>
+    </ul>
+
+    <Note variant="try">start with 5 seedlings on topics you think about often. don't polish them. just plant them and link them to each other.</Note>
+
+    <div class="callout">pro tip: a digital garden is not a portfolio. it's a workspace. <span class="ul-wavy">let it be messy.</span></div>
+  </article>
+</BaseLayout>

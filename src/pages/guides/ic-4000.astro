@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "4000 series CMOS — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>4000 series cmos</h1>
+    <p>logic IC family that runs from ~3–15 V, slower but friendly. each chip is a logic function (AND, OR, NOT, flip-flop, counter…).</p>
+
+    <h2>starter parts</h2>
+    <ul>
+      <li><strong>4011</strong>: quad NAND</li>
+      <li><strong>4001</strong>: quad NOR</li>
+      <li><strong>4040 / 4060</strong>: ripple/divider counters (4060 includes oscillator pins)</li>
+      <li><strong>4017</strong>: decade counter (great for LED chasers)</li>
+    </ul>
+
+    <h2>rules</h2>
+    <ul>
+      <li>decouple every chip (0.1 µF at VDD/GND).</li>
+      <li><strong>don’t float inputs</strong>: tie unused inputs high or low.</li>
+      <li>limit fan-out; buffer LEDs with resistors or transistors.</li>
+    </ul>
+
+    <div class="diagram" role="img" aria-label="CMOS best practice: decouple and tie unused inputs">
+      <svg viewBox="0 0 560 170" width="100%" height="auto">
+        <rect x="0" y="0" width="560" height="170" rx="16" fill="var(--card)"/>
+        <!-- gate block -->
+        <rect x="200" y="40" width="160" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="250" y="83" class="mono">CD40xx</text>
+        <!-- power rails -->
+        <line x1="40" y1="26" x2="520" y2="26" stroke="currentColor" stroke-width="2"/><text x="12" y="30" class="mono">VDD</text>
+        <line x1="40" y1="144" x2="520" y2="144" stroke="currentColor" stroke-width="2"/><text x="12" y="148" class="mono">VSS</text>
+        <!-- decouple -->
+        <line x1="280" y1="26" x2="280" y2="55" stroke="currentColor" stroke-width="2"/>
+        <rect x="272" y="55" width="16" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="280" y1="83" x2="280" y2="144" stroke="currentColor" stroke-width="2"/>
+        <text x="300" y="72" class="mono">0.1 µF</text>
+        <!-- unused input tied -->
+        <line x1="200" y1="120" x2="160" y2="120" stroke="currentColor" stroke-width="2"/>
+        <line x1="160" y1="120" x2="160" y2="144" stroke="currentColor" stroke-width="2"/>
+        <text x="90" y="118" class="mono">unused → GND</text>
+      </svg>
+    </div>
+  </article>
+</BaseLayout>

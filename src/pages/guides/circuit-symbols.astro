@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = "circuit symbols — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>circuit symbols</h1>
+    <p>a tiny cheat-sheet for reading schematics. symbols vary by standard; resistors may be a zig-zag (ANSI) or a rectangle (IEC).</p>
+
+    <table class="cute symbols">
+      <thead><tr><th>symbol</th><th>name</th><th>notes</th></tr></thead>
+      <tbody>
+        <tr><td>⏚</td><td>ground</td><td>reference 0 V</td></tr>
+        <tr><td>⎓</td><td>dc source</td><td>battery/regulator output</td></tr>
+        <tr><td>\/\/\/</td><td>resistor</td><td>limits current / divides voltage</td></tr>
+        <tr><td>|‖|</td><td>capacitor</td><td>two plates; polarized variant marks <em>+</em></td></tr>
+        <tr><td>▷|</td><td>diode</td><td>triangle → line; conventional current flows from triangle to line. LED adds two arrows out.</td></tr>
+        <tr><td>⊲+</td><td>op-amp</td><td>triangle with +/− inputs (power pins often omitted)</td></tr>
+        <tr><td>꩜</td><td>inductor</td><td>coil for filtering/energy storage</td></tr>
+        <tr><td>⏼</td><td>switch</td><td>SPST/DPDT variants</td></tr>
+        <tr><td>▭▭</td><td>IC</td><td>multi-pin rectangle; watch pin 1 mark</td></tr>
+        <tr><td>BJT / MOSFET</td><td>transistor</td><td>BJT: arrow on emitter; MOSFET: G-D-S with body diode</td></tr>
+      </tbody>
+    </table>
+
+    <div class="diagram" role="img" aria-label="diode direction reminder">
+      <svg viewBox="0 0 420 90" width="100%" height="auto">
+        <rect x="0" y="0" width="420" height="90" rx="12" fill="var(--card)"/>
+        <line x1="40" y1="45" x2="160" y2="45" stroke="currentColor" stroke-width="2"/>
+        <polygon points="160,30 185,45 160,60" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="185" y1="30" x2="185" y2="60" stroke="currentColor" stroke-width="2"/>
+        <line x1="185" y1="45" x2="360" y2="45" stroke="currentColor" stroke-width="2"/>
+        <text x="70" y="26" class="mono">current</text>
+        <text x="210" y="26" class="mono">flows this way →</text>
+      </svg>
+    </div>
+
+    <div class="callout">pro tip: label nets (e.g., <span class="mono">VCC</span>, <span class="mono">SCL</span>, <span class="mono">LED_A</span>) so the schematic reads like a story.</div>
+  </article>
+</BaseLayout>

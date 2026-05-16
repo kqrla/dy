@@ -1,0 +1,56 @@
+---
+// Inline fold: click superscript to reveal hidden content inline
+interface Props {
+  indicator?: string; // default: "↑"
+  children?: any;
+}
+
+const { indicator = "↑" } = Astro.props;
+---
+
+<span class="fold-trigger" data-fold-id={Math.random().toString(36).substring(7)}>
+  <sup class="fold-indicator">{indicator}</sup>
+  <span class="fold-content" style="display:none;"><slot /></span>
+</span>
+
+<style>
+  .fold-trigger {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .fold-indicator {
+    font-size: 0.5em;
+    opacity: 0.6;
+    margin: 0 0.2em;
+    transition: opacity 150ms ease;
+  }
+
+  .fold-trigger:hover .fold-indicator {
+    opacity: 1;
+  }
+
+  .fold-content {
+    background: color-mix(in oklab, var(--card) 92%, var(--p2) 8%);
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin: 0 4px;
+    font-size: 0.95em;
+    display: inline;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.fold-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('.fold-indicator')) {
+        const content = trigger.querySelector('.fold-content') as HTMLElement;
+        if (content) {
+          const isHidden = content.style.display === 'none';
+          content.style.display = isHidden ? 'inline' : 'none';
+        }
+      }
+    });
+  });
+</script>

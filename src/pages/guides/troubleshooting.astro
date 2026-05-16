@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "troubleshooting — ecute.club";
+---
+<BaseLayout {title} bodyClass="bg-lined">
+  <article class="container">
+    <h1>troubleshooting</h1>
+
+    <div class="diagram" aria-label="simple troubleshooting flow">
+      <svg viewBox="0 0 720 180" width="100%" height="auto">
+        <rect x="10" y="10" width="700" height="160" rx="16" fill="var(--card)"/>
+        <g transform="translate(60,24)">
+          <rect width="160" height="48" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="80" y="30" text-anchor="middle" class="mono">power OK?</text>
+        </g>
+        <line x1="140" y1="72" x2="140" y2="96" stroke="currentColor" stroke-width="3"/>
+        <g transform="translate(60,96)">
+          <rect width="160" height="48" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="80" y="30" text-anchor="middle" class="mono">inputs sane?</text>
+        </g>
+        <line x1="140" y1="144" x2="300" y2="144" stroke="currentColor" stroke-width="3"/>
+        <g transform="translate(300,120)">
+          <rect width="160" height="48" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="80" y="30" text-anchor="middle" class="mono">divide &amp; test</text>
+        </g>
+      </svg>
+    </div>
+
+    <ol>
+      <li><strong>power first:</strong> correct voltage, polarity, and ground continuity</li>
+      <li><strong>inputs sane:</strong> pull-ups/downs in place; no floating pins</li>
+      <li><strong>divide:</strong> test sub-circuits; bypass blocks to isolate faults</li>
+      <li><strong>probe:</strong> DMM for DC; logic probe/LED for digital; scope if available</li>
+    </ol>
+    <Note variant="try">print debug (serial) and blink LEDs to show progress paths.</Note>
+  </article>
+</BaseLayout>

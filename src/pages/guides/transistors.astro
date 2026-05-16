@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "transistors — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>transistors</h1>
+    <p>tiny current magicians. BJTs and MOSFETs switch or amplify—most hobby use is switching.</p>
+
+    <h2>low-side switch (BJT/MOSFET)</h2>
+    <div class="diagram halo-strong" role="img" aria-label="low-side switch with diode">
+      <svg viewBox="0 0 540 180" width="100%" height="auto">
+        <rect x="0" y="0" width="540" height="180" rx="16" fill="var(--card)"/>
+        <text x="60" y="36" class="mono">+V</text>
+        <line x1="80" y1="30" x2="200" y2="30" stroke="currentColor" stroke-width="2"/>
+        <rect x="200" y="18" width="40" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="30" x2="360" y2="30" stroke="currentColor" stroke-width="2"/>
+        <line x1="360" y1="30" x2="360" y2="120" stroke="currentColor" stroke-width="2"/>
+        <circle cx="360" cy="120" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="360" y1="130" x2="360" y2="150" stroke="currentColor" stroke-width="2"/>
+        <line x1="80" y1="150" x2="360" y2="150" stroke="currentColor" stroke-width="2"/>
+        <text x="60" y="156" class="mono">0V</text>
+        <line x1="320" y1="120" x2="350" y2="120" stroke="currentColor" stroke-width="2"/>
+        <text x="296" y="124" class="mono mini">base/gate</text>
+        <!-- diode -->
+        <polygon points="200,50 220,65 200,80" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="220" y1="50" x2="240" y2="50" stroke="currentColor" stroke-width="2"/>
+        <line x1="220" y1="80" x2="240" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="50" x2="240" y2="80" stroke="currentColor" stroke-width="2"/>
+        <line x1="200" y1="65" x2="200" y2="30" stroke="currentColor" stroke-width="2"/>
+        <line x1="240" y1="65" x2="240" y2="30" stroke="currentColor" stroke-width="2"/>
+        <text x="248" y="70" class="mono mini">stripe to +</text>
+      </svg>
+    </div>
+
+    <Note variant="care">pick a <strong>logic-level N-MOSFET</strong> with low R<sub>DS(on)</sub> at your gate voltage. add 100 kΩ pulldown and 100 Ω in series with gate.</Note>
+    <Note variant="fact">for BJTs, overdrive the base for switching; use β≈10 as a safe design target.</Note>
+  </article>
+</BaseLayout>

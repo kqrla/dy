@@ -1,0 +1,22 @@
+---
+interface Props {
+  variant?: 'try' | 'care' | 'fact' | 'bench';
+  label?: string;
+}
+
+const { variant = 'fact', label } = Astro.props;
+
+// default labels per variant
+const DEFAULT_LABELS = {
+  try: 'try this',
+  care: 'caution',
+  fact: 'fact',
+  bench: 'bench notes',
+} as const;
+
+const resolvedLabel = label ?? DEFAULT_LABELS[variant];
+---
+<div class={`note ${variant}`} role="note">
+  <div class="note-label">{resolvedLabel}</div>
+  <slot />
+</div>

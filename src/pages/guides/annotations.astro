@@ -1,0 +1,291 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import Fold from "../../components/Fold.astro";
+import UnderFold from "../../components/UnderFold.astro";
+const title = "annotations — the dysfunctional executives";
+---
+
+<BaseLayout {title}>
+  <article class="container">
+    <h1>annotations</h1>
+    <p>mark up text to show what matters with highlights, underlines, styles, tooltips, code, blockquotes, chips, lists, folds, and more.</p>
+
+    <h2>highlights</h2>
+    <p>colored backgrounds mark important text:</p>
+    <ul>
+      <li><span class="hl">butter</span> for emphasis</li>
+      <li><span class="hl-pink">pink</span> for critical</li>
+      <li><span class="hl-mint">mint</span> for done</li>
+      <li><span class="hl-blue">blue</span> for definitions</li>
+      <li><span class="hl-purple">purple</span> for concepts</li>
+      <li><span class="hl-oat">oat</span> for subtle</li>
+    </ul>
+
+    <h2>underlines</h2>
+    <p>signal different kinds of significance:</p>
+    <ul>
+      <li><span class="ul-solid">solid underline</span> for strong emphasis</li>
+      <li><span class="ul-dashed">dashed underline</span> for tentative ideas</li>
+      <li><span class="ul-dotted">dotted underline</span> for subtle notes</li>
+      <li><span class="ul-wavy">wavy underline</span> for errors</li>
+      <li><span class="ul-wavy-blue">wavy blue</span> for questions</li>
+      <li><span class="ul-wavy-mint">wavy mint</span> for confirmed</li>
+    </ul>
+
+    <h2>text styles</h2>
+    <p>control emphasis with inline styles:</p>
+    <ul>
+      <li><span class="bold-1">bold weight 600</span> for medium emphasis</li>
+      <li><span class="bold-2">bold weight 700</span> for heavy emphasis</li>
+      <li><span class="italic">italic text</span> for asides</li>
+      <li><span class="bold-italic">bold and italic</span> for critical emphasis</li>
+    </ul>
+
+    <h2>links with arrows</h2>
+    <p>use class="link-annotated" to add superscript arrows (arrow is not underlined):</p>
+    <p><a href="https://example.com" class="link-annotated">read more about this topic</a></p>
+
+    <h2>tooltips</h2>
+    <p>hover over dotted text to see explanations. tooltips resize to fit their content:</p>
+    <p><Tooltip text="PKM" tip="personal knowledge management: a system for capturing and organizing ideas" /> is essential for learning.</p>
+    <p><Tooltip text="async/await" tip="asynchronous programming model where work continues while waiting" /> simplifies promise handling.</p>
+    <p>or use inline: <span class="tooltip-trigger" data-tip="a small inline explanation">hover me</span></p>
+
+    <h2>inline folds</h2>
+    <p>reveal hidden content inline without breaking prose flow. click the superscript indicator:</p>
+    <p>this sentence contains a <Fold>hidden part of this thought — something you only see when you choose to look</Fold> that reveals on click.</p>
+    <p>folds are useful for <Fold>definitions, parenthetical asides, or content that belongs but doesn't need to be visible all the time</Fold>.</p>
+
+    <h2>under-folds</h2>
+    <p>regular-looking text that expands hidden content below when clicked. looks like normal text but reveals on interaction:</p>
+    <p><UnderFold trigger="click here to expand">
+      <p>this is the hidden content that appears below the trigger text. it can contain paragraphs, lists, or any content you want hidden by default.</p>
+      <p>the background makes it clear this is revealed content, and clicking again will collapse it.</p>
+    </UnderFold> this text continues normally after.</p>
+
+    <p>another example with <UnderFold trigger="more information">
+      <ul>
+        <li>point one</li>
+        <li>point two</li>
+        <li>point three</li>
+      </ul>
+    </UnderFold> embedded naturally in prose.</p>
+
+    <h2>inline code</h2>
+    <p>inline code has subtle background and reduced opacity:</p>
+    <p>use <code>const x = 42</code> to declare constants.</p>
+
+    <h2>code blocks</h2>
+    <p>multiline code blocks use dark #121212 background with light text:</p>
+    <pre><code>function calculate(a, b)
+  return a + b
+end</code></pre>
+
+    <h2>blockquotes</h2>
+    <p>highlight important statements or attributions:</p>
+    <blockquote>
+      <p>The best way to predict the future is to invent it.</p>
+      <p>— Alan Kay</p>
+    </blockquote>
+
+    <h2>chips (pastel inline tags)</h2>
+    <p>semi-transparent colored tags for categorizing content inline:</p>
+    <p>
+      <span class="chip">default</span>
+      <span class="chip chip-pink">urgent</span>
+      <span class="chip chip-mint">complete</span>
+      <span class="chip chip-blue">reference</span>
+      <span class="chip chip-purple">concept</span>
+      <span class="chip chip-oat">subtle</span>
+    </p>
+
+    <h2>custom list icons</h2>
+    <p>replace bullets with icons using data-icon attribute:</p>
+    <ul class="list-custom">
+      <li data-icon="✓">completed task</li>
+      <li data-icon="→">follow-up action</li>
+      <li data-icon="★">favorite resource</li>
+      <li data-icon="?">question to answer</li>
+      <li data-icon="⚡">high priority</li>
+    </ul>
+
+    <h2>collapsible sections</h2>
+    <p>accordion-style sections that expand on click. uses monospace font when closed:</p>
+    <button class="collapsible" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true' ? 'false' : 'true')">
+      why use annotations?
+    </button>
+    <div class="collapsible-content">
+      <p>annotations help you mark what matters without rewriting. they layer meaning through visual signals, making it easier to skim and revisit your notes months later.</p>
+    </div>
+
+    <button class="collapsible" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true' ? 'false' : 'true')">
+      best practices
+    </button>
+    <div class="collapsible-content">
+      <ul>
+        <li>use one highlight per paragraph, not the whole thing</li>
+        <li>combine annotations for complex meaning</li>
+        <li>keep tooltips brief and clear</li>
+        <li>use chips to tag related content</li>
+        <li>use folds for definitions and asides</li>
+      </ul>
+    </div>
+
+    <h2>table variants</h2>
+    <p>tables support multiple style modes. add classes to customize:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>variant</th>
+          <th>class</th>
+          <th>use for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>default</td>
+          <td>(none)</td>
+          <td>standard data with alternating rows</td>
+        </tr>
+        <tr>
+          <td>compact</td>
+          <td>.compact</td>
+          <td>dense information, smaller padding</td>
+        </tr>
+        <tr>
+          <td>themed header</td>
+          <td>.themed-header</td>
+          <td>colored background on header row</td>
+        </tr>
+        <tr>
+          <td>column lines</td>
+          <td>.col-lines</td>
+          <td>many columns, vertical separators</td>
+        </tr>
+        <tr>
+          <td>row lines</td>
+          <td>.row-lines</td>
+          <td>many rows, horizontal separators</td>
+        </tr>
+        <tr>
+          <td>all lines</td>
+          <td>.all-lines</td>
+          <td>grid layout with all lines</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>compact table example:</strong></p>
+    <table class="compact">
+      <thead>
+        <tr>
+          <th>item</th>
+          <th>status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>feature a</td>
+          <td><span class="hl-mint">done</span></td>
+        </tr>
+        <tr>
+          <td>feature b</td>
+          <td><span class="hl-pink">blocked</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>table with all lines and themed header:</strong></p>
+    <table class="all-lines themed-header">
+      <thead>
+        <tr>
+          <th>week</th>
+          <th>goal</th>
+          <th>progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>week 1</td>
+          <td>setup</td>
+          <td>100%</td>
+        </tr>
+        <tr>
+          <td>week 2</td>
+          <td>build</td>
+          <td>75%</td>
+        </tr>
+        <tr>
+          <td>week 3</td>
+          <td>test</td>
+          <td>50%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>mermaid diagrams</h2>
+    <p>embed flowcharts and visual diagrams using mermaid syntax inside a div with class="mermaid":</p>
+
+    <div class="mermaid" id="mermaid-annotations"></div>
+
+    <h2>combining annotations</h2>
+    <p>layer multiple annotations for complex meaning:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>combination</th>
+          <th>meaning</th>
+          <th>example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>highlight + solid underline</td>
+          <td>critical key term</td>
+          <td><span class="hl ul-solid">important</span></td>
+        </tr>
+        <tr>
+          <td>pink highlight + wavy underline</td>
+          <td>flagged for review</td>
+          <td><span class="hl-pink ul-wavy">verify</span></td>
+        </tr>
+        <tr>
+          <td>mint highlight + wavy mint</td>
+          <td>confirmed working</td>
+          <td><span class="hl-mint ul-wavy-mint">solution</span></td>
+        </tr>
+        <tr>
+          <td>blue highlight + dashed</td>
+          <td>likely important but uncertain</td>
+          <td><span class="hl-blue ul-dashed">tentative</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>usage examples</h2>
+    <p>wrap text in spans with annotation classes:</p>
+    <pre><code>span class="hl"highlighted/span
+span class="bold-2"heavy bold/span
+span class="ul-wavy"needs attention/span
+span class="chip chip-purple"tag/span
+Tooltip text="PKM" tip="explanation" /
+Fold hidden content /Fold
+UnderFold trigger="click" expanded content /UnderFold</code></pre>
+
+    <Note variant="try">combine annotations to layer meaning. highlight for what matters, underline for why it matters, tooltip for what it means, and folds to keep prose flowing.</Note>
+    <div class="callout">annotations are reading tools, not decoration. mark what you would want to find again in six months.</div>
+  </article>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    var el = document.getElementById('mermaid-annotations');
+    if (el) {
+      el.textContent = 'flowchart TD\n  A[annotation style] --> B{which type?}\n  B -->|emphasize| C[highlight or underline]\n  B -->|explain| D[tooltip or blockquote]\n  B -->|organize| E[chip or list]\n  C --> F[render on page]\n  D --> F\n  E --> F';
+    }
+  });
+</script>

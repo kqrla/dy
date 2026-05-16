@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Note from "../../components/Note.astro";
+const title = "switches — ecute.club";
+---
+<BaseLayout {title}>
+  <article class="container">
+    <h1>switches</h1>
+    <p>mechanical ways to connect or select circuits. two axes: <em>poles</em> (how many circuits) and <em>throws</em> (positions).</p>
+
+    <table class="cute">
+      <thead><tr><th>type</th><th>expands to</th><th>use</th></tr></thead>
+      <tbody>
+        <tr><td>spst</td><td>single-pole single-throw</td><td>on/off</td></tr>
+        <tr><td>spdt</td><td>single-pole double-throw</td><td>choose a or b</td></tr>
+        <tr><td>dpdt</td><td>double-pole double-throw</td><td>flip two lines at once (e.g., polarity reverse)</td></tr>
+        <tr><td>mom.</td><td>momentary</td><td>returns when released</td></tr>
+      </tbody>
+    </table>
+
+    <h2>spdt contact map</h2>
+    <div class="diagram halo-strong" role="img" aria-label="spdt common to NO/NC">
+      <svg viewBox="0 0 680 220" width="100%" height="auto">
+        <rect x="0" y="0" width="680" height="220" rx="16" fill="var(--card)"/>
+        <circle cx="120" cy="120" r="8" fill="currentColor"/>
+        <circle cx="540" cy="80" r="8" fill="currentColor"/>
+        <circle cx="540" cy="160" r="8" fill="currentColor"/>
+        <line x1="128" y1="118" x2="540" y2="80" stroke="currentColor" stroke-width="4"/>
+        <line x1="128" y1="122" x2="540" y2="160" stroke="currentColor" stroke-width="4" opacity=".35"/>
+        <text x="96" y="150" class="mono">COM</text>
+        <text x="560" y="86" class="mono">NO</text>
+        <text x="560" y="166" class="mono">NC</text>
+      </svg>
+    </div>
+
+    <h2>no vs nc (what “normal” means)</h2>
+<table class="cute">
+  <thead><tr><th>label</th><th>expands to</th><th>at rest</th><th>when actuated</th><th>common uses</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>NO</td>
+      <td>normally open</td>
+      <td>open (off)</td>
+      <td>closes (on)</td>
+      <td>doorbell, keyboard keys, most pushbuttons</td>
+    </tr>
+    <tr>
+      <td>NC</td>
+      <td>normally closed</td>
+      <td>closed (on)</td>
+      <td>opens (off)</td>
+      <td>e-stop, tamper loops, hold-to-break safety</td>
+    </tr>
+    <tr>
+      <td>COM</td>
+      <td>common</td>
+      <td colspan="3">the wiper. in an spdt, COM connects to NO or NC depending on lever position.</td>
+    </tr>
+  </tbody>
+</table>
+
+<Note variant="fact">
+  “normal” = unpressed/unflipped; for relays, coil not energized. momentary = returns when released. toggle = stays where you leave it.
+</Note>
+
+
+    <Note variant="try">wire an LED to NO and another to NC (with resistors). move the lever and watch which one lights.</Note>
+
+
+    <h2>debounce</h2>
+    <p>mechanical contacts bounce for a few ms. in code, debounce 10–50 ms or hardware RC + schmitt trigger.</p>
+  </article>
+</BaseLayout>
